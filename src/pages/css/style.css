@@ -1,0 +1,303 @@
+/* Header */
+header {
+  font-family: Helvetica, Arial ,sans-serif;  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 20px;
+  height: 120px;
+  background-color: #003172;
+  color: white;
+}
+
+/* Menu de navegação */
+nav {
+  display: flex;
+  align-items: center;
+}
+
+.abas {
+  margin-bottom: 2px solid white;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  padding: 20px;
+  font-weight: bold;
+  transition: 0.1s;
+}
+
+.abas:hover {
+  color: #1278ff;
+}
+
+.gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffffff;
+  border: 2px rgb(214, 214, 214);
+  border-radius: 10px;
+  height: 200px;
+}
+
+.gallery-item {
+  border: 2px rgb(202, 202, 202);
+  border-radius: 10px;
+  background-color: #ebebeb;
+  padding: 30px;
+  margin: 15px;
+  border: #e0e0e0;
+}
+/* Logo ou imagem */
+img {
+  width: 30px;
+}
+footer {
+  font-family: Helvetica, Arial ,sans-serif;  
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 40px;
+  padding-top: 45px;
+  font-weight: bolder;
+  color: #ffffff;
+  text-align: center; 
+  background-color:  #003172;
+}
+
+
+.box-content {
+  display: flex;
+  font-family: Helvetica, Arial ,sans-serif;;
+  border-radius: 20px;
+  height: 300px;
+  margin-top: 5px;
+  margin: auto;
+  width: 65%;
+  padding: 60px;
+  background-color:  #cad6e6;
+}
+
+/* Estilo do conteúdo principal */
+.main-content {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #100058; 
+}
+h3 {
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 28px;
+  margin-top: 5px;
+  font-size: 19px;
+}
+.app-container {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  padding: 100px;
+  padding-bottom: 5px;
+  font-family: Helvetica, Arial ,sans-serif;
+  max-width: 400px;
+  border-radius: 10px;
+  margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
+}
+ form {
+  flex-direction: column;
+  background-color: rgb(243, 243, 243);
+  padding: 50px;
+  padding-bottom: 5px;
+  font-family: Helvetica, Arial ,sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
+  border: 2px solid #b6b6b6;
+}
+
+.form-faleconosco {
+  background-color: #e7e7e7;
+  padding: 300px;
+  border-radius: 10px;
+  
+}
+
+
+/* .form-group {
+  margin-bottom: 20px;
+} */
+
+
+.formgroup1 {
+  display: inline-block;
+}
+label {
+  font-weight: bold;
+  color: #000000; /* Verde da bandeira */
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="tel"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea{
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 9px;
+  border: 2px solid #004aad; /* Borda verde */
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input[type="text"] {
+  display: inline-block;
+  flex-direction: row;
+  width: 85%;
+  margin-bottom: 5px;
+  padding: 9px;
+  border: 2px solid #004aad; /* Borda verde */
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+textarea::placeholder,
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  font-family: Helvetica, Arial ,sans-serif;  
+  color: #aaaaaa;
+}
+
+/* Ajustar o tamanho do campo de descrição (textarea) */
+textarea {
+height: 70px; /* Aumenta a altura do campo de descrição */
+width: 390px;
+resize: vertical; /* Permite redimensionar verticalmente */
+border-radius: 5px;
+border: 2px solid #004aad;
+}
+
+/* Ajustar o tamanho do campo de preço */
+input[type="number"] {
+width: 500px; /* Ajusta para o mesmo tamanho dos outros campos */
+height: 50px; 
+}
+
+#cep {
+  width: 34%;
+}
+
+input[type="tel"] {
+  width: 42%;
+
+}
+
+input::placeholder {
+color: #aaaaaa;
+}
+.form-group button {
+  width: 100%;
+  padding: 10px;
+  background-color: #004aad; /* Botão vermelho */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* button:hover {
+  background-color: #ac47ff; /* Vermelho tomate */
+
+
+.register-link {
+  text-align: center;
+  margin-top: 20px;
+  
+}
+
+.register-link a {
+  color: #004aad; 
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
+.app-container {
+padding: 20px;
+max-width: 600px;
+margin: 0 auto;
+border-radius: 10px;
+margin-top: 40px;
+}
+
+/* Estilo para o container de cadastro */
+.cadastro-container {
+background-color: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+margin-bottom: 20px;
+}
+
+/* Estilo para o container de consulta */
+.consulta-container {
+background-color: #fff;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+flex-grow: 2; /* Aumenta o tamanho da div de consulta */
+}
+
+button {
+padding: 10px;
+background-color: #004aad;
+color: white;
+border: none;
+border-radius: 5px;
+font-size: 14px;
+cursor: pointer;
+font-weight: bold;
+transition: 0.5s;
+}
+
+button:hover {
+background-color: #003c8a;;
+}
+
+hr {
+margin: 40px 0;
+border: 1px solid #ddd;
+}
+
+ul {
+list-style-type: none;
+padding: 0;
+}
+
+ul li {
+background-color: #fff;
+padding: 10px;
+border-radius: 5px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+margin-bottom: 10px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
