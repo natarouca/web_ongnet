@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import api from "../../services/api";
 import Logo from '../img/logongnet.jpg'
+
 const DataList = () => {
 
   const [data, setData] = useState([]); // Dados para exibir a lista completa

@@ -36,8 +36,7 @@ const Loginong = () => {
     
            <form onSubmit={handleSubmit}>
            <div className="main-content">
-           <h3>Olá, ONG </h3> 
-               <p>Bem-vindo de volta</p>
+           <h3>Bem-vindo de volta, Adm</h3> 
            </div>
                <label htmlFor="email">Email:</label>
                <input type="text" id="email" placeholder="Digite um email" value={email} onChange={(e)=>setEmail(e.target.value)}/> 
