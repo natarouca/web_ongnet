@@ -1,11 +1,10 @@
 import React, {useState} from "react";
-
 import { useNavigate } from "react-router-dom";
 import '../css/style.css'
 // import { useState } from "react";
 
 
-const Loginong = () => {
+const Loginadm = () => {
 
     const [ email, setEmail] = useState("");
     const [ password, setSenha] = useState("");
@@ -14,8 +13,7 @@ const Loginong = () => {
 
 
     //Dados Fixos para validação
-    // const fixedEmail = "ong@ong.com.br";
-    // const fixedSenha = "64321";
+
     const fixedEmail = "admin@admin.com.br";
     const fixedSenha = "123456";
 
@@ -37,7 +35,7 @@ const Loginong = () => {
     
            <form onSubmit={handleSubmit}>
            <div className="main-content">
-           <h3>Bem-vindo de volta, Ong</h3> 
+           <h3>Bem-vindo de volta, Adm</h3> 
            </div>
                <label htmlFor="email">Email:</label>
                <input type="text" id="email" placeholder="Digite um email" value={email} onChange={(e)=>setEmail(e.target.value)}/> 
@@ -59,4 +57,4 @@ const Loginong = () => {
     )
 }
 
-export default Loginong;
+export default Loginadm;

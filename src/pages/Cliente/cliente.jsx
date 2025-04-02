@@ -1,43 +1,65 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import '../css/style.css'
+import React, { useState } from "react";
+import api from "../../services/api";
+import axios from "axios";
+const Cliente = () => {
 
-function Cliente() {
+    const [vusuarios, setUsuarios] = useState([])
+    const [vnome, setNome] = useState('')
+    const [vemail, setEmail] = useState('')
+    const [vsenha, setSenha] = useState('')
+    
+    //busca usuarios cadastrados ao carregar a página
+    useEffect( () => {
+      axios.get("http://localhost:3001/usuarios")
+      .then(res => setUsuarios(res.data))
+      .catch(err => console.error("Erro ao buscar usuários", err));
+    }, []);
+
+    const handleSubmit = async () =>{
+      try{
+        const response = await api.post("http://localhost:3001/usuarios",
+        {nome: vnome, email: vemail, senha: vsenha})
+        console.log(response.data)
+      }catch(error){
+        console.log(error)
+      }
+    };
 
     return (
-    
-       <div className="app-container"> 
-         
-           <form>
-           <div className="main-content">
-               <h3>Bem-vindo, Cliente</h3> 
-               <p>Preencha as informações para cadastro</p>
-           </div>
-               <label>Nome:</label> 
-               <input type="text" placeholder="Insira o Nome" onChange={(e)=>setNome(e.target.value)}/><br/>
+        <div className="app-container">
 
-               <label>CEP:</label>
-               <input id="cep"type="text" placeholder="Insira o CEP" onChange={(e)=>setCep(e.target.value)}/> <br />
-
-               <label>Email:</label>
-               <input type="text" placeholder="Insira o Email" onChange={(e)=>setEmail(e.target.value)}/> 
-
-               <label>Senha:</label>
-               <input type="password" placeholder="Insira a Senha" onChange={(e)=>setSenha(e.target.value)}/> 
-
-               <div className="form-group">
-                <br />
-                <button>Cadastrar</button>
+            <form>
+            <div className="main-content">
+                <p>Bem-vindo, Cliente</p>
             </div>
 
-            <div className="register-link">
-                <p>Já possui uma conta? <a href="/login">Login</a></p>
-            </div>
-            
-           </form>
-   
-       </div>
+                <label>Nome</label>
+                <input type="text" placeholder="Nome" onChange={(e)=>setNome(e.target.value)} ></input> 
+               
+                <label>Email</label>
+                <input type="text" placeholder="Email" onChange={(e)=>setEmail(e.target.value)}></input> 
+
+                <label>Senha</label>
+                <input type="password" placeholder="Senha" onChange={(e)=>setSenha(e.target.value)}></input> 
+                            
+                <div className="form-group">
+                    <br />
+                    <button onClick={handleSubmit}>Cadastrar</button>
+                </div>
+
+
+                <h1>Usuários Cadastrados</h1>
+
+<ul>
+  {vusuarios.map(user => (
+    <li kew={user.id}> {user.id} - {user.email}</li>
+  ))}
+</ul>
+            </form>
+
+           
+        </div>
     )
-}
 
+}
 export default Cliente;

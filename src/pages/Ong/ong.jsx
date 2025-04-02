@@ -79,8 +79,8 @@ const Ong = () => {
         <div className="app-container">
             <form className="form-ong">
                 <div className="main-content">
-                    <h3>Bem-vindo, ONG</h3> 
-                    <p>Preencha as informações para cadastro</p>
+                    <h3>Bem-vinda, ONG</h3> 
+                    <p>Preencha as informações para pré-cadastro</p>
                 </div>
 
                 <div className="input-group">

@@ -6,7 +6,10 @@ import Login from './pages/Login/login'
 import Home from './pages/Home/home'
 import Loginong from './pages/Loginong/loginOng'
 import Servicos from './pages/Servicos/servicos'
-import Faleconosco from './pages/Faleconosco/faleconosco'
+import Quemsomos from './pages/Quemsomos/quemsomos'
+import Loginadm from "./pages/Loginadm/loginadm"
+import Home_new from './pages/Home/home_new'
+
 function RoutesApp() {
 
         return (
@@ -14,12 +17,14 @@ function RoutesApp() {
                 < Header />
                         <Routes>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/cliente" element={<Cliente />} />
                                 <Route path="/ong" element={<Ong />} />
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/loginOng" element={<Loginong />} />
                                 <Route path="/servicos" element={<Servicos />} />
-                                <Route path="/faleconosco" element={<Faleconosco />} />
+                                <Route path="/faleconosco" element={<Quemsomos />} />
+                                <Route path="/home_new" element={<Home_new />} />
+                                <Route path="/loginadm" element={<Loginadm/>} />
+                                <Route path="/cliente" element={<Cliente/>} />
                         </Routes>
                 </BrowserRouter>
         );

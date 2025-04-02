@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import api from "../../services/api";
 import Logo from '../img/logongnet.jpg'
 
 const DataList = () => {
@@ -200,15 +201,15 @@ const DataList = () => {
         </div>
 
         </div>
-      {/* Rodapé */}
-      {/* <div className="rodapé">
+       Rodapé 
+      <div className="rodapé">
       <footer>
         <p>&copy; {new Date().getFullYear()} Minha Empresa. Todos os direitos reservados.</p>
         <p>
           Você é uma ONG e quer se cadastrar? Clique aqui
         </p>
       </footer>
-      </div> */}
+      </div> 
 
       
       

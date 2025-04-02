@@ -1,0 +1,18 @@
+{
+  "usuarios": [
+    {
+      "id": "1",
+      "nome": "João Silva",
+      "email": "jsilva@yahoo.com.br",
+      "senha": "123123"
+    },
+    {
+      "id": "520a",
+      "nome": "Natalia",
+      "email": "natalia@yahoo.com.br",
+      "senha": "123456"
+    }
+  ]
+
+  
+}

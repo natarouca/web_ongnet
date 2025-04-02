@@ -6,7 +6,7 @@ function Header () {
     return (
         <header> 
            <div>
-           <a href="/"> <img src={Logo} alt="Logo" title='OngNet' /></a>
+           <a href="/"> <img id='logo-ongnet' src={Logo} alt="Logo" title='OngNet' /></a>
            </div>
             <nav>
                 <a href="/" className='abas'> Início</a>
@@ -14,6 +14,11 @@ function Header () {
                 <a href="/ong" className='abas'>Cadastro ONG</a>
                 
                 <a href="/faleconosco" className='abas'>Fale conosco</a>
+
+                <a href="/home_new" className='abas'>Home New</a>
+
+                
+                <a href="/cliente" className='abas'>Cliente</a>
             </nav>
         </header>
           
