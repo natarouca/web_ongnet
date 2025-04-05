@@ -22,7 +22,6 @@ function Login() {
    
                <label>Senha:</label>
                <input type="password" placeholder="Digite sua senha" onChange={(e)=>setSenha(e.target.value)}/> 
-
                
                <div className="form-group">
                 <br />

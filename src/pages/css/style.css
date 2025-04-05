@@ -1,4 +1,9 @@
 /* Header */
+*
+ {
+  font-family: sans-serif;
+ }
+
 header {
   font-family: Helvetica, Arial ,sans-serif;  
   display: flex;
@@ -17,9 +22,11 @@ nav {
   align-items: center;
 }
 .container {
-  background-color: rgb(233, 233, 233);
+  padding: 90px;
+  background-color:  #ffffff;
+  border: 2px solid #b6b6b6;
   border-radius: 10px;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 56, 139, 0.19);
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 56, 139, 0.19);
 }
 .abas {
   margin-bottom: 2px solid white;
@@ -37,11 +44,13 @@ nav {
 .abas:hover {
   color: #1278ff;
 }
-footer {
-  display: flex;
-  height: 200px;
+
+.container {
+  padding: 100px;
+  height: 500px;
 }
 .gallery-container {
+  margin-top: 30px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -50,22 +59,32 @@ footer {
 }
 
 .gallery-item {
-  border-radius: 10px;
-  border: 2px solid #b6b6b6;
-  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 56, 139, 0.19);
-  background-color: rgb(243, 243, 243);
-  padding: 100px;
+  display: flex;
   margin: 15px;
+  border-radius: 10px;
+  flex-direction: column;
   height: 200px;
-}
-.desc-p {
-  text-align: end;
-  font-weight: bold;
-  font-size: 30px;
-  color: #c4c4c4;
-  font-family: Helvetica, Arial ,sans-serif;  
+  padding: 70px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px;
+  border: 1px solid rgb(0, 100, 194);
+
 }
 
+p {
+  align-self: start;
+  text-decoration-line:underline blue;
+  margin-bottom: 5px;
+  text-align: end;
+  font-weight: bold;
+  font-size: 15px;
+  color: #cfcfcf;
+  font-family: Helvetica, Arial ,sans-serif;  
+}
+.p-formong {
+  color: #000000;
+  margin-bottom: 30px;
+}
 .titulo-ong {
   text-align: center;
   color: #000000;
@@ -77,8 +96,11 @@ footer {
   width: 30px;
 }
 footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-family: Helvetica, Arial ,sans-serif;  
-  border-radius: 5px;
+  width: 100%;
   margin-top: 10px;
   padding: 40px;
   padding-top: 45px;
@@ -103,23 +125,25 @@ footer {
 
 /* Estilo do conteúdo principal */
 .main-content {
-  text-align: center;
+  display: block;
   margin-top: 10px;
   font-size: 28px;
   font-weight: bold;
-  color: #100058; 
+  color: #1b005a; 
 }
-h3 {
+
+span {
+  color: rgb(0, 56, 141);
+  display: block;
+  text-align: center;
+}
+h4 {
   font-weight: bold;
-  margin-bottom: 5px;
   text-align: center;
 }
 
-p {
-  margin-bottom: 28px;
-  margin-top: 5px;
-  font-size: 19px;
-}
+
+
 .app-container {
   display: flex;
   flex-direction: row;
@@ -148,7 +172,7 @@ p {
 form {
   flex-direction: column;
   background-color: rgb(243, 243, 243);
-  padding: 50px;
+  padding: 100px;
   padding-bottom: 5px;
   font-family: Helvetica, Arial ,sans-serif;
   max-width: 700px;
@@ -165,7 +189,11 @@ form {
   border-radius: 10px;
   
 }
+ .quemsomos-p p {
+  text-align: justify;
+  color: #000f94;
 
+}
 
 /* .form-group {
   margin-bottom: 20px;
@@ -261,7 +289,7 @@ color: #aaaaaa;
 .register-link {
   text-align: center;
   margin-top: 20px;
-  
+
 }
 
 .footer a {
@@ -313,23 +341,30 @@ flex-grow: 2; /* Aumenta o tamanho da div de consulta */
 #search:hover {
   border: 2px solid #00367c;
 }
-figure {
-  margin-bottom: 100px;
 
+#p {
+  margin-bottom: 20px;
 }
-
 button {
+width: 100%;
 padding: 10px;
-background-color: #e6e6e6;
-color: #002fff;;
-border: 2px solid #002fff;
+background-color: #ffffff;
+color: #002fff;
+border: none;
+
 border-radius: 10px;
 font-size: 14px;
 cursor: pointer;
 font-weight: bold;
 transition: 0.5s;
 }
+.p-footer {
+  color: white;
+  font-size: 10px;
+  font-family: Helvetica, Arial ,sans-serif;
+  font-weight: bold;
 
+}
 button:hover {
 background-color: #002fff;
 color: #ffffff;
@@ -338,7 +373,7 @@ color: #ffffff;
 
 hr {
 margin: 40px 0;
-border: 1px solid #ddd;
+border: 1px solid #002fff;
 }
 
 ul {
