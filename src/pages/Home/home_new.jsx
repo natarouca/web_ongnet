@@ -11,7 +11,6 @@ function Home() {
           <a href="/" className="single-item">
             <img src="/" alt="" />
           </a>
-          <p>Ong que presta suporte para </p>
           <p>Topico 1</p>
           <p id="p">Topico 1</p>
 

@@ -1,6 +1,7 @@
 /* Header */
 *
  {
+  
   font-family: sans-serif;
  }
 
@@ -61,6 +62,7 @@ nav {
 .gallery-item {
   display: flex;
   margin: 15px;
+  cursor: pointer;
   border-radius: 10px;
   flex-direction: column;
   height: 200px;
@@ -72,7 +74,6 @@ nav {
 }
 
 p {
-  align-self: start;
   text-decoration-line:underline blue;
   margin-bottom: 5px;
   text-align: end;
@@ -81,10 +82,15 @@ p {
   color: #cfcfcf;
   font-family: Helvetica, Arial ,sans-serif;  
 }
+#p {
+  margin-bottom: 5px;
+}
 .p-formong {
   color: #000000;
   margin-bottom: 30px;
 }
+
+
 .titulo-ong {
   text-align: center;
   color: #000000;
@@ -211,7 +217,6 @@ label {
 }
 
 input[type="tel"],
-input[type="text"],
 input[type="email"],
 input[type="password"],
 textarea{
@@ -227,7 +232,7 @@ textarea{
 input[type="text"] {
   display: inline-block;
   flex-direction: row;
-  width: 85%;
+  width: 100%;
   margin-bottom: 5px;
   padding: 9px;
   border: 2px solid #004aad; /* Borda verde */
@@ -255,17 +260,12 @@ border: 2px solid #004aad;
 
 /* Ajustar o tamanho do campo de preço */
 input[type="number"] {
-width: 500px; /* Ajusta para o mesmo tamanho dos outros campos */
+width: 100%; /* Ajusta para o mesmo tamanho dos outros campos */
 height: 50px; 
 }
 
 #cep {
-  width: 34%;
-}
-
-input[type="tel"] {
-  width: 42%;
-
+  width: 100%;
 }
 
 input::placeholder {
@@ -351,13 +351,14 @@ padding: 10px;
 background-color: #ffffff;
 color: #002fff;
 border: none;
-
-border-radius: 10px;
+letter-spacing: 0.3px;
+border-radius: 15px;
 font-size: 14px;
 cursor: pointer;
 font-weight: bold;
 transition: 0.5s;
 }
+
 .p-footer {
   color: white;
   font-size: 10px;

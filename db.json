@@ -19,9 +19,15 @@
       "senha": "123456"
     }
   ],
-
   "ongs": [
-    
+    {
+      "id": "dd06",
+      "nome": "Ong Viva mais",
+      "email": "pedrohenrique@gmail.com",
+      "cep": "06702808",
+      "cnpj": "23645887954",
+      "telefone": "11988124545",
+      "numero": "456"
+    }
   ]
-
 }
