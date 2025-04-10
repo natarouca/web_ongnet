@@ -65,10 +65,11 @@ const Ong = () => {
 
   return (
     <div className="app-container">
+      
       <form className="form-ong" onSubmit={handleSubmit}>
         <div className="main-content">
           <h3>Bem-vinda, ONG</h3>
-          <p className="p-formong">Preencha as informações para pré-cadastro</p>
+      
         </div>
 
         <div className="input-group">

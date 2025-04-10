@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Header from './pages/Header/header'
 import Ong from './pages/Ong/ong'
 import Cliente from './pages/Cliente/cliente'
-import Login from './pages/Login/login'
 import Home from './pages/Home/home'
 import Loginong from './pages/Loginong/loginOng'
 import Servicos from './pages/Servicos/servicos'
@@ -16,13 +15,12 @@ function RoutesApp() {
                 <BrowserRouter>
                 < Header />
                         <Routes>
-                                <Route path="/" element={<Home />} />
+                                <Route path="/home_new" element={<Home_new />} />
                                 <Route path="/ong" element={<Ong />} />
-                                <Route path="/login" element={<Login />} />
                                 <Route path="/loginOng" element={<Loginong />} />
                                 <Route path="/servicos" element={<Servicos />} />
-                                <Route path="/faleconosco" element={<Quemsomos />} />
-                                <Route path="/home_new" element={<Home_new />} />
+                                <Route path="/quemsomos" element={<Quemsomos />} />
+                                {/* <Route path="/home_new" element={<Home_new />} /> */}
                                 <Route path="/loginadm" element={<Loginadm/>} />
                                 <Route path="/cliente" element={<Cliente/>} />
                         </Routes>

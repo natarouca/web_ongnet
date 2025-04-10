@@ -5,7 +5,7 @@
   font-family: sans-serif;
  }
 
-header {
+ header {
   font-family: Helvetica, Arial ,sans-serif;  
   display: flex;
   flex-direction: row;
@@ -15,7 +15,7 @@ header {
   height: 120px;
   background-color: #003172;
   color: white;
-}
+} 
 
 /* Menu de navegação */
 nav {
@@ -23,10 +23,10 @@ nav {
   align-items: center;
 }
 .container {
-  padding: 90px;
+  padding: 500px;
   background-color:  #ffffff;
   border: 2px solid #b6b6b6;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 56, 139, 0.19);
 }
 .abas {
@@ -63,7 +63,7 @@ nav {
   display: flex;
   margin: 15px;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 5px;
   flex-direction: column;
   height: 200px;
   padding: 70px;
@@ -163,30 +163,31 @@ h4 {
 }
  .form-ong {
   flex-direction: column;
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(244, 244, 255);
   padding: 50px;
   padding-bottom: 5px;
   font-family: Helvetica, Arial ,sans-serif;
   max-width: 700px;
   margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px;
   margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
-  border: 2px solid #b6b6b6;
+  border: 1px solid rgb(0, 100, 194);
 }
 
 form {
   flex-direction: column;
   background-color: rgb(243, 243, 243);
+  
   padding: 100px;
   padding-bottom: 5px;
   font-family: Helvetica, Arial ,sans-serif;
   max-width: 700px;
   margin: 0 auto;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
-  border: 2px solid #b6b6b6;
+  border: 1px solid rgb(0, 100, 194);
 }
 
 .form-faleconosco {
@@ -201,11 +202,6 @@ form {
 
 }
 
-/* .form-group {
-  margin-bottom: 20px;
-} */
-
-
 .formgroup1 {
   display: inline-block;
 }
@@ -218,13 +214,12 @@ label {
 
 input[type="tel"],
 input[type="email"],
-input[type="password"],
-textarea{
+input[type="password"]{
   width: 100%;
   margin-bottom: 5px;
   padding: 9px;
-  border: 2px solid #004aad; /* Borda verde */
-  border-radius: 5px;
+  border: 2px#e2e2e2;
+  border-radius: 3px;
   font-size: 16px;
   box-sizing: border-box;
 }
@@ -235,10 +230,29 @@ input[type="text"] {
   width: 100%;
   margin-bottom: 5px;
   padding: 9px;
-  border: 2px solid #004aad; /* Borda verde */
-  border-radius: 5px;
+  border: 2px solid#e2e2e2;
   font-size: 16px;
+  border-radius: 3px;
   box-sizing: border-box;
+}
+
+input[type="tel"],
+input[type="email"],
+input[type="password"],
+input[type="text"]:hover {
+  border: 2px solid #004aad;
+}
+
+input[type="tel"],
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  border: 2px solid#c7c7c7;
+  transition: 0.5;
+}
+
+input[type="tel"]:hover {
+  border: 2px solid#004aad;
 }
 
 textarea::placeholder,
@@ -277,7 +291,7 @@ color: #aaaaaa;
   background-color: #004aad; /* Botão vermelho */
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 3px;
   font-size: 16px;
   cursor: pointer;
 }
@@ -367,7 +381,7 @@ transition: 0.5s;
 
 }
 button:hover {
-background-color: #002fff;
+background-color: #001a8d;
 color: #ffffff;
 
 }
