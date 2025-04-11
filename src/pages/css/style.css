@@ -1,7 +1,6 @@
 /* Header */
 *
- {
-  
+ { 
   font-family: sans-serif;
  }
 
@@ -13,7 +12,7 @@
   justify-content: space-around;
   padding: 0 20px;
   height: 120px;
-  background-color: #003172;
+  background-color: #006baf;
   color: white;
 } 
 
@@ -38,12 +37,14 @@ nav {
   font-weight: bold;
   transition: 0.1s;
 }
+
+
 .campo-search {
   display: inline-block;
 
 }
 .abas:hover {
-  color: #1278ff;
+  color: #005386;
 }
 
 .container {
@@ -67,9 +68,10 @@ nav {
   flex-direction: column;
   height: 200px;
   padding: 70px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px;
-  border: 1px solid rgb(0, 100, 194);
+  
+  background-color: rgb(244, 249, 255);
+  /* box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px; */
+  border: 1px solid rgb(126, 126, 126);
 
 }
 
@@ -148,8 +150,6 @@ h4 {
   text-align: center;
 }
 
-
-
 .app-container {
   display: flex;
   flex-direction: row;
@@ -163,22 +163,21 @@ h4 {
 }
  .form-ong {
   flex-direction: column;
-  background-color: rgb(244, 244, 255);
+  background-color: rgb(244, 249, 255);
   padding: 50px;
   padding-bottom: 5px;
   font-family: Helvetica, Arial ,sans-serif;
   max-width: 700px;
   margin: 0 auto;
   border-radius: 5px;
-  box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px;
+  /* box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px; */
   margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
-  border: 1px solid rgb(0, 100, 194);
+  border: 1px solid rgb(167, 167, 167);
 }
 
 form {
   flex-direction: column;
   background-color: rgb(243, 243, 243);
-  
   padding: 100px;
   padding-bottom: 5px;
   font-family: Helvetica, Arial ,sans-serif;
@@ -187,7 +186,7 @@ form {
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
-  border: 1px solid rgb(0, 100, 194);
+  border: 1px solid rgb(136, 136, 136);
 }
 
 .form-faleconosco {
@@ -288,7 +287,7 @@ color: #aaaaaa;
 .form-group button {
   width: 100%;
   padding: 10px;
-  background-color: #004aad; /* Botão vermelho */
+  background-color: #006baf; /* Botão vermelho */
   color: white;
   border: none;
   border-radius: 3px;
@@ -362,8 +361,8 @@ flex-grow: 2; /* Aumenta o tamanho da div de consulta */
 button {
 width: 100%;
 padding: 10px;
-background-color: #ffffff;
-color: #002fff;
+background-color: #f1faff;
+color: #006baf;
 border: none;
 letter-spacing: 0.3px;
 border-radius: 15px;
@@ -381,7 +380,7 @@ transition: 0.5s;
 
 }
 button:hover {
-background-color: #001a8d;
+background-color:#00568d;
 color: #ffffff;
 
 }
