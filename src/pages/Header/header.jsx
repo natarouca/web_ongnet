@@ -18,9 +18,9 @@ function Header () {
                 <a href="/quemsomos" className='abas'>Quem somos</a>
 
                                 
-                <a href="/faleconosco" className='abas'>Fale conosco</a>
+                {/* <a href="/faleconosco" className='abas'>Fale conosco</a> */}
 
-                <a href="/cliente" className='abas'>Cliente</a>
+                {/* <a href="/cliente" className='abas'>Cliente</a> */}
             </nav>
         </header>
           
