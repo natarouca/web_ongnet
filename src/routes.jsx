@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import Header from './pages/Header/header'
 import Ong from './pages/Ong/ong'
 import Cliente from './pages/Cliente/cliente'
@@ -13,18 +13,35 @@ function RoutesApp() {
 
         return (
                 <BrowserRouter>
-                < Header />
+                        {/* < Header /> */}
                         <Routes>
+
+                                <Route path="/" element={<Loginong />} />
+
+                                <Route element={<Layout/>}>
+
+
                                 <Route path="/home_new" element={<Home_new />} />
                                 <Route path="/ong" element={<Ong />} />
                                 <Route path="/loginOng" element={<Loginong />} />
                                 <Route path="/servicos" element={<Servicos />} />
                                 <Route path="/quemsomos" element={<Quemsomos />} />
-                                {/* <Route path="/home_new" element={<Home_new />} /> */}
-                                <Route path="/loginadm" element={<Loginadm/>} />
-                                <Route path="/cliente" element={<Cliente/>} />
+                                <Route path="/loginadm" element={<Loginadm />} />
+                                <Route path="/cliente" element={<Cliente />} />
+
+                                </Route>
                         </Routes>
                 </BrowserRouter>
+        );
+}
+function Layout() {
+        return (
+                <>
+                        <Header />
+                        <main>
+                                <Outlet /> 
+                        </main>
+                </>
         );
 }
 export default RoutesApp;

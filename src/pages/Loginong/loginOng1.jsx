@@ -37,18 +37,12 @@ const Loginong = () => {
     
            <form onSubmit={handleSubmit}>
            <div className="main-content">
-           <h3>Sou ONG</h3> 
+            <img src={Logo} alt="" />
+           <h3>Bem-vindo a Ongnet!</h3> 
            </div>
-               <label htmlFor="email">Email:</label>
-               <input type="text" id="email" placeholder="Digite um email" value={email} onChange={(e)=>setEmail(e.target.value)}/> 
-   
-               <label htmlFor="senha">Senha:</label>
-               <input type="password" id="senha" placeholder="Digite uma senha" value={password} onChange={(e)=>setSenha(e.target.value)}/> 
-
-               <div className="form-group">
-                <br/>
-                <button type="submit">Login</button>
-            </div>
+           <p>Identifique-se</p>
+              <a href=""><button id="button-login">Sou Institução não-governamental</button></a>
+              <a href=""><button id="button-login"> Sou Administrador do Sistema</button></a>
 {/* 
             exibe mensagem de erro se houver */}
             {error && <p className="error-mesage">{error}</p>}

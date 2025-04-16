@@ -7,19 +7,28 @@
  header {
   font-family: Helvetica, Arial ,sans-serif;  
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   padding: 0 20px;
-  height: 120px;
+  height: 100px;
   background-color: #006baf;
   color: white;
 } 
-
+h3 {
+  margin: 0;
+  
+}
 /* Menu de navegação */
 nav {
   display: flex;
+
+  flex-direction: row;
   align-items: center;
+}
+.link-nav {
+  list-style: none;
+  margin: 0px 3px 0px 5px;
 }
 .container {
   padding: 500px;
@@ -31,7 +40,8 @@ nav {
 .abas {
   margin-bottom: 2px solid white;
   text-decoration: none;
-  font-size: 20px;
+  margin: 15px;
+  font-size: 15 px;
   color: white;
   padding: 20px;
   font-weight: bold;
@@ -62,25 +72,29 @@ nav {
 
 .gallery-item {
   display: flex;
-  margin: 15px;
-  cursor: pointer;
-  border-radius: 5px;
   flex-direction: column;
-  height: 200px;
-  padding: 70px;
-  
-  background-color: rgb(244, 249, 255);
-  /* box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px; */
-  border: 1px solid rgb(126, 126, 126);
-
+  align-items: start;
+  margin-bottom: 50px;
+  max-width: 250px;
+  width: 250px;
+  height: 300px;
+  margin-right: 40px;
+  padding: 40px;
+  background-color:  rgb(245, 245, 245);
+  box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 47, 100) 0px 0px 0px 0px;
+  border: 1px solid rgb(0, 100, 194);
+  cursor: pointer;
+  border-radius: 9px;
 }
 
 p {
+  
   text-decoration-line:underline blue;
   margin-bottom: 5px;
-  text-align: end;
+  width: 100%;
+  text-align: start;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 13px;
   color: #cfcfcf;
   font-family: Helvetica, Arial ,sans-serif;  
 }
@@ -92,7 +106,6 @@ p {
   margin-bottom: 30px;
 }
 
-
 .titulo-ong {
   text-align: center;
   color: #000000;
@@ -101,7 +114,7 @@ p {
 }
 /* Logo ou imagem */
 #logo-ongnet{
-  width: 30px;
+  width: 60px;
 }
 footer {
   display: flex;
@@ -176,17 +189,21 @@ h4 {
 }
 
 form {
+  display: flex;
   flex-direction: column;
-  background-color: rgb(243, 243, 243);
-  padding: 100px;
+  align-items: center;
+  align-content: center;
+  background-color:  rgb(245, 245, 245);
+  box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 47, 100) 0px 0px 0px 0px;
+  border: 1px solid rgb(0, 100, 194);
+  padding: 60px;
   padding-bottom: 5px;
+  height: 300px;
   font-family: Helvetica, Arial ,sans-serif;
-  max-width: 700px;
+  max-width: 200px;
   margin: 0 auto;
   border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
-  border: 1px solid rgb(136, 136, 136);
 }
 
 .form-faleconosco {
@@ -355,21 +372,47 @@ flex-grow: 2; /* Aumenta o tamanho da div de consulta */
   border: 2px solid #00367c;
 }
 
-#p {
-  margin-bottom: 20px;
+span {
+  color: #006baf;
+  font-weight: bolder;
+  margin-bottom: 0px;
+}
+#img-gallery-item{
+  width: 100px;
+  border-radius: 90px;
+  border: 1px solid black;
+  margin-top: 0px;
+
+}
+#button-login {
+  width: 100%;
+  background-color: #00568d;
+  color: #f1f1f1;
+  transition: 0.3s;
+  cursor: pointer;
+  border-radius: 15px;
+}
+#button-login:hover {
+  width: 100%;
+  background-color: #f1f1f1;
+  color: #00568d;
+  border: 1px solid #00568d;
+  border-radius: 15px;
 }
 button {
-width: 100%;
-padding: 10px;
-background-color: #f1faff;
-color: #006baf;
-border: none;
-letter-spacing: 0.3px;
-border-radius: 15px;
-font-size: 14px;
-cursor: pointer;
-font-weight: bold;
-transition: 0.5s;
+  align-self: center;
+  background-color:#00568d;
+  color:white;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 10px;
+  letter-spacing: 0.3px;
+  font-weight: bold;
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  border-radius: 15px;
+  width: 100%;
 }
 
 .p-footer {
@@ -380,9 +423,10 @@ transition: 0.5s;
 
 }
 button:hover {
-background-color:#00568d;
-color: #ffffff;
-
+background-color:rgb(245, 245, 245);
+color: #00568d;
+border: 1px solid #00568d;
+padding: 10px;
 }
 
 hr {
@@ -390,6 +434,21 @@ margin: 40px 0;
 border: 1px solid #002fff;
 }
 
+ul {
+  padding:10px;
+  color: #00253d;
+  font-weight: bolder;
+  font-size: 13px;
+  margin-top: 5px;
+  margin-bottom: 1px;
+  padding: 0;
+  padding-left: 5px;
+}
+li {
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+/* 
 ul {
 list-style-type: none;
 padding: 0;
@@ -404,4 +463,4 @@ margin-bottom: 10px;
 display: flex;
 justify-content: space-between;
 align-items: center;
-}
+} */
