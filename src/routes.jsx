@@ -8,7 +8,7 @@ import Servicos from './pages/Servicos/servicos'
 import Quemsomos from './pages/Quemsomos/quemsomos'
 import Loginadm from "./pages/Loginadm/loginadm"
 import Home_new from './pages/Home/home_new'
-
+import Crudong from './pages/Crudong/ongcrud'
 function RoutesApp() {
 
         return (
@@ -23,6 +23,7 @@ function RoutesApp() {
 
                                 <Route path="/home_new" element={<Home_new />} />
                                 <Route path="/ong" element={<Ong />} />
+                                <Route path="/ongcrud" element={<Crudong />} />
                                 <Route path="/loginOng" element={<Loginong />} />
                                 <Route path="/servicos" element={<Servicos />} />
                                 <Route path="/quemsomos" element={<Quemsomos />} />

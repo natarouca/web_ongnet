@@ -33,7 +33,7 @@ const Loginong = () => {
     }
     return (
     
-       <div className="app-container"> 
+    
     
            <form onSubmit={handleSubmit}>
            <div className="main-content">
@@ -48,8 +48,7 @@ const Loginong = () => {
             {error && <p className="error-mesage">{error}</p>}
 
            </form>
-   
-       </div>
+  
     )
 }
 

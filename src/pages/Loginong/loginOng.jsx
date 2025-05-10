@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import '../css/style.css'
@@ -7,9 +7,9 @@ import '../css/style.css'
 
 const Loginong = () => {
 
-    const [ email, setEmail] = useState("");
-    const [ password, setSenha] = useState("");
-    const [ error, setError] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setSenha] = useState("");
+    const [error, setError] = useState("");
     const navigate = useNavigate();
 
 
@@ -20,42 +20,48 @@ const Loginong = () => {
     const fixedSenha = "123456";
 
     const handleSubmit = (e) => {
-        e.preventDefault ();
+        e.preventDefault();
 
         setError("");
-//exatamente igual ===.
-        if (email === fixedEmail && password === fixedSenha ){
+        //exatamente igual ===.
+        if (email === fixedEmail && password === fixedSenha) {
             navigate("/home_new");
-        }else {
+        } else {
             setError("Email ou senha inválidos!");
         }
 
     }
     return (
-    
-       <div className="app-container"> 
-    
-           <form onSubmit={handleSubmit}>
-           <div className="main-content">
-           <h3>Sou ONG</h3> 
-           </div>
-               <label htmlFor="email">Email:</label>
-               <input type="text" id="email" placeholder="Digite um email" value={email} onChange={(e)=>setEmail(e.target.value)}/> 
-   
-               <label htmlFor="senha">Senha:</label>
-               <input type="password" id="senha" placeholder="Digite uma senha" value={password} onChange={(e)=>setSenha(e.target.value)}/> 
 
-               <div className="form-group">
-                <br/>
-                <button type="submit">Login</button>
-            </div>
-{/* 
+
+        <div className="container-login">
+
+            <form onSubmit={handleSubmit}>
+
+            <span className="span-login">
+                <strong>Bem-vindo a ONGNET</strong>
+                </span>
+                <div className="box-login">
+                <label htmlFor="cnpj">CNPJ</label>
+                <input type="email" id="cnpj" placeholder="Digite um email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+                <label htmlFor="senha">Senha</label>
+                <input type="password" id="senha" placeholder="Digite uma senha" value={password} onChange={(e) => setSenha(e.target.value)} />
+                </div>
+                <a href="/"><span>Esqueceu a senha?</span></a>
+                <div className="form-group">
+                    <br />
+                   <a href="/ongcrud"><button type="submit">Entrar</button></a> 
+                </div>
+
+                {/* 
             exibe mensagem de erro se houver */}
-            {error && <p className="error-mesage">{error}</p>}
+                {error && <p className="error-mesage">{error}</p>}
 
-           </form>
-   
-       </div>
+            </form>
+
+        </div>
+
     )
 }
 

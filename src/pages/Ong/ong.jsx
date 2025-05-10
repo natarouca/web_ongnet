@@ -7,6 +7,7 @@ const Ong = () => {
   const [vongs, setOngs] = useState([]);
   const [vnome, setNome] = useState('');
   const [vcep, setCep] = useState('');
+  const [vresp, setResp] = useState('');
   const [vnumero, setNumero] = useState('');
   const [vtelefone, setTelefone] = useState('');
   const [vemail, setEmail] = useState('');
@@ -33,6 +34,7 @@ const Ong = () => {
         cnpj: vcnpj,
         telefone: vtelefone,
         numero: vnumero,
+        responsavel: vresp,
       });
       console.log(response.data);
       // Atualize a lista de ONGs após o envio (caso necessário)
@@ -74,12 +76,28 @@ const Ong = () => {
 
         <div className="input-group">
           <div className="input-box">
-            <label htmlFor="ongName">Nome Empresarial</label>
+            <label htmlFor="ongName">Nome da ONG</label>
             <input
               type="text"
               id="ongName"
-              placeholder="Insira o nome da Organização"
+              size={100}
+              maxLength={100}
+              placeholder="Nome da Insituição não-governamental"
               onChange={(e) => setNome(e.target.value)}
+              required
+            />
+            {errors.nome && <span className="error">{errors.nome}</span>}
+          </div>
+
+          <div className="input-box">
+            <label htmlFor="resp">Representante da ONG</label>
+            <input
+              type="text"
+              id="resp"
+              size={100}
+              maxLength={100}
+              placeholder="Nome do Representante"
+              onChange={(e) => setResp(e.target.value)}
               required
             />
             {errors.nome && <span className="error">{errors.nome}</span>}
@@ -90,7 +108,9 @@ const Ong = () => {
             <input
               id="cnpj"
               type="text"
-              placeholder="Insira o CNPJ"
+              size={14}
+              maxLength={14}
+              placeholder="Cadastro Nacional de Pessoa Jurídica"
               onChange={(e) => setCnpj(e.target.value)}
               required
             />
@@ -102,32 +122,38 @@ const Ong = () => {
             <input
               id="cep"
               type="text"
-              placeholder="Insira o CEP"
+              size={8}
+              maxLength={8}
+              placeholder="Código de Endereçamento Postal"
               onChange={(e) => setCep(e.target.value)}
               required
             />
             {errors.cep && <span className="error">{errors.cep}</span>}
           </div>
 
-          <div className="input-group">
-            <label htmlFor="nmResidencia">Número Residencial</label>
+        <div className="input-group">
+            <label htmlFor="nmResidencia">Nº da Residência</label>
             <input
               type="text"
               id="nmResidencia"
-              placeholder="Número da residência"
+              placeholder="Número da Residencia"
+              size={4}
+              maxLength={4}
               value={vnumero}
               onChange={(e) => setNumero(e.target.value)}
               required
             />
             {errors.numero && <span className="error">{errors.numero}</span>}
-          </div>
+          </div> 
 
           <div className="input-group">
             <label htmlFor="email">E-mail</label>
             <input
               type="text"
               id="email"
-              placeholder="Insira o Email"
+              size={100}
+              maxLength={100}
+              placeholder="Endereço de e-mail"
               onChange={(e) => setEmail(e.target.value)}
               required
             />
@@ -139,12 +165,15 @@ const Ong = () => {
             <input
               type="tel"
               id="tel"
-              placeholder="(55) 00 00000-0000"
+              size={9}
+              maxLength={9}
+              placeholder="(00) 00 00000-0000"
               onChange={(e) => setTelefone(e.target.value)}
             />
             {errors.telefone && <span className="error">{errors.telefone}</span>}
           </div>
         </div>
+        
 
         <div className="form-group">
           <br />
