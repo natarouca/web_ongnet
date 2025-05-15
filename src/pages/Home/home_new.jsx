@@ -9,7 +9,7 @@ function Home() {
 
   return (
     <div>
-      <div className="quemsomos">
+      {/* <div className="quemsomos">
         <p>
           A Ongnet é uma plataforma inovadora com a missão de ampliar a visibilidade das organizações sociais brasileiras e facilitar a conexão entre essas instituições e o público. Nossa plataforma funciona como uma vitrine para ONGs de diversos segmentos, como educação, saúde, meio ambiente, direitos humanos, entre outros, oferecendo um espaço acessível e eficaz para divulgar as atividades e necessidades de sua ONG.
         </p>
@@ -17,7 +17,7 @@ function Home() {
         <p>
           A Ongnet vai além de uma simples plataforma de divulgação, somos uma ponte entre ONGs e pessoas que desejam contribuir para a transformação social. Se você busca informações sobre como apoiar causas sociais, nossa plataforma é o lugar ideal para encontrar as melhores oportunidades de colaboração. Com uma abordagem transparente, inclusiva e focada no impacto social, a Ongnet é uma ferramenta essencial para quem deseja fazer a diferença na sociedade brasileira e colaborar para a construção de um futuro mais justo e igualitário.
         </p>
-      </div>
+      </div> */}
 
 
       <div className="search-container" style={{ textAlign: 'center', margin: '20px 0' }}>
@@ -46,7 +46,7 @@ function Home() {
             <img src={Imagem1} id="img-gallery-item" />
           </a>
 
-          <strong><span>ATIVIDADES</span></strong>
+          <strong><span>Objetivo:</span></strong>
           <strong>
             <ul>
               <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>

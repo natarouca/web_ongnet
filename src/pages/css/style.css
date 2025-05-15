@@ -1,11 +1,10 @@
 /* Header */
-*
- { 
+* {
   font-family: 'Roboto', sans-serif
- }
+}
 
- header {
-  font-family: Helvetica, Arial ,sans-serif;  
+header {
+  font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,10 +13,8 @@
   height: 100px;
   background-color: #006baf;
   color: white;
-} 
-.quemsomos-p {
-
 }
+
 .metas {
   display: flex;
   flex-direction: column;
@@ -27,6 +24,7 @@
   color: #000000;
   font-weight: bold;
 }
+
 .quemsomos {
   display: flex;
   align-items: center;
@@ -36,12 +34,14 @@
   color: white;
   height: 300px;
 }
+
 .container-login {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 250px;
 }
+
 strong {
 
   align-self: flex-start;
@@ -49,17 +49,21 @@ strong {
   font-size: 12px;
 
 }
+
 h3 {
-  margin: 25px;
-  align-self: center;
+  color: #005991;
+  margin: 0;
+  padding: 0;
+    align-self: center;
 }
+
 /* Menu de navegação */
 nav {
   display: flex;
-
   flex-direction: row;
   align-items: center;
 }
+
 .link-nav {
   list-style: none;
   margin: 0px 3px 0px 5px;
@@ -73,18 +77,20 @@ nav {
   align-content: center;
   min-height: 100vh;
 }
+
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  margin-top: 100px;
-  padding: 500px;
-  background-color:  #ffffff;
-  border: 2px solid #b6b6b6;
-  border-radius: 5px;
-  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 56, 139, 0.19);
+  height: 30vh;  
+  margin-top: 0px;
+  padding: 300px;
+  /* background-color:  #ffffff;
+  border: 2px solid #b6b6b6; */
+  /* border-radius: 5px;
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 56, 139, 0.19); */
 }
+
 .abas {
   margin-bottom: 2px solid white;
   text-decoration: none;
@@ -101,14 +107,11 @@ nav {
   display: inline-block;
 
 }
+
 .abas:hover {
-  color: #005386;
+  color: #009dff;
 }
 
-.container {
-  padding: 500px;
-  height: 500px;
-}
 .gallery-container {
   margin-top: 30px;
   display: flex;
@@ -141,7 +144,7 @@ nav {
 
   transition: 0.1s;
 
-  background-color:  rgb(240, 247, 255);
+  background-color: rgb(240, 247, 255);
 
   border: 2px solid #006baf;
 
@@ -153,18 +156,20 @@ nav {
 }
 
 p {
-  text-decoration-line:underline blue;
+  text-decoration-line: underline blue;
   margin-bottom: 5px;
   width: 100%;
   text-align: start;
   font-weight: bold;
   font-size: 13px;
   color: #cfcfcf;
-  font-family: Helvetica, Arial ,sans-serif;  
+  font-family: Helvetica, Arial, sans-serif;
 }
+
 #p {
   margin-bottom: 5px;
 }
+
 .p-formong {
   color: #000000;
   margin-bottom: 30px;
@@ -173,39 +178,42 @@ p {
 .titulo-ong {
   text-align: center;
   color: #000000;
-  font-family: Helvetica, Arial ,sans-serif;  
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 }
+
 /* Logo ou imagem */
-#logo-ongnet{
+#logo-ongnet {
   width: 60px;
 }
+
 footer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-family: Helvetica, Arial ,sans-serif;  
+  font-family: Helvetica, Arial, sans-serif;
   width: 100%;
   margin-top: 10px;
   padding: 40px;
   padding-top: 45px;
   font-weight: bolder;
   color: #ffffff;
-  text-align: center; 
-  background-color:  #003172;
+  text-align: center;
+  background-color: #003172;
 }
 
 
 .box-content {
   display: flex;
-  font-family: Helvetica, Arial ,sans-serif;;
+  font-family: Helvetica, Arial, sans-serif;
+  ;
   border-radius: 20px;
   height: 300px;
   margin-top: 5px;
   margin: auto;
   width: 65%;
   padding: 60px;
-  background-color:  #cad6e6;
+  background-color: #cad6e6;
 }
 
 /* Estilo do conteúdo principal */
@@ -214,7 +222,7 @@ footer {
   margin-top: 10px;
   font-size: 28px;
   font-weight: bold;
-  color: #00205a; 
+  color: #00205a;
 }
 
 .main-content span {
@@ -222,13 +230,16 @@ footer {
   align-self: center;
   margin-bottom: 5px;
 }
+
 .box-login {
   margin-top: 20px;
 }
+
 .span-login strong {
   font-size: 23px;
- 
+
 }
+
 span {
   align-self: flex-start;
 
@@ -239,7 +250,10 @@ span {
   margin-bottom: 10px;
 
 }
-h4 {
+
+h4, h3 {
+  margin: 0;
+  padding: 0;
   font-weight: bold;
   text-align: center;
 }
@@ -250,90 +264,113 @@ h4 {
   width: 80%;
   padding: 100px;
   padding-bottom: 5px;
-  font-family: Helvetica, Arial ,sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   max-width: 400px;
   border-radius: 10px;
-  margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
+  margin-top: 5px;
+  /* Adiciona o espaço entre o header e o formulário */
 }
- .form-ong {
+
+.form-ong {
   flex-direction: column;
   background-color: rgb(244, 249, 255);
   padding: 50px;
   height: 300px;
   padding-bottom: 5px;
-  font-family: Helvetica, Arial ,sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   max-width: 700px;
   margin: 0 auto;
   border-radius: 5px;
   /* box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 60, 129) 0px 0px 0px 0px; */
-  margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
+  margin-top: 5px;
+  /* Adiciona o espaço entre o header e o formulário */
   border: 2px solid #0074bd;
 }
+
 .form-ong {
   display: flex;
   flex-direction: column;
-  background-color:  rgb(248, 253, 255);
+  background-color: rgb(248, 253, 255);
   box-shadow: rgba(0, 64, 138, 0.16) 0px 10px 0px 0px, rgb(0, 47, 100) 0px 0px 0px 0px;
   border: 2px solid #0074bd;
   outline: none;
   padding: 60px;
   padding-bottom: 5px;
   height: 650px;
-  font-family: Helvetica, Arial ,sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   width: 400px;
   max-width: 400px;
   margin: 0 auto;
   border-radius: 15px;
-  margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
+  margin-top: 5px;
+  /* Adiciona o espaço entre o header e o formulário */
 }
 
-form {
+#form-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #f8f8f8;
   border: 2px solid #0074bd;
+  padding: 40px;
+  height: 100px;
+  font-family: Helvetica, Arial, sans-serif;
+  width: 500px;
+  max-width: 500px;
+  border-radius: 10px;
+  /* Adiciona o espaço entre o header e o formulário */
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f8f8f8;
+  border: 2px solid #009dff;
   padding: 60px;
   padding-bottom: 5px;
   height: 400px;
-  font-family: Helvetica, Arial ,sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   width: 500px;
   max-width: 500px;
   margin: 0 auto;
   border-radius: 10px;
-  margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
+  margin-top: 5px;
+  /* Adiciona o espaço entre o header e o formulário */
 }
 
 #form {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  background-color:  rgb(248, 253, 255);
-  border: 2px solid #acacac;
+  background-color: rgb(248, 253, 255);
+  border: 2px solid #0074bd;
   padding: 40px;
   padding-bottom: 5px;
   height: 700px;
-  font-family: Helvetica, Arial ,sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   width: 500px;
   max-width: 500px;
   margin: 10px;
   border-radius: 15px;
-  margin-top: 5px; /* Adiciona o espaço entre o header e o formulário */
+  margin-top: 5px;
+  /* Adiciona o espaço entre o header e o formulário */
 }
+
 .form-faleconosco {
   background-color: #e7e7e7;
- /* padding: 40px;
+  /* padding: 40px;
   border-radius: 10px;
   max-width: 800px;
   margin: 40px auto;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   border: 1px solid #004aad;*/
-  
+
 }
- .quem-somos-p p {
+
+.quem-somos-p p {
   text-align: center;
   color: #000f94;
- /* font-size: 18px;
+  /* font-size: 18px;
   line-height: 1.8;
   padding: 20px;
   background-color: #f5f8ff;
@@ -347,12 +384,14 @@ form {
 .formgroup1 {
   display: inline-block;
 }
+
 label {
   font-weight: bold;
-  color: rgb(0, 23, 53); 
+  color: rgb(0, 23, 53);
   display: block;
   margin-bottom: 5px;
 }
+
 input:focus {
   border-color: #009dff;
 }
@@ -362,26 +401,29 @@ input::placeholder {
   font-weight: bold;
   padding-left: 7px;
 }
+
 #cnpj-crud {
   cursor: no-drop;
 }
 
- .upload {
+.upload {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 #file {
   display: none;
 }
+
 #foto {
   width: 120px;
   height: 120px;
   margin-bottom: 20px;
   border-radius: 50%;
   border: 2px solid #0074bd;
-  background-color:  #007ecc;
+  background-color: #007ecc;
   color: white;
   text-align: center;
   line-height: 120px;
@@ -390,9 +432,10 @@ input::placeholder {
   font-weight: bold;
 
 }
+
 input[type="tel"],
 input[type="email"],
-input[type="password"]{
+input[type="password"] {
   width: 100%;
   cursor: default;
   outline: none;
@@ -417,9 +460,10 @@ input[type="text"] {
   border-radius: 8px;
   box-sizing: border-box;
 }
+
 #button-form-crud {
   background-color: #006baf;
-  border: 2px solid #005991;;
+  border: 2px solid #005991;
   padding: 10px;
   cursor: pointer;
   width: 70%;
@@ -430,9 +474,10 @@ input[type="text"] {
 }
 
 #button-form-crud:hover {
-  background-color:#009dff;
+  background-color: #009dff;
   border-color: #0086da;
 }
+
 input[type="tel"]:hover,
 input[type="email"]:hover,
 input[type="password"]:hover,
@@ -456,23 +501,31 @@ textarea::placeholder,
 input[type="text"]::placeholder,
 input[type="email"]::placeholder,
 input[type="password"]::placeholder {
-  font-family: Helvetica, Arial ,sans-serif;  
+  font-family: Helvetica, Arial, sans-serif;
   color: #aaaaaa;
 }
 
 /* Ajustar o tamanho do campo de descrição (textarea) */
 textarea {
-height: 70px; /* Aumenta a altura do campo de descrição */
-width: 390px;
-resize: vertical; /* Permite redimensionar verticalmente */
-border-radius: 5px;
-border: 2px solid #004aad;
+  height: 70px;
+  /* Aumenta a altura do campo de descrição */
+  width: 390px;
+  resize: vertical;
+  /* Permite redimensionar verticalmente */
+  border-radius: 5px;
+  border: 2px solid #004aad;
 }
 
 /* Ajustar o tamanho do campo de preço */
 input[type="number"] {
-width: 100%; /* Ajusta para o mesmo tamanho dos outros campos */
-height: 50px; 
+  padding: 10px;
+  font-weight: bold;
+  border: 2px solid#b6b6b6;
+  border-radius: 8px;
+  outline: none;
+  margin-bottom: 10px;
+  width: 40%;
+  height: 15px;
 }
 
 #cep {
@@ -480,23 +533,28 @@ height: 50px;
 }
 
 input::placeholder {
-color: #aaaaaa;
+  color: #aaaaaa;
 }
+
 .form-group button {
   width: 100%;
   padding: 10px;
-  background-color: #006baf; /* Botão vermelho */
+  background-color: #006baf;
+  /* Botão vermelho */
   color: white;
-  border: 2px solid #004e7e;;
+  border: 2px solid #004e7e;
+  ;
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
 }
+
 .form-group button:hover {
-  background-color:#009dff;
+  background-color: #009dff;
   border-color: #0086da;
   color: white;
 }
+
 /* button:hover {
   background-color: #ac47ff; /* Vermelho tomate */
 
@@ -508,7 +566,7 @@ color: #aaaaaa;
 }
 
 .footer a {
-  color: #ffffff; 
+  color: #ffffff;
   text-decoration: none;
   font-weight: bold;
 }
@@ -518,29 +576,30 @@ color: #aaaaaa;
 }
 
 .app-container {
-padding: 20px;
-max-width: 600px;
-margin: 0 auto;
-border-radius: 10px;
-margin-top: 40px;
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 10px;
+  margin-top: 40px;
 }
 
 /* Estilo para o container de cadastro */
 .cadastro-container {
-background-color: #fff;
-padding: 20px;
-border-radius: 10px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-margin-bottom: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 /* Estilo para o container de consulta */
 .consulta-container {
-background-color: #fff;
-padding: 30px;
-border-radius: 10px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-flex-grow: 2; /* Aumenta o tamanho da div de consulta */
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-grow: 2;
+  /* Aumenta o tamanho da div de consulta */
 }
 
 #search {
@@ -553,6 +612,7 @@ flex-grow: 2; /* Aumenta o tamanho da div de consulta */
   border: 2px solid #888888;
   border-radius: 5px;
 }
+
 #search:hover {
   border: 2px solid #00367c;
 }
@@ -562,14 +622,16 @@ span {
   font-weight: bolder;
   margin-bottom: 0px;
 }
-#img-gallery-item{
- 
+
+#img-gallery-item {
+
   width: 100px;
   border-radius: 90px;
   border: 1px solid black;
   margin-top: 0px;
 
 }
+
 #button-login {
   width: 100%;
   background-color: #00568d;
@@ -578,6 +640,7 @@ span {
   cursor: pointer;
   border-radius: 15px;
 }
+
 #button-login:hover {
   width: 100%;
   background-color: #f1f1f1;
@@ -585,8 +648,9 @@ span {
   border: 2px solid #00568d;
   border-radius: 15px;
 }
+
 button {
-  
+
   align-self: center;
 
   background-color: #006baf;
@@ -605,7 +669,7 @@ button {
 
   font-weight: bolder;
 
-  border: 2px solid #005991;;
+  border: 2px solid #005991;
 
   transition: 0.3s;
 
@@ -619,26 +683,28 @@ button {
 .p-footer {
   color: white;
   font-size: 10px;
-  font-family: Helvetica, Arial ,sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-weight: bold;
 
 }
+
 button:hover {
   color: #ffffff;
 
-  background-color: #005991;;
+  background-color: #009dff;
+  ;
 
   text-decoration: none;
 
 }
 
 hr {
-margin: 40px 0;
-border: 1px solid #002fff;
+  margin: 40px 0;
+  border: 1px solid #002fff;
 }
 
 ul {
-  padding:10px;
+  padding: 10px;
   color: #00253d;
   font-weight: bolder;
   font-size: 13px;
@@ -647,6 +713,7 @@ ul {
   padding: 0;
   padding-left: 5px;
 }
+
 li {
 
   margin-left: 5px;
@@ -662,7 +729,7 @@ li {
   border-radius: 5px;
   padding: 3px;
 
-  border: 2px solid  rgb(106, 146, 206);
+  border: 2px solid rgb(106, 146, 206);
   background-color: #d4eaff;
 
 
@@ -672,14 +739,15 @@ li {
 
   margin-right: 5px;
 
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 #li-gallery:hover {
 
-  background-color:  rgba(0, 102, 255, 0.205);
-  
+  background-color: rgba(0, 102, 255, 0.205);
+
 }
+
 /* 
 ul {
 list-style-type: none;

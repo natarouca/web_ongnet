@@ -15,7 +15,8 @@ const Ong = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:3001/ongs")
+     axios.get("http://localhost:8080/api/v1/representante-ong/ong")
+    //axios.get("http://localhost:3001/ongs")
       .then(res => setOngs(res.data))
       .catch(err => console.error("Erro ao buscar ONGS", err));
   }, []);
@@ -181,12 +182,12 @@ const Ong = () => {
         </div>
 
         <div className="main-content">
-          <p>Ongs Cadastradas</p>
+          <h3 style={{fontSize:15,marginTop:3}}>Ongs Cadastradas</h3>
+      
         </div>
-
         <ul>
           {vongs.map(ongs => (
-            <li key={ongs.id}> Email - {ongs.email} CNPJ - {ongs.cnpj}</li>
+            <li key={ongs.id}> Nome - {ongs.nome} Email - {ongs.email} CNPJ - {ongs.cnpj}</li>
           ))}
         </ul>
       </form>

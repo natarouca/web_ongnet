@@ -2,13 +2,12 @@ import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import Header from './pages/Header/header'
 import Ong from './pages/Ong/ong'
 import Cliente from './pages/Cliente/cliente'
-import Home from './pages/Home/home'
 import Loginong from './pages/Loginong/loginOng'
 import Servicos from './pages/Servicos/servicos'
 import Quemsomos from './pages/Quemsomos/quemsomos'
-import Loginadm from "./pages/Loginadm/loginadm"
 import Home_new from './pages/Home/home_new'
 import Crudong from './pages/Crudong/ongcrud'
+import Item from './pages/Item/item'
 function RoutesApp() {
 
         return (
@@ -25,10 +24,9 @@ function RoutesApp() {
                                 <Route path="/ong" element={<Ong />} />
                                 <Route path="/ongcrud" element={<Crudong />} />
                                 <Route path="/loginOng" element={<Loginong />} />
-                                <Route path="/servicos" element={<Servicos />} />
                                 <Route path="/quemsomos" element={<Quemsomos />} />
-                                <Route path="/loginadm" element={<Loginadm />} />
                                 <Route path="/cliente" element={<Cliente />} />
+                                <Route path="/item" element={<Item />} />
 
                                 </Route>
                         </Routes>

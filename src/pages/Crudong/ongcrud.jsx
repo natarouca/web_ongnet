@@ -28,7 +28,7 @@ const Crudong = () => {
 
   return (
 
-    <div className="crud-ong">
+    <div class="crud-ong">
       <form id="form" onSubmit={handleSubmit}>
 
         <div class="upload">

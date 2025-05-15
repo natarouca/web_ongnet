@@ -2,25 +2,37 @@ import React, { useState } from "react";
 import '../css/style.css'
 
 
-function Item (){
-    return (
-        <div className="itens">
-        <ol type="1">
-          <span>Itens</span>
-          <li><input type="text" value="Arroz" /></li>
-          <li><input type="text" value="Feijão" /></li>
-          <li><input type="text" value="Roupa" /></li>
-        </ol>
+function Item() {
+  return (
+    <div class="container">
 
-        <div className="metas">
-        <span>Meta</span>
-        <ol type="1">
-          <li><input type="number" /></li>
-          <li></li>
-          <li></li>
-        </ol>
+      <form>
+        <h3>ONG, você está precisando de qual item?</h3>
+        <h4 >Cadastre-o aqui.</h4>
+        <div class="input-box">
+
+          <label for="desc-item">Descrição do item</label>
+          <input type="text" size={15 }maxlength={15} name="desc-item" id="desc-item"
+            placeholder="Ex. Arroz, roupas, cobertores..." rows="3" />
         </div>
-      </div>
-    );
+
+        <div class="input-row">
+
+          <div class="input-box">
+            <label for="meta">Meta</label>
+            <input type="number" min={1} max={150} id="meta" placeholder="Quantidade" />
+          </div>
+
+        </div>
+
+        <button type="submit">Cadastrar novo Item</button>
+
+      </form>
+
+    </div>
+
+
+
+  );
 }
 export default Item;
