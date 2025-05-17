@@ -6,9 +6,9 @@ function Item() {
   return (
     <div class="container">
 
-      <form>
+      <form id="form-item">
         <h3>ONG, você está precisando de qual item?</h3>
-        <h4 >Cadastre-o aqui.</h4>
+        <h4 >Adicione-o aqui</h4>
         <div class="input-box">
 
           <label for="desc-item">Descrição do item</label>
@@ -25,7 +25,7 @@ function Item() {
 
         </div>
 
-        <button type="submit">Cadastrar novo Item</button>
+        <button type="submit">Adicionar novo Iitem</button>
 
       </form>
 

@@ -313,8 +313,8 @@ h4, h3 {
   background-color: #f8f8f8;
   border: 2px solid #0074bd;
   padding: 40px;
-  height: 100px;
-  font-family: Helvetica, Arial, sans-serif;
+  height: 250px;
+  font-family: 'Roboto', sans-serif;
   width: 500px;
   max-width: 500px;
   border-radius: 10px;
@@ -520,6 +520,7 @@ textarea {
 input[type="number"] {
   padding: 10px;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
   border: 2px solid#b6b6b6;
   border-radius: 8px;
   outline: none;
@@ -527,7 +528,10 @@ input[type="number"] {
   width: 40%;
   height: 15px;
 }
+input[type="number"]::placeholder {
 
+  
+}
 #cep {
   width: 100%;
 }
@@ -657,6 +661,8 @@ button {
 
   color: rgb(255, 255, 255);
 
+  font-family: 'Roboto', sans-serif;
+
   margin-top: 5px;
 
   margin-bottom: 3px;
@@ -690,7 +696,7 @@ button {
 
 button:hover {
   color: #ffffff;
-
+  border-color: #0087db;
   background-color: #009dff;
   ;
 

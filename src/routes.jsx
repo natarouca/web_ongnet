@@ -8,6 +8,7 @@ import Quemsomos from './pages/Quemsomos/quemsomos'
 import Home_new from './pages/Home/home_new'
 import Crudong from './pages/Crudong/ongcrud'
 import Item from './pages/Item/item'
+import OngPerfil from "./pages/Ong/ongperfil"
 function RoutesApp() {
 
         return (
@@ -27,7 +28,7 @@ function RoutesApp() {
                                 <Route path="/quemsomos" element={<Quemsomos />} />
                                 <Route path="/cliente" element={<Cliente />} />
                                 <Route path="/item" element={<Item />} />
-
+                                <Route path="/ongperfil" element={<OngPerfil />} />
                                 </Route>
                         </Routes>
                 </BrowserRouter>
