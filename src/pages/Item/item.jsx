@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import '../css/style.css'
 
 
-function Item() {
+const Item = () => {
   return (
     <div class="container">
 
       <form>
         <h3>ONG, você está precisando de qual item?</h3>
-        <h4 >Cadastre-o aqui.</h4>
+        <h4 >Insira-o aqui.</h4>
         <div class="input-box">
 
           <label for="desc-item">Descrição do item</label>
@@ -25,7 +25,7 @@ function Item() {
 
         </div>
 
-        <button type="submit">Cadastrar novo Item</button>
+        <button type="submit">Adicionar um novo item</button>
 
       </form>
 
