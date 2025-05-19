@@ -4,13 +4,39 @@ import Imagem1 from '../img/images.png'
 
 
 function Home() {
+
+  const [search, setSearch] = useState("");
+  const ongs = [
+    {
+      id: 1,
+      titulo: "",
+      imagem: Imagem,
+      atividades: [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      id: 2,
+      titulo: "",
+      imagem: Imagem1,
+      atividades: [
+        "",
+        "",
+        ""
+      ]
+    },
+    
+  ];
   return (
     <div>
       <div className="search-container" style={{ textAlign: 'center', margin: '20px 0' }}>
         <input
           type="search"
           placeholder="Buscar ONGS..."
-          value=""
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           style={{
             padding: '10px',
             width: '500px',
@@ -23,9 +49,6 @@ function Home() {
       </div>
 
       <div className="gallery-container">
-
-
-
         <div class="gallery-item">
 
           <a href="/">
