@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import '../css/style.css'
-import Imagem from '../img/proa-color.jpg'
 import Imagem1 from '../img/images.png'
 
 
@@ -67,7 +66,7 @@ function Home() {
             </ul>
           </strong>
 
-          <button> Ver mais informações</button>
+          <button>Ver mais informações</button>
         </div>
 
 

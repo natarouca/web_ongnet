@@ -19,7 +19,7 @@ const Item = () => {
 
       <form id="form-item">
         <h3>ONG, você está precisando de qual item?</h3>
-        <h4 >Adicione-o aqui</h4>
+        <h4 >Insira-o aqui.</h4>
         <div class="input-box">
 
           <label for="desc-item">Descrição do item</label>
@@ -37,7 +37,7 @@ const Item = () => {
 
         </div>
 
-        <button type="submit">Adicionar novo Iitem</button>
+        <button type="submit">Adicionar um novo item</button>
 
       </form>
 

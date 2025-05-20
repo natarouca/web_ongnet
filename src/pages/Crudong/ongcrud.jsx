@@ -9,7 +9,8 @@ const Crudong = () => {
     cnpj: '00.000.000/0000-00',
     email: '',
     telefone: '',
-    atuacao: ''
+    atuacao: '',
+    site: ''
   });
 
   const handleChange = (e) => {
@@ -101,12 +102,12 @@ const Crudong = () => {
 
         <label htmlFor="email">Site</label>
         <input
-          name="email"
-          type="email"
-          placeholder="Atualizar E-mail"
-          value={formData.email}
+          name="text"
+          type="text"
+          placeholder="Atualizar URL"
+          value={formData.site}
           onChange={handleChange}
-          id="email"
+          id="site"
           size={100}
           maxLength={100}
           required
