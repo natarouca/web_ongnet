@@ -31,22 +31,20 @@ function OngPerfil() {
                 <div className="atividade-item">
                     <h4>Curso Plataforma Proa</h4>
                     <p>
-                        O Plataforma Proa é um curso online
-                        profissionalizante voltado para jovens
-                        que desejam conquistar a primeira experiência profissional.
+                    
                     </p>
                 </div>
                 <div className="atividade-item">
                     <h4>Curso PROA Profissão</h4>
-                    <p>O PROA Profissão é um curso semipresencial que prepara
-                        jovens que desejam ingressar na área
-                        de tecnologia e aprender
-                        linguagens de programação.</p>
+                    <p></p>
+                </div>
+
+                <div className="atividade-item">
+                    <h4>Curso PROA Profissão</h4>
+                    <p></p>
                 </div>
             </div>
 
-            <h4>Quer se tornar um aluno do Proa?</h4>
-            <p>Entre em contato com essa ONG: </p>
 
         </div>
 
