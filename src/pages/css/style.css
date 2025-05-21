@@ -11,8 +11,13 @@ header {
   justify-content: space-evenly;
   padding: 0 20px;
   height: 100px;
-  background-color: #006baf;
+  background-color: #00609c;
   color: white;
+}
+.error {
+  font-size: 12px;
+  color: #00609c;
+  max-width: 50px;
 }
 
 .metas {
@@ -296,7 +301,8 @@ h4, h3 {
   outline: none;
   padding: 60px;
   padding-bottom: 5px;
-  height: 700px;
+  max-height: 800px;
+  height: 800px;
   font-family: Helvetica, Arial, sans-serif;
   width: 400px;
   max-width: 400px;
@@ -527,10 +533,6 @@ input[type="number"] {
   margin-bottom: 10px;
   width: 40%;
   height: 15px;
-}
-input[type="number"]::placeholder {
-
-  
 }
 #cep {
   width: 100%;

@@ -1,38 +1,55 @@
 import React, { useState } from "react";
 import '../css/style.css'
 
+const validarDesc =() => {
+  var desc = document.getElementById("desc-item");
+  if (!desc.value) {
+    console.log("O nome é obrigatório");
+    desc.focus();
+    return false;
+  }
+  return true;
+}
+const validarQntd = () => {
+  var qntd = document.getElementById("meta");
 
+  if (qntd.value === null || qntd.value === "") {
+    console.log ("Informar a quantidade é obrigatório");
+    qntd.focus();
+    return false;
+  }
+  return true;
+}
 const Item = () => {
-  const [vdesc, setDesc] = ('');
-  const [vqntd, setQntd] = ('');
+  const [vdesc, setDesc] = useState('');
+  const [vqntd, setQntd] = useState('');
 
-  const validateForm = () => {
+  const validateForm = (e) => {
     e.preventDefault();
-    const desc = document.getElementById('desc-item');
-    const qntd = document.getElementById('qntd')
-    if (desc === null || "") {
-      
+    if (validarDesc() && validarQntd()) {
+      console.log("Formulário validado.");
     }
   }
   return (
     <div class="container">
 
-      <form id="form-item">
+    <form onSubmit={validateForm} id="form-item">
         <h3>ONG, você está precisando de qual item?</h3>
         <h4 >Insira-o aqui.</h4>
         <div class="input-box">
 
-          <label for="desc-item">Descrição do item</label>
-          <input name="desc-item" type="text" onChange={(e) => setDesc(e.target.value)} size={15}maxlength={15} id="desc-item"
-          value={vdesc}
-            placeholder="Ex. Arroz, roupas, cobertores..." rows="3" />
+          <label htmlForfor="desc-item">Descrição do item</label>
+          <input name="desc-item" type="text" onChange={(e) => setDesc(e.target.value)} maxLength={15} id="desc-item"
+            value={vdesc}
+            placeholder="Ex. Arroz, roupas, cobertores..." />
         </div>
+        
 
         <div class="input-row">
 
           <div class="input-box">
-            <label for="meta">Meta</label>
-            <input name="qntd-item" type="number" min={1} max={150} onChange={(e) => setQntd(e.target.value)}  value={vqntd} id="meta" placeholder="Quantidade" />
+            <label htmlFor="meta">Meta</label>
+            <input name="meta" type="number" min={1} max={150} onChange={(e) => setQntd(e.target.value)} value={vqntd} id="meta" placeholder="Quantidade" />
           </div>
 
         </div>

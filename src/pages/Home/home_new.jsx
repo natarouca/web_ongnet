@@ -6,29 +6,7 @@ import Imagem1 from '../img/images.png'
 function Home() {
 
   const [search, setSearch] = useState("");
-  const ongs = [
-    {
-      id: 1,
-      titulo: "",
-      imagem: Imagem,
-      atividades: [
-        "",
-        "",
-        ""
-      ]
-    },
-    {
-      id: 2,
-      titulo: "",
-      imagem: Imagem1,
-      atividades: [
-        "",
-        "",
-        ""
-      ]
-    },
-    
-  ];
+
   return (
     <div>
       <div className="search-container" style={{ textAlign: 'center', margin: '20px 0' }}>

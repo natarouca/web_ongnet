@@ -48,8 +48,12 @@ const Ong = () => {
     }
   };
 
+
   const validateForm = () => {
     const newErrors = {};
+
+    const name = document.querySelector("name"); //armazenando o input;
+    const nameValue = name.value; //armazenando o valor do input (value);
 
     if (!vnome) newErrors.nome = "O nome da organização é obrigatório";
     if (!vcep) newErrors.cep = "O CEP é obrigatório";
@@ -59,16 +63,18 @@ const Ong = () => {
     if (!vcnpj) newErrors.cnpj = "O CNPJ é obrigatório";
     if (!vsenha) newErrors.senha = "A senha é obrigatória";
 
-    if (vnome && !/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(vnome)) {
+    const stringRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+    if (vnome && !stringRegex.test(vnome)) {
       newErrors.nome = "O nome deve conter apenas letras e espaços.";
     }
-    if (vresp && !/^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(vresp)) {
+    if (vresp && !stringRegex.test(vresp)) {
       newErrors.resp = "O nome do responsável deve conter apenas letras e espaços.";
     }
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (vemail && !emailRegex.test(vemail)) {
-      newErrors.email = "Por favor, insira um e-mail válido";
+      newErrors.email = "Insira um e-mail válido";
     }
+
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -87,6 +93,7 @@ const Ong = () => {
             <input
               type="text"
               id="ongName"
+              name="nome"
               size={100}
               maxLength={100}
               value={vnome}
@@ -102,6 +109,7 @@ const Ong = () => {
             <input
               type="text"
               id="resp"
+              name=""
               size={100}
               maxLength={100}
               value={vresp}
@@ -117,6 +125,7 @@ const Ong = () => {
             <input
               id="cnpj"
               type="text"
+              name=""
               size={14}
               maxLength={14}
               value={vcnpj}
@@ -132,6 +141,7 @@ const Ong = () => {
             <input
               id="cep"
               type="text"
+              name=""
               size={8}
               maxLength={8}
               value={vcep}
@@ -147,6 +157,7 @@ const Ong = () => {
             <input
               type="text"
               id="nmResidencia"
+              name=""
               size={4}
               maxLength={4}
               value={vnumero}
@@ -163,6 +174,7 @@ const Ong = () => {
               type="tel"
               id="tel"
               size={13}
+              name=""
               maxLength={13}
               value={vtelefone}
               placeholder="(00) 00 00000-0000"
@@ -178,6 +190,7 @@ const Ong = () => {
               type="text"
               id="email"
               size={100}
+              name=""
               maxLength={100}
               value={vemail}
               placeholder="Endereço de e-mail"
