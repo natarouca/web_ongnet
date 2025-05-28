@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/style.css";
 import api from "../../services/api";
 import axios from "axios";
-
+import Logo from '../img/ongnet-logo.png';
 const Ong = () => {
   const [vongs, setOngs] = useState([]);
   const [vnome, setNome] = useState('');
@@ -30,7 +30,7 @@ const Ong = () => {
       return;
     }
     try {
-      const response = await api.post("http://localhost:8080/ongs", {
+      const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
         email: vemail,
         cep: vcep,
@@ -52,73 +52,106 @@ const Ong = () => {
   const validateForm = () => {
     const newErrors = {};
 
-    const name = document.querySelector("name"); //armazenando o input;
-    const nameValue = name.value; //armazenando o valor do input (value);
+    const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const regexTelefone = /^\(\d{2}\)\s?(9\d{4}|\d{4})-\d{4}$/;
 
-    if (!vnome) newErrors.nome = "O nome da organização é obrigatório";
-    if (!vcep) newErrors.cep = "O CEP é obrigatório";
-    if (!vresp) newErrors.resp = "O nome do responsável é obrigatório";
-    if (!vnumero) newErrors.numero = "O número residencial é obrigatório";
-    if (!vtelefone) newErrors.telefone = "O telefone é obrigatório";
-    if (!vcnpj) newErrors.cnpj = "O CNPJ é obrigatório";
-    if (!vsenha) newErrors.senha = "A senha é obrigatória";
-
-    const stringRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
-    if (vnome && !stringRegex.test(vnome)) {
+    //Nome da ONG
+    if (!vnome.trim()) {
+      newErrors.nome = "O nome da organização é obrigatório";
+    } else if (!regexName.test(vnome)) {
       newErrors.nome = "O nome deve conter apenas letras e espaços.";
     }
-    if (vresp && !stringRegex.test(vresp)) {
+
+    //Representante
+    if (!vresp.trim()) {
+      newErrors.resp = "O nome do responsável é obrigatório";
+    } else if (!regexName.test(vresp)) {
       newErrors.resp = "O nome do responsável deve conter apenas letras e espaços.";
     }
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (vemail && !emailRegex.test(vemail)) {
-      newErrors.email = "Insira um e-mail válido";
+
+    //Email
+    if (!vemail.trim()) {
+      newErrors.email = "O e-mail é obrigatório";
+    } else if (!regexEmail.test(vemail.trim())) {
+      newErrors.email = "Por favor, insira um e-mail válido";
     }
 
 
+    if (!vtelefone.trim()) {
+      newErrors.telefone = "O telefone é obrigatório";
+    } else if (!regexTelefone.test(vtelefone.trim())) {
+      newErrors.telefone = "Insira um telefone válido";
+    }
+
+    // CEP
+    //precisa de validação/máscara
+    if (!vcep.trim()) {
+      newErrors.cep = "O CEP é obrigatório";
+    }
+
+    // Número residencial
+    //precisa de validação
+    if (!vnumero.trim()) {
+      newErrors.numero = "O número residencial é obrigatório";
+    }
+
+    // CNPJ
+    //precisa de validação/máscara
+    if (!vcnpj.trim()) {
+      newErrors.cnpj = "O CNPJ é obrigatório";
+    }
+
+    // Senha
+    if (!vsenha.trim()) {
+      newErrors.senha = "A senha é obrigatória";
+    }
+
+    //Confirmação de senha
+    if (!vconfirmaSenha.trim()) { //remove espaços extras e
+      newErrors.confirmaSenha = "Confirme sua senha";
+    } else if (vsenha !== vconfirmaSenha) {
+      newErrors.confirmaSenha = "As senhas não coincidem";
+    }
+
+    //Atualiza estado com os erros
     setErrors(newErrors);
+
+    //Retorna se o formulário é válido
     return Object.keys(newErrors).length === 0;
   };
 
   return (
     <div className="app-container">
+
+      <div className="container-box">
+        <h2>Onde iniciativas sociais encontram apoio e visibilidade.</h2>
+        <p>#TransformaComOngNet</p>
+      </div>
       <form className="form-ong" onSubmit={handleSubmit}>
         <div className="main-content">
-          <h3 style={{ margin: 15 }}>Bem-vinda, ONG</h3>
+          {/* <div className="titulo-cadastro">
+            <h3>Bem-vinda, ONG</h3>
+          </div> */}
+
         </div>
 
         <div className="input-group">
           <div className="input-box">
-            <label htmlFor="ongName">Nome da ONG</label>
+            <label htmlFor="ongName">Nome da Instituição</label>
             <input
               type="text"
-              id="ongName"
+              id="name"
               name="nome"
               size={100}
               maxLength={100}
               value={vnome}
               placeholder="Nome da Instituição não-governamental"
               onChange={(e) => setNome(e.target.value)}
-              required
             />
             {errors.nome && <span className="error">{errors.nome}</span>}
           </div>
 
-          <div className="input-box">
-            <label htmlFor="resp">Representante da ONG</label>
-            <input
-              type="text"
-              id="resp"
-              name=""
-              size={100}
-              maxLength={100}
-              value={vresp}
-              placeholder="Nome do Representante"
-              onChange={(e) => setResp(e.target.value)}
-              required
-            />
-            {errors.resp && <span className="error">{errors.resp}</span>}
-          </div>
 
           <div className="input-box">
             <label htmlFor="cnpj">CNPJ</label>
@@ -131,9 +164,25 @@ const Ong = () => {
               value={vcnpj}
               placeholder="Cadastro Nacional de Pessoa Jurídica"
               onChange={(e) => setCnpj(e.target.value)}
-              required
+
             />
             {errors.cnpj && <span className="error">{errors.cnpj}</span>}
+          </div>
+
+          <div className="input-box">
+            <label htmlFor="resp">Representante da ONG</label>
+            <input
+              type="text"
+              id="resp"
+              name="resp"
+              size={100}
+              maxLength={100}
+              value={vresp}
+              placeholder="Nome do Representante"
+              onChange={(e) => setResp(e.target.value)}
+
+            />
+            {errors.resp && <span className="error">{errors.resp}</span>}
           </div>
 
           <div className="input-box">
@@ -147,13 +196,12 @@ const Ong = () => {
               value={vcep}
               placeholder="Código de Endereçamento Postal"
               onChange={(e) => setCep(e.target.value)}
-              required
             />
             {errors.cep && <span className="error">{errors.cep}</span>}
           </div>
 
           <div className="input-box">
-            <label htmlFor="nmResidencia">Nº da Residência</label>
+            <label htmlFor="nmResidencia">Número de Residência</label>
             <input
               type="text"
               id="nmResidencia"
@@ -161,9 +209,9 @@ const Ong = () => {
               size={4}
               maxLength={4}
               value={vnumero}
-              placeholder="Número da Residência"
+              placeholder="Número de Residência"
               onChange={(e) => setNumero(e.target.value)}
-              required
+
             />
             {errors.numero && <span className="error">{errors.numero}</span>}
           </div>
@@ -179,7 +227,7 @@ const Ong = () => {
               value={vtelefone}
               placeholder="(00) 00 00000-0000"
               onChange={(e) => setTelefone(e.target.value)}
-              required
+
             />
             {errors.telefone && <span className="error">{errors.telefone}</span>}
           </div>
@@ -195,7 +243,7 @@ const Ong = () => {
               value={vemail}
               placeholder="Endereço de e-mail"
               onChange={(e) => setEmail(e.target.value)}
-              required
+
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
@@ -211,12 +259,12 @@ const Ong = () => {
               value={vsenha}
               placeholder="Crie uma senha"
               onChange={(e) => setSenha(e.target.value)}
-              required
+
             />
             {errors.senha && <span className="error">{errors.senha}</span>}
           </div>
 
-            <div className="input-box">
+          <div className="input-box">
             <label htmlFor="password">Confirme a senha</label>
             <input
               type="password"
@@ -224,23 +272,30 @@ const Ong = () => {
               name="confirmaSenha"
               size={10}
               maxLength={10}
-              value={vsenha}
+              value={vconfirmaSenha}
               placeholder="Confirme a senha"
-              onChange={(e) => setSenha(e.target.value)}
-              required
+              onChange={(e) => setConfirmaSenha(e.target.value)}
+              style={{ marginTop: 0 }}
             />
-            {errors.confirmaSenha && <span className="error">{errors.confirmaSenha}</span>}
+            <span className="error">{errors.confirmaSenha}</span>
           </div>
         </div>
-
-        <div className="form-group">
-          <br />
+        <div className="button">
           <button type="submit">Enviar</button>
         </div>
 
+        <div className="link-register">
+          <span style={{
+            fontSize: 13,
+            color: "#006d55",
+            fontWeight: "normal"
+          }}><a href="/loginong">Já possuo cadastro</a>
+          </span>
+        </div>
+        {/* 
         <div className="main-content">
           <h3 style={{ fontSize: 15, marginTop: 3 }}>Ongs Cadastradas</h3>
-        </div>
+        </div> */}
 
         <ul>
           {vongs.map((ong) => (

@@ -44,7 +44,7 @@ function Home() {
             </ul>
           </strong>
 
-          <button>Ver mais informações</button>
+          <button><a style={{textDecoration:0, color:"white"}} href="/ongperfil">Ver mais informações</a></button>
         </div>
 
 
