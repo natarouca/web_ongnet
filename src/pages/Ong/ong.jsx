@@ -114,7 +114,16 @@ const Ong = () => {
       newErrors.confirmaSenha = "As senhas não coincidem";
     }
 
-    //Atualiza estado com os erros
+    setNome('');
+    setResp('');
+    setCnpj('');
+    setEmail('');
+    setCep('');
+    setEmail('');
+    setSenha('');
+    setConfirmaSenha('');
+    setTelefone('');
+ 
     setErrors(newErrors);
 
     //Retorna se o formulário é válido
@@ -130,9 +139,9 @@ const Ong = () => {
       </div>
       <form className="form-ong" onSubmit={handleSubmit}>
         <div className="main-content">
-          {/* <div className="titulo-cadastro">
+     <div className="titulo-cadastro">
             <h3>Bem-vinda, ONG</h3>
-          </div> */}
+          </div> 
 
         </div>
 

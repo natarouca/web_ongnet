@@ -1,117 +1,96 @@
 import React, { useState } from "react";
-import '../css/style.css'
-
-const validarDesc = () => {
-  var desc = document.getElementById("desc-item");
-  if (!desc.value) {
-    console.log("O nome é obrigatório");
-    desc.focus();
-    return false;
-  }
-  return true;
-}
-const validarQntd = () => {
-  var qntd = document.getElementById("meta");
-
-  if (qntd.value === null || qntd.value === "") {
-    console.log("Informar a quantidade é obrigatório");
-    qntd.focus();
-    return false;
-  }
-  return true;
-}
+import '../css/style.css';
+import '../css/cadastrodeitem.css'
+import '../css/listaitens.css'
 const Item = () => {
-  const [vdesc, setDesc] = useState('');
-  const [vqntd, setQntd] = useState('');
+  const [desc, setDesc] = useState('');
+  const [qntd, setQntd] = useState('');
+  const [errors, setErrors] = useState({});
+
 
   const validateForm = (e) => {
     e.preventDefault();
-    if (validarDesc() && validarQntd()) {
-      console.log("Formulário validado.");
+    let newErrors = {};
+    const regexDesc = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+    if (!desc.trim()) {
+      newErrors.desc = "A descrição do item é obrigatória.";
+    } else if (!regexDesc.test(desc)) {
+      newErrors.desc = "Esse campo aceita somente letras e espaços."
     }
-  }
-  return (
-    <div class="container-cadastro-item">
+    const numeroQntd = Number(qntd);
+    if (!qntd || qntd <= 0) {
+      newErrors.qntd = "Informar a quantidade é obrigatório.";
+    }
+    
+    else if (numeroQntd > 150) {
+      newErrors.qntd = "Quantidade excedida.";
+    }
+    setErrors(newErrors);
 
+    if (Object.keys(newErrors).length === 0) {
+      console.log("Formulário validado.");
+      setDesc('');
+      setQntd('');
+      newErrors('');
+    }
+  };
+
+  return (
+    <div className="container-cadastro-item">
       <form onSubmit={validateForm} id="form-item">
+
         <div className="titulo-item">
           <h2>ONG, qual item você precisa?</h2>
           <p>Adicione-o aqui</p>
         </div>
 
-        <div class="input-box-item">
-
-          <label htmlForfor="desc-item">Descrição</label>
-          <input name="desc-item" type="text" onChange={(e) => setDesc(e.target.value)} maxLength={15} id="desc-item"
-            value={vdesc}
-            placeholder="Ex. Alimentos, roupas, cobertores..." />
+        <div className="input-box-item">
+          <label htmlFor="desc-item">Descrição</label>
+          <input
+            type="text"
+            id="desc-item"
+            maxLength={50}
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            placeholder="Ex. Alimentos, roupas, cobertores..."
+          />
+          {errors.desc && <span className="error">{errors.desc}</span>}
         </div>
 
+        <div className="input-box-item">
+          <label htmlFor="meta">Meta</label>
+          <input
+            type="number"
+            id="meta"
+            min={1}
+            max={150}
+            value={qntd}
+            onChange={(e) => setQntd(e.target.value)}
+            placeholder="Quantidade necessária"
+          />
+          {errors.qntd && <span className="error">{errors.qntd}</span>}
+        </div>
 
-
-          <div class="input-box-item">
-            <label htmlFor="meta">Meta</label>
-            <input name="meta" type="number" min={1} max={150} onChange={(e) => setQntd(e.target.value)} value={vqntd} id="meta" placeholder="Quantidade necessária" />
-          </div>
-
-          <div className="button-item">
+        <div className="button-item">
           <button type="submit">Adicionar item</button>
-          </div>
-       
-
+        </div>
       </form>
 
-
-      <div class="lista-cadastro-item">
-
+      <div className="lista-cadastro-item">
         <ul id="lista-itens">
-
-          <li>Item 1
-
-            <div class="button-lista">
-
-              <button id="editar-button">Editar</button>
-
-              <button id="excluir-button">Excluir</button>
-
-            </div>
-
-          </li>
-
-          <li>Item 2
-
-            <div class="button-lista">
-
-              <button id="editar-button">Editar</button>
-
-              <button id="excluir-button">Excluir</button>
-
-            </div>
-
-          </li>
-
-          <li>Item 3
-
-            <div class="button-lista">
-
-              <button id="editar-button">Editar</button>
-
-              <button id="excluir-button">Excluir</button>
-
-            </div>
-
-          </li>
-
+          {["Item 1", "Item 2", "Item 3"].map((item, index) => (
+            <li key={index}>
+              {item}
+              <div className="button-lista">
+                <button>Editar</button>
+                <button>Excluir</button>
+              </div>
+            </li>
+          ))}
         </ul>
-
       </div>
-
-
-
     </div>
-
-
-
   );
-}
+};
+
 export default Item;
