@@ -15,14 +15,7 @@ function Home() {
           placeholder="Buscar ONGS..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: '10px',
-            width: '500px',
-            borderRadius: '10px',
-            border: '2px solid #006baf',
-            fontSize: '16px',
-            outline: 'none'
-          }}
+         
         />
       </div>
 

@@ -1,13 +1,12 @@
 /* Header */
 * {
   font-family: 'Open Sans', sans-serif;
-
+  margin: 0px;
 }
 
 
-
 header {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -456,7 +455,7 @@ nav {
   margin-right: 40px;
   padding: 45px;
   transition: 0.1s;
-  background-color: rgb(240, 255, 253);
+  background-color: rgb(246, 255, 254);
   border: 1px solid #006d55;
   cursor: pointer;
   border-radius: 9px;
@@ -791,21 +790,24 @@ textarea {
   /* Aumenta o tamanho da div de consulta */
 }
 
-#search {
-  display: block;
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-container input {
   padding: 10px;
+  width: 500px;
+  border-radius: 10px;
+  border: 1px solid rgb(0, 109, 85);
+  font-size: 16px;
   width: 50%;
-  margin: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  border: 2px solid #888888;
-  border-radius: 5px;
+  outline: none;
 }
-
-#search:hover {
-  border: 2px solid #00367c;
+.search-container input::placeholder{
+  font-weight: normal;
 }
-
 span {
   color: #006baf;
   font-weight: bolder;
@@ -814,7 +816,7 @@ span {
 
 #img-gallery-item {
 
-  width: 100px;
+  width: 50px;
   border-radius: 90px;
   border: 1px solid black;
   margin-top: 0px;
@@ -879,9 +881,8 @@ li {
   border-radius: 5px;
   padding: 3px;
 
-  border: 2px solid rgb(106, 146, 206);
-  background-color: #d4eaff;
-
+  border: 1px solid rgb(0, 109, 85);
+  background-color: #dffff4;
 
   margin-bottom: 10px;
 

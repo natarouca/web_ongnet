@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/style.css";
 import api from "../../services/api";
 import axios from "axios";
-import Logo from '../img/ongnet-logo.png';
+import InputMask from "react-input-mask";
 const Ong = () => {
   const [vongs, setOngs] = useState([]);
   const [vnome, setNome] = useState('');
@@ -27,7 +27,7 @@ const Ong = () => {
 
     if (!validateForm()) {
       console.warn("Formulário inválido.")
-      return;
+      return true;
     }
     try {
       const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
@@ -47,89 +47,96 @@ const Ong = () => {
       console.log(error);
     }
 
-
   };
 
 
   const validateForm = () => {
-    const newErrors = {};
-
+    let newErrors = {}; // Criar um novo objeto de erros
+    const regexNumero = /^\d+$/;
     const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const regexTelefone = /^\(\d{2}\)\s?(9\d{4}|\d{4})-\d{4}$/;
+    const regexCnpj = /^\d{14}$/;
+    const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
 
-    //Nome da ONG
+    // Nome da ONG
     if (!vnome.trim()) {
-      newErrors.nome = "O nome da organização é obrigatório";
+      newErrors.nome = "O nome da organização é obrigatório.";
     } else if (!regexName.test(vnome)) {
       newErrors.nome = "O nome deve conter apenas letras e espaços.";
+    } else if (vnome.trim().length < 5) {
+      newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
     }
 
-    //Representante
+    // Representante
     if (!vresp.trim()) {
-      newErrors.resp = "O nome do responsável é obrigatório";
+      newErrors.resp = "O nome do responsável é obrigatório.";
     } else if (!regexName.test(vresp)) {
       newErrors.resp = "O nome do responsável deve conter apenas letras e espaços.";
     }
 
-    //Email
+    // Email
     if (!vemail.trim()) {
-      newErrors.email = "O e-mail é obrigatório";
+      newErrors.email = "O e-mail é obrigatório.";
     } else if (!regexEmail.test(vemail.trim())) {
-      newErrors.email = "Por favor, insira um e-mail válido";
+      newErrors.email = "Por favor, insira um e-mail válido.";
     }
 
-
+    // Telefone
     if (!vtelefone.trim()) {
-      newErrors.telefone = "O telefone é obrigatório";
+      newErrors.telefone = "O telefone é obrigatório.";
     } else if (!regexTelefone.test(vtelefone.trim())) {
-      newErrors.telefone = "Insira um telefone válido";
+      newErrors.telefone = "Insira um telefone válido.";
     }
 
-    // CEP
-    //precisa de validação/máscara
     if (!vcep.trim()) {
-      newErrors.cep = "O CEP é obrigatório";
+      newErrors.cep = "O cep é obrigatório.";
+    } else if (!regexNumero.test(vcep.trim())) {
+      newErrors.cep = "Este campo só aceita números.";
     }
-
-    // Número residencial
-    //precisa de validação
     if (!vnumero.trim()) {
-      newErrors.numero = "O número residencial é obrigatório";
+      newErrors.numero = "O número de residência é obrigatório."
+    } else if (!regexNumero.test(vnumero.trim())) {
+      newErrors.numero = "Ops! Este campo só aceita números."
     }
-
     // CNPJ
-    //precisa de validação/máscara
     if (!vcnpj.trim()) {
-      newErrors.cnpj = "O CNPJ é obrigatório";
+      newErrors.cnpj = "O CNPJ é obrigatório.";
+    } else if (!regexCnpj.test(vcnpj.trim())) {
+      newErrors.cnpj = "Ops! Este campo aceita somente números."
     }
 
     // Senha
     if (!vsenha.trim()) {
-      newErrors.senha = "A senha é obrigatória";
+      newErrors.senha = "A senha é obrigatória.";
     }
 
-    //Confirmação de senha
-    if (!vconfirmaSenha.trim()) { //remove espaços extras e
-      newErrors.confirmaSenha = "Confirme sua senha";
+    // Confirmação de senha
+    if (!vconfirmaSenha.trim()) {
+      newErrors.confirmaSenha = "Confirme sua senha.";
     } else if (vsenha !== vconfirmaSenha) {
-      newErrors.confirmaSenha = "As senhas não coincidem";
+      newErrors.confirmaSenha = "As senhas não coincidem.";
+    }
+    setErrors(newErrors); // Atualiza corretamente os erros
+
+    console.log("Erros encontrados:", newErrors);
+
+    // Se houver erros, NÃO reseta os campos
+    if (Object.keys(newErrors).length > 0) {
+      return false;
     }
 
+    // Só reseta os campos se não houver erro
     setNome('');
     setResp('');
     setCnpj('');
     setEmail('');
+    setNumero('');
     setCep('');
-    setEmail('');
     setSenha('');
     setConfirmaSenha('');
     setTelefone('');
- 
-    setErrors(newErrors);
 
-    //Retorna se o formulário é válido
-    return Object.keys(newErrors).length === 0;
+    return true;
   };
 
   return (
@@ -139,11 +146,11 @@ const Ong = () => {
         <h2>Onde iniciativas sociais encontram apoio e visibilidade.</h2>
         <p>#TransformaComOngNet</p>
       </div>
-      <form className="form-ong" onSubmit={handleSubmit} method="post">
+      <form onSubmit={handleSubmit} className="form-ong" method="post">
         <div className="main-content">
-     <div className="titulo-cadastro">
+          <div className="titulo-cadastro">
             <h3>Bem-vinda, ONG</h3>
-          </div> 
+          </div>
 
         </div>
 
@@ -166,16 +173,14 @@ const Ong = () => {
 
           <div className="input-box">
             <label htmlFor="cnpj">CNPJ</label>
-            <input
+            <InputMask
+              mask={"99.999.999/9999-99"}
               id="cnpj"
               type="text"
-              name=""
-              size={14}
-              maxLength={14}
+              name="cnpj"
               value={vcnpj}
               placeholder="Cadastro Nacional de Pessoa Jurídica"
               onChange={(e) => setCnpj(e.target.value)}
-
             />
             {errors.cnpj && <span className="error">{errors.cnpj}</span>}
           </div>
@@ -198,7 +203,8 @@ const Ong = () => {
 
           <div className="input-box">
             <label htmlFor="cep">CEP</label>
-            <input
+            <InputMask
+              mask={"99999-999"}
               id="cep"
               type="text"
               name=""
@@ -229,14 +235,15 @@ const Ong = () => {
 
           <div className="input-box">
             <label htmlFor="tel">Telefone</label>
-            <input
+            <InputMask
+            mask={"(99) 9999-9999"}
               type="tel"
               id="tel"
               size={13}
-              name=""
+              name="tel"
               maxLength={13}
               value={vtelefone}
-              placeholder="(00) 00 00000-0000"
+              placeholder="Número de telefone fixo"
               onChange={(e) => setTelefone(e.target.value)}
 
             />

@@ -4,7 +4,6 @@ import '../css/style.css'
 function Admin() {
     return (
 
-
         <div class="gallery-item">
 
             <a href="/">
