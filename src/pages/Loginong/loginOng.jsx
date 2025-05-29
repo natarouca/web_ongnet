@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import '../css/style.css'
+import '../css/login.css'
 // import { useState } from "react";
 
 
@@ -34,28 +34,33 @@ const Loginong = () => {
     return (
 
         <div className="container-login">
-
-            <form onSubmit={handleSubmit}>
-
-            <span className="span-login">
-                <strong>Bem-vindo a ONGNET</strong>
-                </span>
+        <div className="container-box-login">
+            
+        </div>
+            <form id="form-login" onSubmit={handleSubmit}>
+                <div className="titulo-login">
+                    <h2>Bem-vinda de volta, ONG</h2>
+                    <p>Preencha as informações de Lgin</p>
+                </div>
                 <div className="box-login">
-                <label htmlFor="cnpj">CNPJ</label>
-                <input type="email" id="cnpj" placeholder="Digite um email" value={email} onChange={(e) => setEmail(e.target.value)} />
-
-                <label htmlFor="senha">Senha</label>
-                <input type="password" id="senha" placeholder="Digite uma senha" value={password} onChange={(e) => setSenha(e.target.value)} />
+                    <label htmlFor="cnpj">CNPJ</label>
+                    <input type="email" id="cnpj" placeholder="Digite o CNPJ" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
-                <a href="/"><span>Esqueceu a senha?</span></a>
-                <div className="form-group">
+                
+                <div className="box-login">
+                    <label htmlFor="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Digite a senha" value={password} onChange={(e) => setSenha(e.target.value)} />
+                    <div className="esqueceu-senha">
+                        <a href="/">
+                            <p className="register-esqueceu-senha">Esqueceu a senha?</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div className="button-login">
                     <br />
-                   <a href="/ongcrud"><button type="submit">Entrar</button></a> 
+                    <a href="/ongcrud"><button id="button-login" type="submit">Entrar</button></a>
                 </div>
-
-                {/* 
-            exibe mensagem de erro se houver */}
-                {error && <p className="error-mesage">{error}</p>}
 
             </form>
 

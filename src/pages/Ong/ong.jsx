@@ -46,6 +46,8 @@ const Ong = () => {
     } catch (error) {
       console.log(error);
     }
+
+
   };
 
 
@@ -137,7 +139,7 @@ const Ong = () => {
         <h2>Onde iniciativas sociais encontram apoio e visibilidade.</h2>
         <p>#TransformaComOngNet</p>
       </div>
-      <form className="form-ong" onSubmit={handleSubmit}>
+      <form className="form-ong" onSubmit={handleSubmit} method="post">
         <div className="main-content">
      <div className="titulo-cadastro">
             <h3>Bem-vinda, ONG</h3>

@@ -7,7 +7,6 @@ const Item = () => {
   const [qntd, setQntd] = useState('');
   const [errors, setErrors] = useState({});
 
-
   const validateForm = (e) => {
     e.preventDefault();
     let newErrors = {};
@@ -21,7 +20,6 @@ const Item = () => {
     if (!qntd || qntd <= 0) {
       newErrors.qntd = "Informar a quantidade é obrigatório.";
     }
-    
     else if (numeroQntd > 150) {
       newErrors.qntd = "Quantidade excedida.";
     }
