@@ -42,6 +42,27 @@ const Item = () => {
           <p>Adicione-o aqui</p>
         </div>
 
+        
+        <div className="input-box-categoria">
+
+
+          <div className="input-categoria">
+
+            <label htmlFor="alimento">Alimento</label>
+          <input
+            type="radio"
+            id="alimento"
+            maxLength={50}
+            value="Alimento"
+          />
+          </div>
+
+          {errors.desc && <span className="error">{errors.desc}</span>}
+
+
+        </div>
+
+
         <div className="input-box-item">
           <label htmlFor="desc-item">Descrição</label>
           <input
