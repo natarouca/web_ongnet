@@ -1,7 +1,10 @@
+.container
+
+
 .container-cadastro-item {
     display: flex;
     background-color: white;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     min-height: 80vh;
     padding: 30px;
@@ -88,4 +91,5 @@
 
 .input-box-categoria {
     display: flex;
+    flex-direction: row;
 }

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import '../css/style.css';
 import '../css/cadastrodeitem.css'
 import '../css/listaitens.css'
+import '../css/categoria.css'
 const Item = () => {
   const [desc, setDesc] = useState('');
   const [qntd, setQntd] = useState('');
@@ -34,68 +35,81 @@ const Item = () => {
   };
 
   return (
-    <div className="container-cadastro-item">
-      <form onSubmit={validateForm} id="form-item">
+    <div className="container-cadastro-lista">
 
-        <div className="titulo-item">
-          <h2>ONG, qual item você precisa?</h2>
-          <p>Adicione-o aqui</p>
-        </div>
+      <div className="categoria">
+        <ul className="categoria-box">
+          <li>Alimentício</li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul className="categoria-box">
+          <li>Higiene</li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul className="categoria-box">
+          <li>Vestimenta</li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ul className="categoria-box">
+          <li>Outros</li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
 
-        
-        <div className="input-box-categoria">
+      <div className="container-cadastro-item">
+        <form onSubmit={validateForm} id="form-item">
 
-
-          <div className="input-categoria">
-
-            <label htmlFor="alimento">Alimento</label>
-          <input
-            type="radio"
-            id="alimento"
-            maxLength={50}
-            value="Alimento"
-          />
+          <div className="titulo-item">
+            <h2>ONG, qual item você precisa?</h2>
+            <p>Adicione-o aqui</p>
           </div>
 
-          {errors.desc && <span className="error">{errors.desc}</span>}
+          <div className="input-box-item">
+            <label htmlFor="desc-item">Descrição</label>
+            <input
+              type="text"
+              id="desc-item"
+              maxLength={50}
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              placeholder="Ex. Alimentos, roupas, cobertores..."
+            />
+            {errors.desc && <span className="error">{errors.desc}</span>}
+          </div>
+
+          <div className="input-box-item">
+            <label htmlFor="meta">Meta</label>
+            <input
+              type="number"
+              id="meta"
+              min={1}
+              max={150}
+              value={qntd}
+              onChange={(e) => setQntd(e.target.value)}
+              placeholder="Quantidade necessária"
+            />
+            {errors.qntd && <span className="error">{errors.qntd}</span>}
+          </div>
+
+          <div className="button-item">
+            <button type="submit">Adicionar item</button>
+          </div>
+        </form>
 
 
-        </div>
-
-
-        <div className="input-box-item">
-          <label htmlFor="desc-item">Descrição</label>
-          <input
-            type="text"
-            id="desc-item"
-            maxLength={50}
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-            placeholder="Ex. Alimentos, roupas, cobertores..."
-          />
-          {errors.desc && <span className="error">{errors.desc}</span>}
-        </div>
-
-        <div className="input-box-item">
-          <label htmlFor="meta">Meta</label>
-          <input
-            type="number"
-            id="meta"
-            min={1}
-            max={150}
-            value={qntd}
-            onChange={(e) => setQntd(e.target.value)}
-            placeholder="Quantidade necessária"
-          />
-          {errors.qntd && <span className="error">{errors.qntd}</span>}
-        </div>
-
-        <div className="button-item">
-          <button type="submit">Adicionar item</button>
-        </div>
-      </form>
-
-      <div className="lista-cadastro-item">
+        <div className="lista-cadastro-item">
         <ul id="lista-itens">
           {["Item 1", "Item 2", "Item 3"].map((item, index) => (
             <li key={index}>
@@ -107,6 +121,8 @@ const Item = () => {
             </li>
           ))}
         </ul>
+      </div> 
+
       </div>
     </div>
   );
