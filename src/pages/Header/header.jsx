@@ -7,16 +7,23 @@ function Header() {
     return (
         <header>
             <nav>
-                <li className='link-nav'><a href="/loginOng" className='abas'>Sou ONG </a></li>
-                <li className='link-nav'><a href="/ongperfil" className='abas'>Perfil</a></li>
-                <li className='link-nav'><a href="/ong" className='abas'>Cadastre-se</a></li>
-                <li className='link-nav'><a href="/itemCrud" className='abas'>Item</a></li>
-              <div className='logo'>
-                    <a href="/home_new"> <img id='logo-ongnet' style={{ width: 200 }} src={Logo} alt="Logo" title='Ongnet' /></a>
+                <li className='link-nav'>
+                  <Link to="/loginOng" className='abas'>Sou ONG</Link>
+                </li>
+                <li className='link-nav'>
+                  <Link to="/itemCrud" className='abas'>Item</Link>
+                </li>
+                <li className='link-nav'>
+                  <Link to="/representanteong" className='abas'>Cadastre-se</Link>
+                </li>
+                <div className='logo'>
+                    <Link to="/home_new">
+                        <img id='logo-ongnet' style={{ width: 200 }} src={Logo} alt="Logo" title='Ongnet' />
+                    </Link>
                 </div>
             </nav>
         </header>
-
     )
 }
+
 export default Header;

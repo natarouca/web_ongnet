@@ -3,6 +3,7 @@ import "../css/style.css";
 import api from "../../services/api";
 import axios from "axios";
 import InputMask from "react-input-mask";
+
 const Ong = () => {
   const [vongs, setOngs] = useState([]);
   const [vnome, setNome] = useState('');
@@ -12,10 +13,34 @@ const Ong = () => {
   const [vtelefone, setTelefone] = useState('');
   const [vemail, setEmail] = useState('');
   const [vcnpj, setCnpj] = useState('');
-  const [vsenha, setSenha] = useState('');
-  const [vconfirmaSenha, setConfirmaSenha] = useState('');
+  const [vpassword, setPassword] = useState('');
+  const [vconfirmaPassword, setConfirmaPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [venderecoCompleto, setEnderecoCompleto] = useState('');
 
+  useEffect(() => {
+    const buscarEndereco = async () => {
+      const cepLimpo = vcep.replace(/\D/g, '');
+      if (cepLimpo.length === 8) {
+        try {
+          const response = await axios.get(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+          if (!response.data.erro) {
+            const { logradouro, bairro, localidade, uf } = response.data;
+            const enderecoFormatado = `${logradouro}, ${bairro}, ${localidade} - ${uf}`;
+            setEnderecoCompleto(enderecoFormatado);
+          } else {
+            console.warn("CEP não encontrado.");
+            setEnderecoCompleto('');
+          }
+        } catch (error) {
+          console.error("Erro ao buscar endereço:", error);
+          setEnderecoCompleto('');
+        }
+      }
+    };
+
+    buscarEndereco();
+  }, [vcep]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,7 +58,7 @@ const Ong = () => {
         numero: vnumero,
         telefone: vtelefone,
         email: vemail,
-        senha: vsenha,
+        password: vpassword,
       });
 
       console.log(response.data);
@@ -44,16 +69,14 @@ const Ong = () => {
 
   };
 
-
   const validateForm = () => {
-    let newErrors = {}; // Criar um novo objeto de erros
+    let newErrors = {};
     const regexNumero = /^\d+$/;
     const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexCnpj = /^\d{14}$/;
     const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
 
-    // Nome da ONG
     if (!vnome.trim()) {
       newErrors.nome = "O nome da organização é obrigatório.";
     } else if (!regexName.test(vnome)) {
@@ -62,21 +85,18 @@ const Ong = () => {
       newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
     }
 
-    // Representante
     if (!vresp.trim()) {
       newErrors.resp = "O nome do responsável é obrigatório.";
     } else if (!regexName.test(vresp)) {
       newErrors.resp = "O nome do responsável deve conter apenas letras e espaços.";
     }
 
-    // Email
     if (!vemail.trim()) {
       newErrors.email = "O e-mail é obrigatório.";
     } else if (!regexEmail.test(vemail.trim())) {
       newErrors.email = "Por favor, insira um e-mail válido.";
     }
 
-    // Telefone
     if (!vtelefone.trim()) {
       newErrors.telefone = "O telefone é obrigatório.";
     } else if (!regexTelefone.test(vtelefone.trim())) {
@@ -85,58 +105,53 @@ const Ong = () => {
 
     if (!vcep.trim()) {
       newErrors.cep = "O cep é obrigatório.";
-    } else if (!regexNumero.test(vcep.trim())) {
+    } else if (!regexNumero.test(vcep.trim().replace(/\D/g, ''))) {
       newErrors.cep = "Este campo só aceita números.";
     }
+
     if (!vnumero.trim()) {
       newErrors.numero = "O número de residência é obrigatório."
     } else if (!regexNumero.test(vnumero.trim())) {
       newErrors.numero = "Ops! Este campo só aceita números."
     }
-    // CNPJ
+
     if (!vcnpj.trim()) {
       newErrors.cnpj = "O CNPJ é obrigatório.";
-    } else if (!regexCnpj.test(vcnpj.trim())) {
+    } else if (!regexCnpj.test(vcnpj.trim().replace(/\D/g, ''))) {
       newErrors.cnpj = "Ops! Este campo aceita somente números."
     }
 
-    // Senha
-    if (!vsenha.trim()) {
-      newErrors.senha = "A senha é obrigatória.";
+    if (!vpassword.trim()) {
+      newErrors.password = "A password é obrigatória.";
     }
 
-    // Confirmação de senha
-    if (!vconfirmaSenha.trim()) {
-      newErrors.confirmaSenha = "Confirme sua senha.";
-    } else if (vsenha !== vconfirmaSenha) {
-      newErrors.confirmaSenha = "As senhas não coincidem.";
+    if (!vconfirmaPassword.trim()) {
+      newErrors.confirmaPassword = "Confirme sua password.";
+    } else if (vpassword !== vconfirmaPassword) {
+      newErrors.confirmaPassword = "As passwords não coincidem.";
     }
-    setErrors(newErrors); // Atualiza corretamente os erros
 
-    console.log("Erros encontrados:", newErrors);
+    setErrors(newErrors);
 
-    // Se houver erros, NÃO reseta os campos
     if (Object.keys(newErrors).length > 0) {
       return false;
     }
 
-    // Só reseta os campos se não houver erro
     setNome('');
     setResp('');
     setCnpj('');
     setEmail('');
     setNumero('');
     setCep('');
-    setSenha('');
-    setConfirmaSenha('');
+    setPassword('');
+    setConfirmaPassword('');
     setTelefone('');
-
+    setEnderecoCompleto('');
     return true;
   };
 
   return (
     <div className="app-container">
-
       <div className="container-box">
         <h2>Onde iniciativas sociais encontram apoio e visibilidade.</h2>
         <p>#TransformaComOngNet</p>
@@ -146,7 +161,6 @@ const Ong = () => {
           <div className="titulo-cadastro">
             <h3>Bem-vinda, ONG</h3>
           </div>
-
         </div>
 
         <div className="input-group">
@@ -164,7 +178,6 @@ const Ong = () => {
             />
             {errors.nome && <span className="error">{errors.nome}</span>}
           </div>
-
 
           <div className="input-box">
             <label htmlFor="cnpj">CNPJ</label>
@@ -191,7 +204,6 @@ const Ong = () => {
               value={vresp}
               placeholder="Nome do Representante"
               onChange={(e) => setResp(e.target.value)}
-
             />
             {errors.resp && <span className="error">{errors.resp}</span>}
           </div>
@@ -202,9 +214,6 @@ const Ong = () => {
               mask={"99999-999"}
               id="cep"
               type="text"
-              name=""
-              size={8}
-              maxLength={8}
               value={vcep}
               placeholder="Código de Endereçamento Postal"
               onChange={(e) => setCep(e.target.value)}
@@ -212,18 +221,31 @@ const Ong = () => {
             {errors.cep && <span className="error">{errors.cep}</span>}
           </div>
 
+          {venderecoCompleto && (
+            <div className="input-box">
+              <label htmlFor="enderecoCompleto">Endereço</label>
+              <input
+                type="text"
+                id="enderecoCompleto"
+                name="enderecoCompleto"
+                value={venderecoCompleto}
+                placeholder="Endereço completo será preenchido automaticamente"
+                readOnly
+              />
+            </div>
+          )}
+
+
           <div className="input-box">
             <label htmlFor="nmResidencia">Número de Residência</label>
             <input
               type="text"
               id="nmResidencia"
-              name=""
               size={4}
               maxLength={4}
               value={vnumero}
               placeholder="Número de Residência"
               onChange={(e) => setNumero(e.target.value)}
-
             />
             {errors.numero && <span className="error">{errors.numero}</span>}
           </div>
@@ -234,13 +256,9 @@ const Ong = () => {
               mask={"(99) 9999-9999"}
               type="tel"
               id="tel"
-              size={13}
-              name="tel"
-              maxLength={13}
               value={vtelefone}
               placeholder="Número de telefone fixo"
               onChange={(e) => setTelefone(e.target.value)}
-
             />
             {errors.telefone && <span className="error">{errors.telefone}</span>}
           </div>
@@ -251,48 +269,44 @@ const Ong = () => {
               type="text"
               id="email"
               size={100}
-              name=""
               maxLength={100}
               value={vemail}
               placeholder="Endereço de e-mail"
               onChange={(e) => setEmail(e.target.value)}
-
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
 
           <div className="input-box">
-            <label htmlFor="password">Crie uma senha</label>
+            <label htmlFor="password">Crie uma password</label>
             <input
               type="password"
-              id="senha"
+              id="password"
               size={10}
-              name="senha"
               maxLength={10}
-              value={vsenha}
-              placeholder="Crie uma senha"
-              onChange={(e) => setSenha(e.target.value)}
-
+              value={vpassword}
+              placeholder="Crie uma password"
+              onChange={(e) => setPassword(e.target.value)}
             />
-            {errors.senha && <span className="error">{errors.senha}</span>}
+            {errors.password && <span className="error">{errors.password}</span>}
           </div>
 
           <div className="input-box">
-            <label htmlFor="password">Confirme a senha</label>
+            <label htmlFor="password">Confirme a password</label>
             <input
               type="password"
-              id="confirmaSenha"
-              name="confirmaSenha"
+              id="confirmapassword"
               size={10}
               maxLength={10}
-              value={vconfirmaSenha}
-              placeholder="Confirme a senha"
-              onChange={(e) => setConfirmaSenha(e.target.value)}
+              value={vconfirmaPassword}
+              placeholder="Confirme a password"
+              onChange={(e) => setConfirmaPassword(e.target.value)}
               style={{ marginTop: 0 }}
             />
-            <span className="error">{errors.confirmaSenha}</span>
+            <span className="error">{errors.confirmaPassword}</span>
           </div>
         </div>
+
         <div className="button">
           <button type="submit">Enviar</button>
         </div>
@@ -305,18 +319,18 @@ const Ong = () => {
           }}><a href="/loginong">Já possuo cadastro</a>
           </span>
         </div>
-        {/* 
-        <div className="main-content">
+
+        {/* <div className="main-content">
           <h3 style={{ fontSize: 15, marginTop: 3 }}>Ongs Cadastradas</h3>
         </div> */}
 
-        <ul>
+        {/* <ul>
           {vongs.map((ong) => (
             <li key={ong.id}>
               Nome - {ong.nome} | Email - {ong.email} | CNPJ - {ong.cnpj}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </form>
     </div>
   );

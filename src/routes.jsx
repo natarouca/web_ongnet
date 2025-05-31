@@ -3,12 +3,12 @@ import Header from './pages/Header/header'
 import Ong from './pages/Ong/ong'
 import Cliente from './pages/Cliente/cliente'
 import Loginong from './pages/Loginong/loginOng'
-import Servicos from './pages/Servicos/servicos'
 import Quemsomos from './pages/Quemsomos/quemsomos'
 import Home_new from './pages/Home/home_new'
 import Crudong from './pages/Crudong/ongcrud'
 import Item from './pages/Item/itemCrud'
 import OngPerfil from "./pages/Ong/ongperfil"
+import RepresentanteOng from "./pages/RepresentanteOng/representanteong"
 function RoutesApp() {
 
         return (
@@ -29,6 +29,7 @@ function RoutesApp() {
                                 <Route path="/cliente" element={<Cliente />} />
                                 <Route path="/itemCrud" element={<Item />} />
                                 <Route path="/ongperfil" element={<OngPerfil />} />
+                                <Route path="/representanteong" element={<RepresentanteOng />} />
                                 </Route>
                         </Routes>
                 </BrowserRouter>
