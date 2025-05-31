@@ -25,7 +25,7 @@ const Loginong = () => {
         setError("");
         //exatamente igual ===.
         if (email === fixedEmail && password === fixedSenha) {
-            navigate("/home_new");
+            navigate("/ong");
         } else {
             setError("Email ou senha inválidos!");
         }
