@@ -2,7 +2,7 @@
 * {
   font-family: 'Open Sans', sans-serif;
   margin: 0px;
-  
+
 }
 
 header {
@@ -11,9 +11,9 @@ header {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  padding: 0 20px;
+  padding: 0px 20px 15px;
   height: 90px;
-  background-color: rgb(18, 97, 82);
+  background-color: rgb(243, 255, 251);
   color: white;
 }
 
@@ -147,7 +147,8 @@ input {
   align-items: center;
   justify-content: center;
   background-color: rgb(248, 253, 255);
-  border: 2px solid #ebebeb;
+  border: 1px solid #ebebeb;
+  box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
   padding: 85px;
   height: 800px;
   font-family: Helvetica, Arial, sans-serif;
@@ -223,7 +224,7 @@ p {
   box-shadow: 0px 4px 10px rgba(122, 122, 122, 0.2);
   justify-content: center;
   padding: 40px 20px;
-  background-color: #f4f6f8;
+  background-color: #ffffff;
   min-height: 100vh;
 }
 
@@ -417,9 +418,10 @@ nav {
   text-decoration: none;
   margin: 15px;
   font-size: 15px;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 127, 131);
   padding: 20px;
   font-weight: bold;
+  background-color: transparent;
   transition: 0.1s;
 }
 
@@ -430,38 +432,10 @@ nav {
 }
 
 .abas:hover {
-  color: rgb(0, 122, 102);
+  color: #009476;
 }
 
-.gallery-container {
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  flex-direction: row;
-  align-items: center;
-}
 
-.gallery-item {
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 50px;
-  max-width: 250px;
-  width: 250px;
-  height: 300px;
-  margin-right: 40px;
-  padding: 45px;
-  transition: 0.1s;
-  background-color: rgb(246, 255, 254);
-  border: 1px solid #006d55;
-  cursor: pointer;
-  border-radius: 9px;
-
-
-}
 
 p {
   text-decoration-line: underline blue;
@@ -790,38 +764,12 @@ textarea {
   /* Aumenta o tamanho da div de consulta */
 }
 
-.search-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-container input {
-  padding: 10px;
-  width: 500px;
-  border-radius: 10px;
-  border: 1px solid rgb(0, 109, 85);
-  font-size: 16px;
-  width: 50%;
-  outline: none;
-}
-.search-container input::placeholder{
-  font-weight: normal;
-}
 span {
   color: #006baf;
   font-weight: bolder;
   margin-bottom: 0px;
 }
 
-#img-gallery-item {
-
-  width: 50px;
-  border-radius: 90px;
-  border: 1px solid black;
-  margin-top: 0px;
-
-}
 
 button {
   background-color: rgba(18, 153, 129, 1);
@@ -875,29 +823,6 @@ li {
   text-decoration: none;
 }
 
-#li-gallery {
-
-  display: inline-block;
-  border-radius: 5px;
-  padding: 3px;
-
-  border: 1px solid rgb(0, 109, 85);
-  background-color: #dffff4;
-
-  margin-bottom: 10px;
-
-  margin-left: 5px;
-
-  margin-right: 5px;
-
-  text-decoration: none;
-}
-
-#li-gallery:hover {
-
-  background-color: rgba(0, 102, 255, 0.205);
-
-}
 
 /* 
 ul {

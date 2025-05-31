@@ -37,7 +37,7 @@ const Item = () => {
   return (
     <div className="container-cadastro-lista">
 
-      <div className="categoria">
+      {/* <div className="categoria">
         <ul className="categoria-box">
           <li>Alimentício</li>
           <li></li>
@@ -66,16 +66,26 @@ const Item = () => {
           <li></li>
           <li></li>
         </ul>
-      </div>
+      </div> */}
 
       <div className="container-cadastro-item">
-        <form onSubmit={validateForm} id="form-item">
+        <form onSubmit={validateForm} id="form-item" method="post">
 
           <div className="titulo-item">
             <h2>ONG, qual item você precisa?</h2>
             <p>Adicione-o aqui</p>
           </div>
 
+          <div className="input-box-item">
+            <label htmlFor="categoria">Categoria</label>
+            <select name="categoria" id="categoria">
+              <option value="Alimento">Alimento</option>
+              <option value="Higiene">Higiene</option>
+              <option value="Vestimenta">Vestimenta</option>
+              <option value="Eletrodomésticos">Eletrodomésticos</option>
+            </select>
+          
+          </div>
           <div className="input-box-item">
             <label htmlFor="desc-item">Descrição</label>
             <input

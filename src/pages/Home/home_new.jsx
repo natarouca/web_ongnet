@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import '../css/style.css'
+import '../css/galleryongs.css'
 import Imagem1 from '../img/images.png'
 
 
@@ -15,19 +15,21 @@ function Home() {
           placeholder="Buscar ONGS..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-         
         />
       </div>
 
       <div className="gallery-container">
         <div class="gallery-item">
 
-          <a href="/">
+          <div className="agllery-img">
+            <a href="/">
             <img src={Imagem1} id="img-gallery-item" />
           </a>
+          </div>
+        
 
-          <strong><span>Objetivo:</span></strong>
-          <strong>
+          <span>Veja o que essa ONg está produzindo:  </span>
+         
             <ul>
               <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
 
@@ -35,160 +37,11 @@ function Home() {
 
               <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
             </ul>
-          </strong>
+          
 
           <button><a style={{textDecoration:0, color:"white"}} href="/ongperfil">Ver mais informações</a></button>
         </div>
-
-
-
-        <div class="gallery-item">
-
-          <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
-
-          <strong><span>ATIVIDADES</span></strong>
-          <strong>
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          </strong>
-
-          <button> Ver mais informações</button>
-        </div>
-
-        <div class="gallery-item">
-
-          <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
-
-          <strong><span>ATIVIDADES</span></strong>
-
-          <strong>
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          </strong>
-
-          <button> Ver mais informações</button>
-        </div>
-
-        <div class="gallery-item">
-
-          <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
-
-          <strong><span>ATIVIDADES</span></strong>
-          <strong>
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          </strong>
-
-          <button> Ver mais informações</button>
-        </div>
-
-        <div class="gallery-item">
-
-          <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
-
-          <strong><span>ATIVIDADES</span></strong>
-          <strong>
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          </strong>
-
-          <button> Ver mais informações</button>
-        </div>
-        <div class="gallery-item">
-
-          <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
-
-          <strong><span>ATIVIDADES</span></strong>
-          <strong>
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          </strong>
-
-          <button> Ver mais informações</button>
-        </div>
-
-
-        <div class="gallery-item">
-
-          <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
-          <strong><span>ATIVIDADES</span></strong>
-          <strong>
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          </strong>
-
-          <button> Ver mais informações</button>
-        </div>
-
-
-        <div class="gallery-item">
-
-          <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
-
-          <strong><span>ATIVIDADES</span></strong>
-          <strong>
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          </strong>
-
-          <button> Ver mais informações</button>
-        </div>
-
-
-        {/* Footer */}
-        <footer className="footer">
-
-        </footer>
-
+        
       </div>
     </div>
 

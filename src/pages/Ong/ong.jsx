@@ -16,11 +16,6 @@ const Ong = () => {
   const [vconfirmaSenha, setConfirmaSenha] = useState('');
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/representante-ong/ong")
-      .then(res => setOngs(res.data))
-      .catch(err => console.error("Erro ao buscar ONGS", err));
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,13 +27,13 @@ const Ong = () => {
     try {
       const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
-        email: vemail,
-        cep: vcep,
         cnpj: vcnpj,
-        telefone: vtelefone,
-        numero: vnumero,
-        senha: vsenha,
         responsavel: vresp,
+        cep: vcep,
+        numero: vnumero,
+        telefone: vtelefone,
+        email: vemail,
+        senha: vsenha,
       });
 
       console.log(response.data);
@@ -236,7 +231,7 @@ const Ong = () => {
           <div className="input-box">
             <label htmlFor="tel">Telefone</label>
             <InputMask
-            mask={"(99) 9999-9999"}
+              mask={"(99) 9999-9999"}
               type="tel"
               id="tel"
               size={13}

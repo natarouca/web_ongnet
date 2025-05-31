@@ -7,7 +7,7 @@ import Servicos from './pages/Servicos/servicos'
 import Quemsomos from './pages/Quemsomos/quemsomos'
 import Home_new from './pages/Home/home_new'
 import Crudong from './pages/Crudong/ongcrud'
-import Item from './pages/Item/item'
+import Item from './pages/Item/itemCrud'
 import OngPerfil from "./pages/Ong/ongperfil"
 function RoutesApp() {
 
@@ -27,7 +27,7 @@ function RoutesApp() {
                                 <Route path="/loginOng" element={<Loginong />} />
                                 <Route path="/quemsomos" element={<Quemsomos />} />
                                 <Route path="/cliente" element={<Cliente />} />
-                                <Route path="/item" element={<Item />} />
+                                <Route path="/itemCrud" element={<Item />} />
                                 <Route path="/ongperfil" element={<OngPerfil />} />
                                 </Route>
                         </Routes>
