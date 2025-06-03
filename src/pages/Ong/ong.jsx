@@ -76,14 +76,14 @@ const Ong = () => {
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexCnpj = /^\d{14}$/;
     const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
-
+    
     if (!vnome.trim()) {
       newErrors.nome = "O nome da organização é obrigatório.";
     } else if (!regexName.test(vnome)) {
       newErrors.nome = "O nome deve conter apenas letras e espaços.";
     } else if (vnome.trim().length < 5) {
       newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
-    }
+    } 
 
     if (!vresp.trim()) {
       newErrors.resp = "O nome do responsável é obrigatório.";

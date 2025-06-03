@@ -8,7 +8,7 @@ function Header() {
         <header>
             <nav>
                 <li className='link-nav'>
-                  <Link to="/loginOng" className='abas'>Sou ONG</Link>
+                  <Link to="/loginOng" className='abas'>Login</Link>
                 </li>
                 <li className='link-nav'>
                   <Link to="/itemCrud" className='abas'>Item</Link>

@@ -1,70 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import '../css/perfilong.css';
 
+const itens = [
+    { categoria: "Alimentos", item: "Arroz", quantidade: 5},
+    { categoria: "Alimentos", item: "Feijão",  quantidade: 5 },
+    { categoria: "Alimentos", item: "Leite",  quantidade: 5 },
+    { categoria: "Higiene", item: "Sabonete",  quantidade: 5 },
+    { categoria: "Higiene", item: "Pasta de Dente",  quantidade: 5 },
+    { categoria: "Vestimenta", item: "Roupas",  quantidade: 5}
+];
+
 function OngPerfil() {
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
+
+    const categorias = [...new Set(itens.map(item => item.categoria))];
+
     return (
         <div className="perfil-container">
             <div className="perfil-card">
 
-                <div className="perfil-imagem">
-                  {/* <div className="imagem-ong"> <img src="/img/logongnet.jpg" alt="Logo da ONG" /> */}
-          
-                </div>
-
                 <div className="perfil-info">
                     <h2>Ong Viver Mais</h2>
-                       <table className="tabela-container">
+                    <table className="tabela-container">
                         <tbody>
-                            <th colSpan={2}>Informações sobre a ONG </th>
-                            <tr><td style={{ color: "rgb(36, 36, 36)", fontWeight:"600", fontSize:15}}>Instituição não-governamental</td><td style={{ color: "black",fontSize:15}}>ONG Viver mais</td></tr>
-                            <tr><td style={{ color: "rgb(36, 36, 36)", backgroundColor: "#f2fffb", fontSize:15 }}>CEP</td>
-                            <td style={{ color: "black", backgroundColor: "#f2fffb" }}>oi</td></tr>
-                            <tr id="tr"><td style={{ color: "rgb(36, 36, 36)", borderRadius: 5, fontSize:15 }}>Número</td><td style={{ color: "black"}}>oi</td></tr>
-                            <tr><td style={{ color: "rgb(36, 36, 36)", backgroundColor: "#f2fffb", fontSize:15 }}>Telefone</td><td style={{  color: "black", backgroundColor: "#f2fffb" }}>oi</td></tr>
-                            <tr id="tr"><td style={{ color: "rgb(36, 36, 36)", fontSize:15 }}>E-mail</td><td style={{ color: "black"}}>oi</td></tr>
-                            <tr><td style={{ color: "rgb(36, 36, 36)", backgroundColor: "#f2fffb", fontSize:15 }}>Site</td><td style={{backgroundColor: "#f2fffb" }}><a href="#">site.com</a></td></tr>
+                            <tr><th colSpan={2}>Informações sobre a ONG </th></tr>
+                            <tr><td>Instituição não-governamental</td><td></td></tr>
+                            <tr><td>CEP</td><td></td></tr>
+                            <tr><td>Número</td><td></td></tr>
+                            <tr><td>Telefone</td><td></td></tr>
+                            <tr><td>E-mail</td><td></td></tr>
+                            <tr><td>Site</td><td><a href="#"></a></td></tr>
                         </tbody>
                     </table>
-                  
+
                     <br />
 
                     <div className="lista-item">
-                        <div className="titulo-item-lista">
-                            <h3>Esta ONG está precisando de doações.</h3>
-                        </div>
+                        <h3>Esta ONG está precisando de doações.</h3>
+                        <p>Os itens abaixo são os mais necessários no momento:</p>
 
-                        <div className="paragrafo-item">
-                            <p>Os itens abaixo são os mais necessários no momento:</p>
-                        </div>
+                        
+                        <select onChange={(e) => setCategoriaSelecionada(e.target.value)}>
+                            <option value="">Escolha uma categoria</option>
+                            {categorias.map((cat, index) => (
+                                <option key={index} value={cat}>{cat}</option>
+                            ))}
+                        </select>
 
-                        <table className="tabela-doacoes">
-
-                            <thead>
-                                <tr>
-                                    <th>Nome do Item</th>
-                                    <th>Quantidade Necessária</th>
-                                    <th>Categoria</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Arroz</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <td>Feijão</td>
-                                    <td>5</td>
-                                </tr>
-                                <tr>
-                                    <td>Leite</td>
-                                    <td>20</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        {categoriaSelecionada && (
+                            <ul>
+                                {itens
+                                    .filter(item => item.categoria === categoriaSelecionada)
+                                    .map((item, index) => (
+                                        <li id="li-item" key={index}>{item.item}{item.quantidade}</li>
+                                    ))}
+                            </ul>
+                        )}
                     </div>
-
                 </div>
-
             </div>
         </div>
     );

@@ -43,17 +43,15 @@ const Loginong = () => {
                     <p>Preencha as informações de Lgin</p>
                 </div>
                 <div className="box-login">
-                    <label htmlFor="cnpj">CNPJ</label>
-                    <input type="email" id="cnpj" placeholder="Digite o CNPJ" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" placeholder="Digite a Senha" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 
                 <div className="box-login">
                     <label htmlFor="senha">Senha</label>
                     <input type="password" id="senha" placeholder="Digite a senha" value={password} onChange={(e) => setSenha(e.target.value)} />
                     <div className="esqueceu-senha">
-                        <a href="/">
-                            <p className="register-esqueceu-senha">Esqueceu a senha?</p>
-                        </a>
+                        <p><a style={{color:"ActiveBorder"}} href="/representanteong">Cadastre-se</a></p>
                     </div>
                 </div>
 

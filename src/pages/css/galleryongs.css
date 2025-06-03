@@ -112,14 +112,14 @@
   font-size: 16px;
   font-weight: bold;
   color: white;
-  background-color: rgb(10, 163, 104);
+  background-color: rgb(25, 160, 119);
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 .button button:hover {
-  background-color: rgb(38, 148, 106);
+  background-color: rgb(25, 117, 82);
   transform: scale(1.02);
 }
 

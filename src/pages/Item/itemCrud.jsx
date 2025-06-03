@@ -72,7 +72,7 @@ const DataManagment = () => {
 
     return (
         <div className="container-cadastro-item">
-            <form onSubmit={handleSubmit} id="form-item">
+            <form onSubmit={handleSubmit} id="form-item" method="post">
                 <div className="titulo-item">
                     <h2>ONG, qual item você precisa?</h2>
                     <p>Adicione-o aqui</p>

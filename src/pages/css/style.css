@@ -46,11 +46,14 @@ header {
 
 .tabela-doacoes td {
   border-radius: 5px;
+  padding: 10px;
 }
 
 .tabela-doacoes th {
-  padding: 8px;
+  padding: 10px;
   color: white;
+  font-weight: normal;
+  white-space: nowrap;
   background-color: #2da890;
 }
 
@@ -299,6 +302,7 @@ p {
 .perfil-info td {
   font-weight: bold;
   padding: 5px 10px;
+  
   background-color: white;
   border: 2px solid rgb(228, 228, 228);
   font-size: 16px;
@@ -550,7 +554,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: #f8f8f8;
+  background-color: rgb(240, 255, 250);
   border: 2px solid #009dff;
   padding: 60px;
   padding-bottom: 5px;
@@ -616,9 +620,6 @@ label {
   margin-bottom: 3px;
 }
 
-input:focus {
-  border-color: #009dff;
-}
 
 input::placeholder {
   color: #92c4ba;
@@ -768,7 +769,7 @@ span {
 
 
 button {
-  background-color: rgba(18, 153, 129, 1);
+  background-color: rgb(0, 97, 60);
   padding: 10px;
   color: white;
   cursor: pointer;
