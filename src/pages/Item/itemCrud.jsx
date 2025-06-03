@@ -77,7 +77,6 @@ const DataManagment = () => {
                     <h2>ONG, qual item você precisa?</h2>
                     <p>Adicione-o aqui</p>
                 </div>
-
                 <div className="input-box-item">
                     <label htmlFor="desc-item">Descrição</label>
                     <input

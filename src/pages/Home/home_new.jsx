@@ -6,7 +6,6 @@ import Imagem1 from '../img/images.png'
 function Home() {
 
   const [search, setSearch] = useState("");
-
   return (
     <div>
       <div className="search-container" style={{ textAlign: 'center', margin: '20px 0' }}>
@@ -21,27 +20,28 @@ function Home() {
       <div className="gallery-container">
         <div class="gallery-item">
 
-          <div className="agllery-img">
+          <div className="gallery-img">
             <a href="/">
-            <img src={Imagem1} id="img-gallery-item" />
-          </a>
+              <img src={Imagem1} id="img-gallery-item" /> </a>
+            <div className="nome-ong">
+              <h2>Nome da ONG</h2>
+            </div>
+          </div>
+          <div className="titulo-atv">
+               <span>Veja o que essa ONG está produzindo:</span>
+          <ul></ul>
           </div>
         
+          <ul>
+            <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
+            <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
+            <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
+          </ul>
 
-          <span>Veja o que essa ONg está produzindo:  </span>
-         
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
 
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-          
-
-          <button><a style={{textDecoration:0, color:"white"}} href="/ongperfil">Ver mais informações</a></button>
+          <button><a style={{ textDecoration: 0, color: "white" }} href="/ongperfil">Ver mais informações</a></button>
         </div>
-        
+
       </div>
     </div>
 
