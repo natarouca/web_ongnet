@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-image: linear-gradient(to bottom, rgba(25, 74, 106, 0.568), rgba(18, 153, 128, 0.596), rgba(64, 224, 208, 0.562)); 
     height: 100vh;
 }
 
@@ -23,7 +24,7 @@
 
 .titulo-login h2 {
     margin: 5px;
-    background-image: linear-gradient(to bottom, rgba(25, 74, 106, 1), rgba(18, 153, 129, 1), turquoise);
+    background-color: rgba(18, 153, 129, 1);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

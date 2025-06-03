@@ -318,7 +318,7 @@ const Ong = () => {
             fontSize: 13,
             color: "#006d55",
             fontWeight: "normal"
-          }}><a href="/loginong">Já possuo cadastro</a>
+          }}><a href="/itemCrud">Já possuo cadastro</a>
           </span>
         </div>
 

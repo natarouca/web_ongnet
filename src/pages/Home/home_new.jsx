@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../css/galleryongs.css'
+import "../css/style.css";
 import Imagem1 from '../img/images.png'
-
-
-
 
 function Home() {
 
