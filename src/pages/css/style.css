@@ -10,10 +10,10 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 0px 20px 15px;
   height: 90px;
-  background-color: rgb(243, 255, 251);
+  background-color: rgb(220, 255, 243);
   color: white;
 }
 
@@ -77,6 +77,7 @@ header {
 }
 
 .titulo-cadastro h3 {
+  font-size: 35px;
   background-image: linear-gradient(to bottom, rgba(25, 74, 106, 1), rgba(18, 153, 129, 1), turquoise);
   background-clip: text;
   -webkit-background-clip: text;
@@ -146,11 +147,11 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(248, 253, 255);
+  background-color: rgb(240, 255, 250);
   border: 1px solid #ebebeb;
   box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
   padding: 85px;
-  height: 800px;
+  height: 850px;
   font-family: Helvetica, Arial, sans-serif;
   border-radius: 10px;
   margin-top: 3px;
@@ -168,7 +169,7 @@ input {
   background: #194A6A;
   background: linear-gradient(0deg, rgba(25, 74, 106, 1) 0%, rgba(18, 153, 129, 1) 100%);
   padding: 85px;
-  height: 800px;
+  height: 850px;
 }
 
 .container-box h2,
@@ -414,7 +415,6 @@ nav {
 }
 
 .abas {
-  margin-bottom: 2px solid white;
   text-decoration: none;
   margin: 15px;
   font-size: 15px;
@@ -425,11 +425,6 @@ nav {
   transition: 0.1s;
 }
 
-
-.campo-search {
-  display: inline-block;
-
-}
 
 .abas:hover {
   color: #009476;
