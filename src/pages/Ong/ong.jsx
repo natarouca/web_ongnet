@@ -159,6 +159,8 @@ const Ong = () => {
       <form onSubmit={handleSubmit} className="form-ong" method="post">
         <div className="main-content">
           <div className="titulo-cadastro">
+
+            {/* ajuste o tamanho e alinhamento do h3! */}
             <h3>Bem-vinda, ONG</h3>
           </div>
         </div>
