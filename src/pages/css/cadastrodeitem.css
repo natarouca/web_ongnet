@@ -7,28 +7,9 @@
     padding: 30px;
 }
 
-select {
-    border: 1px solid #006954;
-    border-radius: 5px;
-    color: #006954;
-    width: 100%;
-    padding: 10px;
-    outline: none;
-}
 
-option {
-    background-color: #ffffff;
-    border: 1px solid #006954;
-    color: #006954;
-    font-weight: 700;
-    appearance: none;
-    cursor: pointer;
-    outline: none;
-}
 
-option:hover {
-    background-color: #006954;
-}
+
 
 .loading {
     display: flex;
@@ -132,6 +113,8 @@ option:hover {
     margin-bottom: 3px;
     transition: 0.3s ease;
 }
+
+
 
 
 .input-box-item input:hover {

@@ -21,7 +21,9 @@ function Header() {
                  <li className='link-nav'>
                   <Link to="/home_new" className='abas'>Home</Link>
                 </li>
-
+                <li className='link-nav'>
+                  <Link to="/adminCrud" className='abas'>Admin</Link>
+                </li>
             </nav>
         </header>
     )

@@ -17,7 +17,7 @@ const Ong = () => {
   const [vconfirmaPassword, setConfirmaPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [venderecoCompleto, setEnderecoCompleto] = useState('');
-
+  // const [vimg, setImg] = useState('') //insercao de dados
   useEffect(() => {
     const buscarEndereco = async () => {
       const cepLimpo = vcep.replace(/\D/g, '');
@@ -58,7 +58,8 @@ const Ong = () => {
         numero: vnumero,
         telefone: vtelefone,
         email: vemail,
-        password: vpassword,
+        password: vpassword
+        // imagem: vimg
       });
 
       console.log(response.data);
@@ -76,14 +77,14 @@ const Ong = () => {
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexCnpj = /^\d{14}$/;
     const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
-    
+
     if (!vnome.trim()) {
       newErrors.nome = "O nome da organização é obrigatório.";
     } else if (!regexName.test(vnome)) {
       newErrors.nome = "O nome deve conter apenas letras e espaços.";
     } else if (vnome.trim().length < 5) {
       newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
-    } 
+    }
 
     if (!vresp.trim()) {
       newErrors.resp = "O nome do responsável é obrigatório.";
@@ -159,7 +160,6 @@ const Ong = () => {
       <form onSubmit={handleSubmit} className="form-ong" method="post">
         <div className="main-content">
           <div className="titulo-cadastro">
-
             {/* ajuste o tamanho e alinhamento do h3! */}
             <h3>Bem-vinda, ONG</h3>
           </div>
@@ -180,7 +180,19 @@ const Ong = () => {
             />
             {errors.nome && <span className="error">{errors.nome}</span>}
           </div>
-
+          {/* <div className="input-box">
+            <label>Cadastre sua imagem</label>
+            <input type="file" accept="image/*" onChange={(e) => {
+              const file = e.target.files[0];
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                setImg(reader.result); // base64 da imagem
+              };
+              if (file) {
+                reader.readAsDataURL(file);
+              }
+            }} />
+          </div> */}
           <div className="input-box">
             <label htmlFor="cnpj">CNPJ</label>
             <InputMask
@@ -310,7 +322,7 @@ const Ong = () => {
         </div>
 
         <div className="button">
-          <button type="submit">Enviar</button>
+          <button id="button-cadastro-ong" type="submit">Enviar</button>
         </div>
 
         <div className="link-register">

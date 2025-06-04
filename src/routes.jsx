@@ -8,6 +8,7 @@ import Home_new from './pages/Home/home_new'
 import Crudong from './pages/Crudong/ongcrud'
 import Item from './pages/Item/itemCrud'
 import OngPerfil from "./pages/Ong/ongperfil"
+import Admin from './pages/Admin/adminCrud'
 import RepresentanteOng from "./pages/RepresentanteOng/representanteong"
 function RoutesApp() {
 
@@ -29,6 +30,7 @@ function RoutesApp() {
                                 <Route path="/cliente" element={<Cliente />} />
                                 <Route path="/itemCrud" element={<Item />} />
                                 <Route path="/ongperfil" element={<OngPerfil />} />
+                                <Route path="/adminCrud" element={<Admin />} />
                                 <Route path="/representanteong" element={<RepresentanteOng />} />
                                 </Route>
                         </Routes>

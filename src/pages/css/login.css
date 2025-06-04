@@ -1,6 +1,8 @@
 .button-login {
     display: flex;
     justify-content: center;
+    align-items: center;
+    
 }
 
 #button-login:hover {
@@ -60,12 +62,12 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(240, 255, 250);
+    background-color: rgb(255, 255, 255);
     box-shadow: 0px 4px 10px rgba(32, 32, 32, 0.2);
     border: none;
     padding: 40px;
     padding-bottom: 5px;
-    height: 330px;
+    height: auto;
     max-height: 500px;
     font-family: Helvetica, Arial, sans-serif;
     width: 400px;

@@ -4,7 +4,7 @@ import api from "../../services/api";
 import '../css/cadastrodeitem.css';
 import '../css/listaitens.css';
 import '../css/categoria.css';
-import Logo from '../img/ongnet-logo.png';
+
 
 const DataManagment = () => {
     const [data, setData] = useState([]);
@@ -12,11 +12,12 @@ const DataManagment = () => {
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({ desc: "", qntd: "" });
     const [errors, setErrors] = useState({});
-    const [selectedCategoria, setSelectedCategoria] = useState(null);
+    const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
     const [selectedItem, setSelectedItem] = useState(null);
     const [filteredItens, setFilteredItens] = useState([]);
 
     const Categoria = [
+        { value: '', label: 'Escolha uma categoria' },
         { value: 'Alimentos', label: 'Alimentos' },
         { value: 'Higiene', label: 'Higiene' },
         { value: 'Vestimenta', label: 'Vestimenta' }
@@ -32,7 +33,8 @@ const DataManagment = () => {
     ];
 
     useEffect(() => {
-        if (selectedCategoria) {
+        fetchData()
+        if (selectedCategoria && selectedCategoria.value) {
             const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
             setFilteredItens(itensFiltrados);
         } else {
@@ -41,9 +43,6 @@ const DataManagment = () => {
         }
     }, [selectedCategoria]);
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     const fetchData = () => {
         setLoading(true);
@@ -61,7 +60,7 @@ const DataManagment = () => {
     const resetForm = () => {
         setFormData({ desc: "", qntd: "" });
         setErrors({});
-        setSelectedCategoria(null);
+        setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
         setSelectedItem(null);
     };
 
@@ -97,29 +96,41 @@ const DataManagment = () => {
             qntd: formData.qntd
         };
 
-        api.post('item', finalData)
-            .then(() => {
-                fetchData();
-                resetForm();
-            })
-            .catch(error => setError(error.message));
+        
+        
     };
 
     const customSelectStyles = {
         control: (provided) => ({
             ...provided,
-            border: '1px solid #006954',
+            border: '1px solid #007a62',
             borderRadius: '5px',
-            padding: '5px',
+            padding: '3px',
             color: '#006954',
-            boxShadow: 'none'
+            boxShadow: 'none',
+            '&:hover': {
+                backgroundColor: '#e0fff9'
+            }
         }),
-        option: (provided, state) => ({
+        singleValue: (provided) => ({
             ...provided,
-            backgroundColor: state.isFocused ? '#006954' : '#ffffff',
-            color: state.isFocused ? '#ffffff' : '#006954',
+            color: '#68b1a2'
+
+          }),
+        placeholder: (provided) => ({
+            ...provided,
+            color: '006954',  // aqui você coloca a cor desejada, ex: vermelho
+            
+          }),
+        option: (provided) => ({
+            ...provided,
+            backgroundColor:'white',
+            color: '#006954',
             fontWeight: '700',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            '&:hover': {
+                backgroundColor: '#e0fff9'
+            }
         }),
         menu: (provided) => ({
             ...provided,
@@ -127,15 +138,6 @@ const DataManagment = () => {
             borderRadius: '5px'
         })
     };
-
-    if (loading) return (
-        <div className="loading">
-            <div style={{ margin: 0 }} className="img">
-                <img style={{ width: 400 }} src={Logo} alt="" />
-            </div>
-            <p style={{ color: "#006d55", textAlign: "center", fontWeight: "bold", margin: 0 }}>Carregando...</p>
-        </div>
-    );
 
     return (
         <div className="container-cadastro-item">
@@ -147,7 +149,7 @@ const DataManagment = () => {
 
                 <div className="input-box-item">
                     <label htmlFor="categoria">Categoria</label>
-                    <Select
+                    <Select 
                         id="categoria"
                         options={Categoria}
                         styles={customSelectStyles}
@@ -157,7 +159,7 @@ const DataManagment = () => {
                     />
                 </div>
 
-                {selectedCategoria && (
+                {selectedCategoria && selectedCategoria.value && (
                     <div className="input-box-item">
                         <label htmlFor="item">Item</label>
                         <Select
@@ -171,7 +173,7 @@ const DataManagment = () => {
                     </div>
                 )}
 
-                {/* Campo descrição só aparece se item NÃO for selecionado */}
+
                 {(!selectedCategoria || !selectedItem) && (
                     <div className="input-box-item">
                         <label htmlFor="desc-item">Descrição</label>
@@ -202,7 +204,7 @@ const DataManagment = () => {
                 </div>
 
                 <div className="button-item">
-                    <button type="submit">Adicionar item</button>
+                    <button type="submit">Cadastrar item</button>
                 </div>
             </form>
 

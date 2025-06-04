@@ -54,7 +54,7 @@ const Loginong = () => {
             <div className="container-login">
                 <form id="form-login" onSubmit={handleSubmit}>
                     <div className="titulo-login">
-                        <h2>Bem-vinda de volta, ONG</h2>
+                      
                     </div>
                     <div className="box-login">
                         <label htmlFor="cnpj">E-mail</label>
@@ -68,14 +68,13 @@ const Loginong = () => {
                         <div className="esqueceu-senha">
                             <a href="/">
                                 <p className="register-esqueceu-senha">
-                                    <a style={{color:"ActiveBorder"}} href="/representanteong">Não possui cadastro? Clique aqui.</a>
+                                    <a style={{color:"ActiveBorder", fontSize:13}} href="/representanteong">Não possui cadastro? Clique aqui.</a>
                                 </p>
                             </a>
                         </div>
                     </div>
                     {errors.login && <span className="error">{errors.login}</span>}
                     <div className="button-login">
-                        <br />
                         <a href="/ongcrud"><button id="button-login" type="submit">Entrar</button></a>
                     </div>
                 </form>
