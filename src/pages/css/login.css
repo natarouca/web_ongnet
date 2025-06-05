@@ -94,13 +94,18 @@
     padding: 15px;
     width: 360px;
     margin: 0px;
-    border: 1px solid rgba(18, 153, 129, 1);
+    border-radius: 0px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid #4cd1b7;
     transition: all 0.3s ease-in-out;
 }
 
 .box-login input::placeholder {
     font-size: 16px;
     font-weight: normal;
+    font-size: 17px;
 }
 
 .box-login input:hover {

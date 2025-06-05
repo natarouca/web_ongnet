@@ -17,7 +17,9 @@ function Home() {
         />
       </div>
       <div className="container-home">
+        
         <div className="gallery-container">
+
           <div class="gallery-item">
 
             <div className="gallery-img">

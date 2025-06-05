@@ -24,7 +24,7 @@ const Loginong = () => {
         setErrors({}); // Limpa os erros se o formulário for válido
 
         if (email === fixedEmail && password === fixedSenha) {
-            navigate("/ong");
+            navigate("/loginOng");
         } else {
             setErrors({ login: "Email ou senha inválidos!" });
         }
@@ -65,17 +65,22 @@ const Loginong = () => {
                         <label htmlFor="senha">Senha</label>
                         <input type="password" id="senha" placeholder="Digite a senha" value={password} onChange={(e) => setPassword(e.target.value)} />
                         {errors.password && <span className="error">{errors.password}</span>}
+
                         <div className="esqueceu-senha">
                             <a href="/">
-                                <p className="register-esqueceu-senha">
-                                    <a style={{color:"ActiveBorder", fontSize:13}} href="/representanteong">Não possui cadastro? Clique aqui.</a>
+                                <p>
+                                    <a style={{color:"ActiveBorder", fontSize:13}} href="/representanteong">Não possui cadastro? Clique aqui. <a style={{color:"ActiveBorder"}} href="/">Esqueceu a senha?</a></a>
                                 </p>
                             </a>
                         </div>
+
                     </div>
                     {errors.login && <span className="error">{errors.login}</span>}
+
                     <div className="button-login">
-                        <a href="/ongcrud"><button id="button-login" type="submit">Entrar</button></a>
+                        <a href="">
+                        <button id="button-login" type="submit">Entrar
+                            </button></a>
                     </div>
                 </form>
             </div>

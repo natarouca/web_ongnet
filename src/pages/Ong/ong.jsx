@@ -157,14 +157,9 @@ const Ong = () => {
         <h2>Onde iniciativas sociais encontram apoio e visibilidade.</h2>
         <p>#TransformaComOngNet</p>
       </div>
-      <form onSubmit={handleSubmit} className="form-ong" method="post">
-        <div className="main-content">
-          <div className="titulo-cadastro">
-            {/* ajuste o tamanho e alinhamento do h3! */}
-            <h3>Bem-vinda, ONG</h3>
-          </div>
-        </div>
-
+      <form id="form-ong" onSubmit={handleSubmit} className="form-ong" method="post">
+     
+       
         <div className="input-group">
           <div className="input-box">
             <label htmlFor="ongName">Nome da Instituição</label>
@@ -325,14 +320,7 @@ const Ong = () => {
           <button id="button-cadastro-ong" type="submit">Enviar</button>
         </div>
 
-        <div className="link-register">
-          <span style={{
-            fontSize: 13,
-            color: "#006d55",
-            fontWeight: "normal"
-          }}><a href="/itemCrud">Já possuo cadastro</a>
-          </span>
-        </div>
+       
 
         {/* <div className="main-content">
           <h3 style={{ fontSize: 15, marginTop: 3 }}>Ongs Cadastradas</h3>

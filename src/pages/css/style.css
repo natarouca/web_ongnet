@@ -5,8 +5,7 @@
   margin: 0px;
 }
 
-header {
-  
+header { 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,13 +75,15 @@ header {
 .titulo-cadastro {
   display: flex;
   align-items: flex-start;
+  justify-content: flex-start;
   color: #006d55;
   margin-bottom: 30px;
   padding: 5px;
 }
 
 .titulo-cadastro h3 {
-  font-size: 45px;
+  display: flex;
+  font-size: 35px;
   background-image: linear-gradient(to bottom, rgba(25, 74, 106, 1), rgba(18, 153, 129, 1), turquoise);
   background-clip: text;
   -webkit-background-clip: text;
@@ -155,8 +156,8 @@ input {
   background-color: rgb(240, 255, 250);
   border: 1px solid #ebebeb;
   box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
-  padding: 85px;
-  height: 850px;
+  padding: 90px;
+  height: 900px;
   border-radius: 10px;
   margin-top: 3px;
   /* Adiciona o espaço entre o header e o formulário */
@@ -172,8 +173,8 @@ input {
   flex-direction: column;
   background: #194A6A;
   background: linear-gradient(0deg, rgba(25, 74, 106, 1) 0%, rgba(18, 153, 129, 1) 100%);
-  padding: 85px;
-  height: 850px;
+  padding: 90px;
+  height: 900px;
 }
 
 .container-box h2,
