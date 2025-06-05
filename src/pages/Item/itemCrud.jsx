@@ -8,6 +8,7 @@ import '../css/categoria.css';
 
 const DataManagment = () => {
     const [data, setData] = useState([]);
+    const [vitens, setItens] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({ desc: "", qntd: "" });
@@ -16,6 +17,47 @@ const DataManagment = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [filteredItens, setFilteredItens] = useState([]);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) return;
+
+        const finalData = {
+            desc: selectedItem ? selectedItem.label : formData.desc,
+            qntd: formData.qntd
+
+        };
+
+        finalData();
+        resetForm();
+        try {
+            const response = await api.post("http://localhost:8080/api/v1/representante-ong/item", {
+                categoria: Categoria,
+                desc: vdesc,
+                qntd: vqntd
+            });
+
+            console.log(response.data);
+            setItens([...vitens, response.data]);
+        } catch (error) {
+            console.log(error);
+        }
+
+
+    }
+
+    const fetchData = () => {
+        setLoading(true);
+        api.get('item')
+            .then(response => {
+                setData(response.data.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            });
+    };
     const Categoria = [
         { value: '', label: 'Escolha uma categoria' },
         { value: 'Alimentos', label: 'Alimentos' },
@@ -44,18 +86,6 @@ const DataManagment = () => {
     }, [selectedCategoria]);
 
 
-    const fetchData = () => {
-        setLoading(true);
-        api.get('item')
-            .then(response => {
-                setData(response.data.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error.message);
-                setLoading(false);
-            });
-    };
 
     const resetForm = () => {
         setFormData({ desc: "", qntd: "" });
@@ -86,19 +116,6 @@ const DataManagment = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (!validateForm()) return;
-
-        const finalData = {
-            desc: selectedItem ? selectedItem.label : formData.desc,
-            qntd: formData.qntd
-        };
-
-        
-        
-    };
 
     const customSelectStyles = {
         control: (provided) => ({
@@ -116,15 +133,15 @@ const DataManagment = () => {
             ...provided,
             color: '#68b1a2'
 
-          }),
+        }),
         placeholder: (provided) => ({
             ...provided,
             color: '006954',  // aqui você coloca a cor desejada, ex: vermelho
-            
-          }),
+
+        }),
         option: (provided) => ({
             ...provided,
-            backgroundColor:'white',
+            backgroundColor: 'white',
             color: '#006954',
             fontWeight: '700',
             cursor: 'pointer',
@@ -137,6 +154,8 @@ const DataManagment = () => {
             border: '1px solid #006954',
             borderRadius: '5px'
         })
+
+        
     };
 
     return (
@@ -149,7 +168,7 @@ const DataManagment = () => {
 
                 <div className="input-box-item">
                     <label htmlFor="categoria">Categoria</label>
-                    <Select 
+                    <Select
                         id="categoria"
                         options={Categoria}
                         styles={customSelectStyles}
