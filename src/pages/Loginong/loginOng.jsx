@@ -50,41 +50,42 @@ const Loginong = () => {
     };
 
     return (
-        <div className="container-">
-            <div className="container-login">
-                <form id="form-login" onSubmit={handleSubmit}>
-                    <div className="titulo-login">
-                      
-                    </div>
-                    <div className="box-login">
-                        <label htmlFor="cnpj">E-mail</label>
-                        <input type="email" id="cnpj" placeholder="Digite o E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
-                        {errors.email && <span className="error">{errors.email}</span>}
-                    </div>
-                    <div className="box-login">
-                        <label htmlFor="senha">Senha</label>
-                        <input type="password" id="senha" placeholder="Digite a senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        {errors.password && <span className="error">{errors.password}</span>}
 
-                        <div className="esqueceu-senha">
-                            <a href="/">
-                                <p>
-                                    <a style={{color:"ActiveBorder", fontSize:13}} href="/representanteong">Não possui cadastro? Clique aqui. <a style={{color:"ActiveBorder"}} href="/">Esqueceu a senha?</a></a>
-                                </p>
-                            </a>
-                        </div>
+        <div className="container-login">
+            <form id="form-login" onSubmit={handleSubmit}>
+                <div className="titulo-login">
 
-                    </div>
-                    {errors.login && <span className="error">{errors.login}</span>}
+                </div>
+                <div className="box-login">
+                    <label htmlFor="cnpj">E-mail</label>
+                    <input type="email" id="cnpj" placeholder="Digite o E-mail" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    {errors.email && <span className="error">{errors.email}</span>}
+                </div>
+                <div className="box-login">
+                    <label htmlFor="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Digite a senha" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    {errors.password && <span className="error">{errors.password}</span>}
 
-                    <div className="button-login">
-                        <a href="">
-                        <button id="button-login" type="submit">Entrar
-                            </button></a>
+                    <div className="esqueceu-senha">
+                        <a href="/">
+                            <p>
+                                <a style={{ color: "#4cd1b7", fontSize: 13 }} href="/representanteong">Não possui cadastro? Clique aqui. <a style={{ color: "#4cd1b7" }} href="/">Esqueceu a senha?</a></a>
+                            </p>
+                        </a>
                     </div>
-                </form>
-            </div>
+
+                </div>
+                {errors.login && <span className="error">{errors.login}</span>}
+
+                <div className="button-login">
+
+                    <button id="button-login" type="submit"><a href="">Entrar</a>
+                    </button>
+
+                </div>
+            </form>
         </div>
+
     );
 }
 

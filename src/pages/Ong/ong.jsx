@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../css/style.css";
+import "../css/ong.css";
 import api from "../../services/api";
 import axios from "axios";
 import InputMask from "react-input-mask";
@@ -17,7 +17,7 @@ const Ong = () => {
   const [vconfirmaPassword, setConfirmaPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [venderecoCompleto, setEnderecoCompleto] = useState('');
-  // const [vimg, setImg] = useState('') //insercao de dados
+ 
   useEffect(() => {
     const buscarEndereco = async () => {
       const cepLimpo = vcep.replace(/\D/g, '');
@@ -47,7 +47,7 @@ const Ong = () => {
 
     if (!validateForm()) {
       console.warn("Formulário inválido.")
-      return true;
+      return;
     }
     try {
       const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {

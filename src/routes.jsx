@@ -10,6 +10,7 @@ import Item from './pages/Item/itemCrud'
 import OngPerfil from "./pages/Ong/ongperfil"
 import Admin from './pages/Admin/adminCrud'
 import RepresentanteOng from "./pages/RepresentanteOng/representanteong"
+import OngCadastro from "./pages/Ong/ongcadastro"
 function RoutesApp() {
 
         return (
@@ -31,6 +32,7 @@ function RoutesApp() {
                                 <Route path="/itemCrud" element={<Item />} />
                                 <Route path="/ongperfil" element={<OngPerfil />} />
                                 <Route path="/adminCrud" element={<Admin />} />
+                                <Route path="/ongcadastro" element={<OngCadastro />} />
                                 <Route path="/representanteong" element={<RepresentanteOng />} />
                                 </Route>
                         </Routes>

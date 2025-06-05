@@ -1,0 +1,58 @@
+.container-cadastro-ong {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    margin: auto;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ebebeb;
+    box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
+    padding: 15px;
+}
+.input-box input::placeholder {
+    font-weight: normal;
+    font-size: 15px;
+}
+
+input[name="name"],
+input[name="textarea"],
+input[name="file"] {
+    width: 400px;
+}
+
+.upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+ .upload #file {
+    display: none;
+  }
+  
+  #foto {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border: 2px solid #4cd1b7;
+    background-color: #4cd1b7;
+    color: white;
+    text-align: center;
+    line-height: 120px;
+    cursor: pointer;
+    font-weight: bold;
+  
+  }
+  

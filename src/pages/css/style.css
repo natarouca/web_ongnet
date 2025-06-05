@@ -157,7 +157,7 @@ input {
   border: 1px solid #ebebeb;
   box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
   padding: 90px;
-  height: 900px;
+  height: auto;
   border-radius: 10px;
   margin-top: 3px;
   /* Adiciona o espaço entre o header e o formulário */
@@ -174,7 +174,7 @@ input {
   background: #194A6A;
   background: linear-gradient(0deg, rgba(25, 74, 106, 1) 0%, rgba(18, 153, 129, 1) 100%);
   padding: 90px;
-  height: 900px;
+  height: 760px;
 }
 
 .container-box h2,
@@ -557,7 +557,6 @@ form {
   padding: 60px;
   padding-bottom: 5px;
   height: 400px;
-
   width: 500px;
   max-width: 500px;
   margin: 0 auto;
@@ -645,12 +644,11 @@ input::placeholder {
   height: 120px;
   margin-bottom: 20px;
   border-radius: 50%;
-  border: 2px solid #0074bd;
-  background-color: #007ecc;
+  border: 2px solid #4cd1b7;
+  background-color: #4cd1b7;
   color: white;
   text-align: center;
   line-height: 120px;
-
   cursor: pointer;
   font-weight: bold;
 
@@ -682,16 +680,24 @@ input::placeholder {
 textarea {
   height: 70px;
   /* Aumenta a altura do campo de descrição */
-  width: 390px;
+  width: 420px;
   resize: vertical;
+  outline: none;
   /* Permite redimensionar verticalmente */
   border-radius: 5px;
-  border: 2px solid #004aad;
+    border: 1px solid #4cd1b7;
 }
 
 /* Ajustar o tamanho do campo de preço */
 
+textarea::placeholder {
+  color: #92c4ba;
+  font-weight: normal;
+  padding-left: 7px;
+  font-size: 15px;
+  padding-left: 15px;
 
+}
 
 .form-group button {
   width: 100%;

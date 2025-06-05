@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../css/admin.css'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser} from "@fortawesome/free-solid-svg-icons";
+
 const Admin = () => {
   return (
 
@@ -10,7 +9,6 @@ const Admin = () => {
       <input type="search" />
     </div> */}
       <div className="dados">
-        <FontAwesomeIcon  icon={faUser}/>
         <span> Dados Cadastrais</span>
       </div>
 
