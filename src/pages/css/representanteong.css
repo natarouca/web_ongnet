@@ -17,9 +17,9 @@
     flex-direction: column;
     justify-content: center;
     border-radius: 10px;
+    height: 100vh;
     background: linear-gradient(0deg, rgba(25, 74, 106, 1) 0%, rgba(18, 153, 129, 1) 100%);
-    height: 400px;
-    padding: 30px;
+
 }
 
 .container-box-representante h3, p {
@@ -37,17 +37,20 @@
 }
 
 .titulo-cadastro h3 {
-    font-size: 20px;
+    font-size: 25px;
     margin: 0px;
 }
 .titulo-cadastro p {
     margin: 0px;
 }
-.form form {
+form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: auto !important;
+    height: auto;
+    width: 450px;
 }
 a {
     text-decoration: none;
@@ -56,13 +59,15 @@ a {
 .input-group {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     justify-content: center;
     align-items: center;
+    padding: auto;
 }
 .button {
     margin: 0px;
 }
+
 .button  {
     font-size: 15px;
     font-weight: 600;

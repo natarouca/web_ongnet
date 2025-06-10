@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../css/ongcadastro.css'
+import api from '../../services/api'
+import axios from "axios";
 const OngCadastro = () => {
 
     const [vimg, setImg] = useState('');
@@ -7,19 +9,48 @@ const OngCadastro = () => {
     const [vobjtv, setObjtv] = useState('');
     const [errors, setErrors]= useState({});
 
+    const handleSubmit = async (e) => {
+        e.prevent.default();
+        if (!validateForm()) {
+            console.warn("Formulário inválido")
+            return;
+        }
+        try {
+            const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
+                objetivo: vobjtv,
+                atvidades: vatvd
+            });
+            console.log(response.data);
+        } catch(error) {
+            console.log(error);
+        }
+    };
 
-    const validateForm = () => {
+      const validateForm = () => {
         let newErrrors = {};
 
         if (!vatvd.trim()) {
-            newErrrors = "Por favor, insira as ativ"
+            newErrrors = "Por favor, insira as atividades."
         }
+
+        if(!setObjtv.trim()) {
+            newErrrors = "Por favor, insira o objetivo."
+        }
+
+        setErrors(newErrrors);
+
+        if (Object.keys(newErrrors).length > 0) {
+            return false;
+        }
+
+        setAtvd('');
+        setObjtv('');
     }
     return (
 
         <div className="container-cadastro-ong">
             <div className="form">
-                <form>
+                <form onSubmit={handleSubmit} method="post">
                     <div className="input-group">
 
                         <div className="input-box">
@@ -39,7 +70,8 @@ const OngCadastro = () => {
                             <label htmlFor="">
                                 Objetivo
                             </label>
-                            <input type="text" name="name" placeholder="Qual é o objetivo/missão da ONG?" />
+                            <input type="text" name="name" placeholder="Qual é o objetivo/missão da ONG?"
+                            />
                         </div>
                      
                         <div className="input-box">
@@ -61,6 +93,6 @@ const OngCadastro = () => {
         </div>
 
     )
-}
+};
 
 export default OngCadastro;
