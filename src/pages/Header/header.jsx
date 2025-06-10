@@ -28,6 +28,10 @@ function Header() {
                 <li className='link-nav'>
                   <Link to="/ongcadastro" className='abas'>Cadastro ONG</Link>
                 </li>
+                
+                <li className='link-nav'>
+                  <Link to="/ongcrud" className='abas'>ONG crud</Link>
+                </li>
             </nav>
         </header>
     )

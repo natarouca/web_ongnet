@@ -1,0 +1,46 @@
+#cnpj-crud {
+    cursor: no-drop;
+}
+
+.upload {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#file {
+    display: none;
+}
+
+#form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(240, 255, 250);
+    border: 1px solid #ebebeb;
+    box-shadow: 1px 4px 10px rgba(36, 37, 37, 0.2);
+    padding: 40px;
+    padding-bottom: 5px;
+    height: 700px;
+    width: 500px;
+    max-width: 500px;
+    margin: 10px;
+    border-radius: 15px;
+    margin-top: 5px;
+    /* Adiciona o espaço entre o header e o formulário */
+}
+
+#foto {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+    border: 2px solid #4cd1b7;
+    background-color: #4cd1b7;
+    color: white;
+    text-align: center;
+    line-height: 120px;
+    cursor: pointer;
+    font-weight: bold;
+
+}

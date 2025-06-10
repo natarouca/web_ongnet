@@ -36,14 +36,15 @@ const Loginong = () => {
 
         if (!email.trim()) {
             newErrors.email = "O e-mail é obrigatório.";
+            return false;
         } else if (!regexEmail.test(email.trim())) {
             newErrors.email = "Insira um e-mail válido.";
+            return false
         }
-
         if (!password.trim()) {
             newErrors.password = "A senha é obrigatória.";
+            return false;
         }
-
         setErrors(newErrors); // Atualiza os erros corretamente
 
         return Object.keys(newErrors).length === 0; // Retorna se o formulário é válido
@@ -54,8 +55,7 @@ const Loginong = () => {
         <div className="container-login">
             <form id="form-login" onSubmit={handleSubmit}>
                 <div className="titulo-login">
-                    <h3 style={{fontSize:25}}>Bem vindo de volta!</h3>
-                    <p>Faça Login para continuar</p>
+
                 </div>
                 <div className="box-login">
                     <label htmlFor="cnpj">E-mail</label>
@@ -67,10 +67,10 @@ const Loginong = () => {
                     <input type="password" id="senha" placeholder="Digite a senha" value={password} onChange={(e) => setPassword(e.target.value)} />
                     {errors.password && <span className="error">{errors.password}</span>}
 
-                    <div className="registers">
+                    <div className="esqueceu-senha">
                         <a href="/">
                             <p>
-                                <a style={{ color: "ActiveBorder", fontSize: 13 }} href="/representanteong">Não possui cadastro? Clique aqui.</a>
+                                <a style={{ color: "#4cd1b7", fontSize: 13 }} href="/representanteong">Não possui cadastro? Clique aqui. <a style={{ color: "#4cd1b7" }} href="/">Esqueceu a senha?</a></a>
                             </p>
                         </a>
                     </div>

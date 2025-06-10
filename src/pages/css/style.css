@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 /* Header */
 * {
   font-family: 'Open Sans', sans-serif;
   margin: 0px;
 }
 
-header { 
+header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -302,7 +303,7 @@ p {
 .perfil-info td {
   font-weight: bold;
   padding: 5px 10px;
-  
+
   background-color: white;
   border: 2px solid rgb(228, 228, 228);
   font-size: 16px;
@@ -355,7 +356,7 @@ p {
   justify-content: center;
   align-items: center;
   background-color: rgb(238, 238, 238);
-  color: #ff6c6c;
+  color: #139e82;
   font-weight: bold;
 }
 
@@ -553,7 +554,8 @@ form {
   flex-direction: column;
   justify-content: center;
   background-color: rgb(240, 255, 250);
-  border: 2px solid #009dff;
+  border: 1px solid #ebebeb;
+  box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
   padding: 60px;
   padding-bottom: 5px;
   height: 400px;
@@ -565,23 +567,7 @@ form {
   /* Adiciona o espaço entre o header e o formulário */
 }
 
-#form {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  background-color: rgb(248, 253, 255);
-  border: 2px solid #0074bd;
-  padding: 40px;
-  padding-bottom: 5px;
-  height: 700px;
- 
-  width: 500px;
-  max-width: 500px;
-  margin: 10px;
-  border-radius: 15px;
-  margin-top: 5px;
-  /* Adiciona o espaço entre o header e o formulário */
-}
+
 
 .form-faleconosco {
   background-color: #e7e7e7;
@@ -624,58 +610,6 @@ input::placeholder {
   padding-left: 7px;
 }
 
-#cnpj-crud {
-  cursor: no-drop;
-}
-
-.upload {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#file {
-  display: none;
-}
-
-#foto {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 20px;
-  border-radius: 50%;
-  border: 2px solid #4cd1b7;
-  background-color: #4cd1b7;
-  color: white;
-  text-align: center;
-  line-height: 120px;
-  cursor: pointer;
-  font-weight: bold;
-
-}
-
-
-#button-form-crud {
-  background-color: #006baf;
-  border: 2px solid #005991;
-  padding: 10px;
-  cursor: pointer;
-  width: 70%;
-  margin-top: 10px;
-  border-radius: 10px;
-  color: #f8f8f8;
-  font-weight: bold;
-}
-
-#button-form-crud:hover {
-  background-color: #009dff;
-  border-color: #0086da;
-}
-
-
-
-
-
 /* Ajustar o tamanho do campo de descrição (textarea) */
 textarea {
   height: 70px;
@@ -685,7 +619,7 @@ textarea {
   outline: none;
   /* Permite redimensionar verticalmente */
   border-radius: 5px;
-    border: 1px solid #4cd1b7;
+  border: 1px solid #4cd1b7;
 }
 
 /* Ajustar o tamanho do campo de preço */
@@ -770,6 +704,7 @@ span {
   font-weight: bolder;
   margin-bottom: 0px;
 }
+
 #button-cadastro-ong {
   padding: 8px;
   width: 250px;
@@ -791,7 +726,7 @@ button {
 .p-footer {
   color: white;
   font-size: 10px;
- 
+
   font-weight: bold;
 
 }
