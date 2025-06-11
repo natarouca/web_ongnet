@@ -79,13 +79,12 @@ const OngCadastro = () => {
                                 Atividades
                             </label>
                             <textarea name="textarea" id="" placeholder="Qual (is) atividades essa ONG produz?">
-
                             </textarea>
                         </div>
                     </div>
 
                     <div className="button">
-                        <button>Pronto</button>
+                        <button type="submit">Pronto</button>
                     </div>
 
                 </form>

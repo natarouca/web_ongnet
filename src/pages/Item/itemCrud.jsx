@@ -22,28 +22,20 @@ const DataManagment = () => {
 
         if (!validateForm()) return;
 
-        const finalData = {
-            desc: selectedItem ? selectedItem.label : formData.desc,
-            qntd: formData.qntd
 
-        };
-
-        finalData();
         resetForm();
         try {
             const response = await api.post("http://localhost:8080/api/v1/representante-ong/item", {
-                categoria: Categoria,
-                desc: vdesc,
-                qntd: vqntd
+                categoria: selectedCategoria.value,
+                desc: selectedItem ? selectedItem.label : formData.desc,
+                qntd: formData.qntd
             });
-
-            console.log(response.data);
+            console.log("Item cadastrado", response.data);
             setItens([...vitens, response.data]);
+            resetForm();
         } catch (error) {
-            console.log(error);
+            console.log("Erro ao cadastrar item", error);
         }
-
-
     }
 
     const fetchData = () => {
@@ -92,6 +84,7 @@ const DataManagment = () => {
         setErrors({});
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
         setSelectedItem(null);
+       
     };
 
     const validateForm = () => {
@@ -122,7 +115,7 @@ const DataManagment = () => {
             ...provided,
             border: '1px solid #007a62',
             borderRadius: '5px',
-            padding: '3px',
+            padding: '5px',
             color: '#006954',
             boxShadow: 'none',
             '&:hover': {
@@ -131,14 +124,17 @@ const DataManagment = () => {
         }),
         singleValue: (provided) => ({
             ...provided,
-            color: '#68b1a2'
+            color: '#68b1a2',
+            paddingLeft: '5px'
 
         }),
         placeholder: (provided) => ({
             ...provided,
-            color: '006954',  // aqui você coloca a cor desejada, ex: vermelho
+            color: '006954',
+            paddingLeft: '5px'  // aqui você coloca a cor desejada, ex: vermelho
 
         }),
+         
         option: (provided) => ({
             ...provided,
             backgroundColor: 'white',

@@ -112,7 +112,9 @@
     transition: 0.3s ease;
 }
 
-
+.input-box-item #categoria::placeholder {
+    padding-left: 5px;
+}
 
 
 .input-box-item input:hover {

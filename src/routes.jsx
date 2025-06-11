@@ -5,7 +5,6 @@ import Cliente from './pages/Cliente/cliente'
 import Loginong from './pages/Loginong/loginOng'
 import Quemsomos from './pages/Quemsomos/quemsomos'
 import Home_new from './pages/Home/home_new'
-import Crudong from './pages/Crudong/ongcrud'
 import Item from './pages/Item/itemCrud'
 import OngPerfil from "./pages/Ong/ongperfil"
 import Crudong from './pages/Crudong/ongcrud'
@@ -26,7 +25,6 @@ function RoutesApp() {
 
                                 <Route path="/home_new" element={<Home_new />} />
                                 <Route path="/ong" element={<Ong />} />
-                                <Route path="/ongcrud" element={<Crudong />} />
                                 <Route path="/loginOng" element={<Loginong />} />
                                 <Route path="/quemsomos" element={<Quemsomos />} />
                                 <Route path="/cliente" element={<Cliente />} />
