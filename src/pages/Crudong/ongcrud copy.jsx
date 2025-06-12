@@ -28,7 +28,15 @@ const Crudong = () => {
   };
 
   return (
-
+//nome
+//cnpj (readOnly)
+//cep
+//numero
+//telefone
+//email
+//site
+//atividade
+//missao
     <div class="crud-ong">
       <form id="form" onSubmit={handleSubmit}>
 

@@ -72,7 +72,7 @@ const Crudong = () => {
         />
 
 
-        <label htmlFor="email">Área de Atuação</label>
+        {/* <label htmlFor="email">Área de Atuação</label>
         <input
           name="atucao"
           type="text"
@@ -83,7 +83,7 @@ const Crudong = () => {
           size={50}
           maxLength={50}
           required
-        />
+        /> */}
 
         <label htmlFor="email">E-mail</label>
         <input

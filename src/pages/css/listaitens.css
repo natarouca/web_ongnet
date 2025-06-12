@@ -1,37 +1,33 @@
 .lista-cadastro-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   margin-top: 30px;
   width: 400px;
 }
 
-.lista-cadastro-item ul {
-  list-style: none;
-}
 
 .lista-cadastro-item li {
-  background-color: #f8fffe;
-  padding: 12px;
+  background-color: aqua;
+}
+.lista-cadastro-item {
+  background-color: rgb(248, 253, 255);
+  padding: 20px;
   border: none;
   box-shadow: 0px 4px 10px rgba(122, 122, 122, 0.2);
   border-radius: 10px;
-  display: flex;
-  gap: 30px;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 10px;
   font-size: 16px;
   font-weight: bold;
-
 }
 
 .button-lista {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 200px;
+  justify-content: space-between;
+  gap: 15px;
+  width: 90px;
 }
 .lista-cadastro-item li:hover {
   box-shadow: 0px 4px 10px rgba(0, 126, 88, 0.2);

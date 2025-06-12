@@ -1,11 +1,33 @@
 import React, { useState, useEffect } from "react";
 import '../css/galleryongs.css'
 import "../css/style.css";
+import api from "../../services/api";
 import Imagem1 from '../img/images.png'
 
 function Home() {
 
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [ongs, setOngs] = useState([]);
+ useEffect(() => {
+    fetchData();
+  }, []);
+
+  
+  const fetchData = () => {
+    setLoading(true);
+    api.get('ong')
+      .then(response => {
+        setOngs(response.data.data); // Atualiza a lista com os dados retornados
+        setLoading(false); // Desativa o carregamento
+      })
+      .catch(error => {
+        setError("Erro ao carregar ONGs"); // Armazena a mensagem de erro
+        setLoading(false);
+      });
+  };
+
   return (
     <div>
       <div className="search-container" style={{ textAlign: 'center', margin: '20px 0' }}>

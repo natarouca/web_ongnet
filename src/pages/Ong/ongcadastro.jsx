@@ -6,7 +6,7 @@ const OngCadastro = () => {
 
     const [vimg, setImg] = useState('');
     const [vatvd, setAtvd] = useState('');
-    const [vobjtv, setObjtv] = useState('');
+    const [vmissao, setMissao] = useState('');
     const [errors, setErrors]= useState({});
 
     const handleSubmit = async (e) => {
@@ -17,7 +17,7 @@ const OngCadastro = () => {
         }
         try {
             const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
-                objetivo: vobjtv,
+                missao: vmissao,
                 atvidades: vatvd
             });
             console.log(response.data);
@@ -33,8 +33,8 @@ const OngCadastro = () => {
             newErrrors = "Por favor, insira as atividades."
         }
 
-        if(!setObjtv.trim()) {
-            newErrrors = "Por favor, insira o objetivo."
+        if(!setMissao.trim()) {
+            newErrrors = "Por favor, insira a missão."
         }
 
         setErrors(newErrrors);
@@ -43,7 +43,7 @@ const OngCadastro = () => {
             return false;
         }
 
-        setAtvd('');
+        setMissao('');
         setObjtv('');
     }
     return (
@@ -68,9 +68,9 @@ const OngCadastro = () => {
                         </div>
                         <div className="input-box">
                             <label htmlFor="">
-                                Objetivo
+                                Missão
                             </label>
-                            <input type="text" name="name" placeholder="Qual é o objetivo/missão da ONG?"
+                            <input type="text" name="name" placeholder="Qual é a missão da ONG?"
                             />
                         </div>
                      

@@ -17,7 +17,6 @@ const Admin = () => {
 
         {/* container filho do galeria-ongs */}
 
-
         <div className="galeria-ong-item">
 
           <div className="data-ongs">
