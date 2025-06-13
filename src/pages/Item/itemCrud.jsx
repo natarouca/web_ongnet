@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import api from "../../services/api";
+import axios from "axios";
 import '../css/cadastrodeitem.css';
 import '../css/listaitens.css';
 import '../css/categoria.css';
@@ -18,12 +19,7 @@ const DataManagment = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null)
 
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = () => {
+     const fetchData = () => {
         setLoading(true);
         api.get('item')
             .then(response => {
@@ -36,25 +32,31 @@ const DataManagment = () => {
             });
     };
 
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) return;
 
         try {
             if (isEditing) {
-                await api.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
+               const response = await api.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
                     categoria: selectedCategoria.value,
-                    desc: selectedItem ? selectedItem.label : formData.desc,
+                    desc: formData.desc,
                     meta: formData.meta
                 });
-                console.log("Item atualizado com sucesso");
+                console.log("Item atualizado com sucesso", response.data);
             } else {
-                await api.post("http://localhost:8080/api/v1/representante-ong/item", {
+               const response = await api.post("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
-                    desc: selectedItem ? selectedItem.label : formData.desc,
+                    desc: formData.desc,
                     meta: formData.meta
                 });
-                console.log("Item cadastrado com sucesso");
+                
+                console.log("Item cadastrado com sucesso", response.data);
             }
 
             fetchData();
@@ -68,14 +70,14 @@ const DataManagment = () => {
     const handleEdit = (item) => {
         setIsEditing(true);
         setEditingId(item.id);
-        setFormData({descricao: item.descricao, meta: item.meta});
+        setFormData({desc: item.desc, meta: item.meta});
     }
 
     const Categoria = [
         { value: '', label: 'Escolha uma categoria' },
         { value: 'Alimentos', label: 'Alimentos' },
         { value: 'Higiene', label: 'Higiene' },
-        { value: 'Vestimenta', label: 'Vestimenta' }
+        { value: 'Vestimenta', label: 'Vestimenta'}
     ];
 
      const Item = [
@@ -85,7 +87,7 @@ const DataManagment = () => {
         { value: 'Sabonete', label: 'Sabonete', categoria: 'Higiene' },
         { value: 'Roupa infantil', label: 'Roupa infantil', categoria: 'Vestimenta' },
         { value: 'Casaco', label: 'Casaco', categoria: 'Vestimenta' }
-     ];
+    ];
 
     useEffect(() => {
         fetchData()
@@ -183,7 +185,7 @@ const DataManagment = () => {
                     <h2 style={{fontSize:18}}>{isEditing ? "Atualize os dados do item" : "ONG, de qual item você precisa?"}</h2>
                     <p>{isEditing ? "Atualizar item" : "Cadastre um novo item"} </p>
                 </div>
-
+                {/* <p>{isEditing ? <span>Voltar para cadastro</span> : <span>Atualizar</span>}</p> */}
                 <div className="input-box-item">
                     <label htmlFor="categoria">Categoria</label>
                     <Select
