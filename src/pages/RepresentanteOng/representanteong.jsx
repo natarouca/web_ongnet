@@ -28,7 +28,7 @@ const RepresentanteOng = () => {
         setTimeout(() => {
             console.log("Formulário válido. Redirecionando...");
             navigate("/ong");
-        }, 2000);
+        }, 3000);
     };
 
     const validateForm = () => {
