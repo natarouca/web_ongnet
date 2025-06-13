@@ -9,6 +9,7 @@ const Ong = () => {
   const [vnome, setNome] = useState('');
   const [vcep, setCep] = useState('');
   const [vresp, setResp] = useState('');
+  const [vuf, setUf] = useState('');
   const [vnumero, setNumero] = useState('');
   const [vtelefone, setTelefone] = useState('');
   const [vemail, setEmail] = useState('');
@@ -49,16 +50,19 @@ const Ong = () => {
       console.warn("Formulário inválido.")
       return;
     }
+
+    const nomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
     try {
       const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
         cnpj: vcnpj,
-        responsavel: vresp,
+        responsavel: nomeRepresentante,
         cep: vcep,
+        uf: vuf,
         numero: vnumero,
         telefone: vtelefone,
         email: vemail,
-        password: vpassword
+        // password: vpassword
         // imagem: vimg
       });
 
@@ -70,76 +74,81 @@ const Ong = () => {
 
   };
 
-const validateField = (field, value) => {
+  const validateField = (field, value) => {
     setErrors(prevErrors => {
-        let newErrors = { ...prevErrors }; // Mantém os erros antigos
-    
-        const regexNumero = /^\d+$/;
-        const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
-        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        const regexCnpj = /^\d{14}$/;
-        const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
+      let newErrors = { ...prevErrors }; // Mantém os erros antigos
 
-        if (field === "nome") {
-            if (!value.trim()) newErrors.nome = "O nome da organização é obrigatório.";
-            else if (!regexName.test(value)) newErrors.nome = "O nome deve conter apenas letras e espaços.";
-            else if (value.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
-            else delete newErrors.nome;
-        }
+      const regexNumero = /^\d+$/;
+      const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+      const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const regexCnpj = /^\d{14}$/;
+      const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
 
-        
-        if (field === "resp") {
-            if (!value.trim()) newErrors.resp = "O nome do representante é obrigatório.";
-            else if (!regexName.test(value)) newErrors.resp = "O nome deve conter apenas letras e espaços.";
-            else if (value.trim().length < 5) newErrors.resp = "O nome deve ter no mínimo 5 caracteres.";
-            else delete newErrors.resp;
-        }
+      if (field === "nome") {
+        if (!value.trim()) newErrors.nome = "O nome da organização é obrigatório.";
+        else if (!regexName.test(value)) newErrors.nome = "O nome deve conter apenas letras e espaços.";
+        else if (value.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
+        else delete newErrors.nome;
+      }
 
 
-        if (field === "email") {
-            if (!value.trim()) newErrors.email = "O e-mail é obrigatório.";
-            else if (!regexEmail.test(value.trim())) newErrors.email = "Por favor, insira um e-mail válido.";
-            else delete newErrors.email;
-        }
+      if (field === "resp") {
+        if (!value.trim()) newErrors.resp = "O nome do representante é obrigatório.";
+        else if (!regexName.test(value)) newErrors.resp = "O nome deve conter apenas letras e espaços.";
+        else if (value.trim().length < 5) newErrors.resp = "O nome deve ter no mínimo 5 caracteres.";
+        else delete newErrors.resp;
+      }
 
-        if (field === "telefone") {
-            if (!value.trim()) newErrors.telefone = "O telefone é obrigatório.";
-            else if (!regexTelefone.test(value.trim())) newErrors.telefone = "Insira um telefone válido.";
-            else delete newErrors.telefone;
-        }
+        if (field === "uf") {
+        if (!value.trim()) newErrors.uf = "Informar o Estado é obrigatório.";
+        else delete newErrors.uf;
+      }
 
-        if (field === "cep") {
-            if (!value.trim()) newErrors.cep = "O CEP é obrigatório.";
-            else if (!regexNumero.test(value.trim().replace(/\D/g, ''))) newErrors.cep = "Este campo só aceita números.";
-            else delete newErrors.cep;
-        }
+      if (field === "email") {
+        if (!value.trim()) newErrors.email = "O e-mail é obrigatório.";
+        else if (!regexEmail.test(value.trim())) newErrors.email = "Por favor, insira um e-mail válido.";
+        else delete newErrors.email;
+      }
 
-        if (field === "numero") {
-            if (!value.trim()) newErrors.numero = "O número de residência é obrigatório.";
-            else if (!regexNumero.test(value.trim())) newErrors.numero = "Ops! Este campo só aceita números.";
-            else delete newErrors.numero;
-        }
+      if (field === "telefone") {
+        if (!value.trim()) newErrors.telefone = "O telefone é obrigatório.";
+        else if (!regexTelefone.test(value.trim())) newErrors.telefone = "Insira um telefone válido.";
+        else delete newErrors.telefone;
+      }
 
-        if (field === "cnpj") {
-            if (!value.trim()) newErrors.cnpj = "O CNPJ é obrigatório.";
-            else if (!regexCnpj.test(value.trim().replace(/\D/g, ''))) newErrors.cnpj = "Ops! Este campo aceita somente números.";
-            else delete newErrors.cnpj;
-        }
+      if (field === "cep") {
+        if (!value.trim()) newErrors.cep = "O CEP é obrigatório.";
+        else if (!regexNumero.test(value.trim().replace(/\D/g, ''))) newErrors.cep = "Este campo só aceita números.";
+        else delete newErrors.cep;
+      }
 
-        if (field === "password") {
-            if (!value.trim()) newErrors.password = "A senha é obrigatória.";
-            else delete newErrors.password;
-        }
+      if (field === "numero") {
+        if (!value.trim()) newErrors.numero = "O número de residência é obrigatório.";
+        else if (!regexNumero.test(value.trim())) newErrors.numero = "Ops! Este campo só aceita números.";
+        else delete newErrors.numero;
+      }
 
-        if (field === "confirmaPassword") {
-            if (!value.trim()) newErrors.confirmaPassword = "Confirme sua senha.";
-            else if (vpassword !== vconfirmaPassword) newErrors.confirmaPassword = "As senhas não coincidem.";
-            else delete newErrors.confirmaPassword;
-        }
+      if (field === "cnpj") {
+        if (!value.trim()) newErrors.cnpj = "O CNPJ é obrigatório.";
+        else if (!regexCnpj.test(value.trim().replace(/\D/g, ''))) newErrors.cnpj = "Ops! Este campo aceita somente números.";
+        else delete newErrors.cnpj;
+      }
 
-        return newErrors; // Atualiza os erros corretamente
+      // if (field === "password") {
+      //   if (!value.trim()) newErrors.password = "A senha é obrigatória.";
+      //   else if (!value.trim().length < 8) newErrors.password = "A senha deve conter no máximo 8 caracteres."
+      //   else delete newErrors.password;
+      // }
+
+      // if (field === "confirmaPassword") {
+      //   if (!value.trim()) newErrors.confirmaPassword = "Confirme sua senha.";
+      //   else if (vpassword !== vconfirmaPassword) newErrors.confirmaPassword = "As senhas não coincidem.";
+      //   else delete newErrors.confirmaPassword;
+      // }
+
+      return newErrors; // Atualiza os erros corretamente
     });
-};
+  };
 
 
   return (
@@ -185,6 +194,7 @@ const validateField = (field, value) => {
             {errors.cnpj && <span className="error">{errors.cnpj}</span>}
           </div>
 
+
           <div className="input-box">
             <label htmlFor="resp">Representante da ONG</label>
             <input
@@ -198,6 +208,26 @@ const validateField = (field, value) => {
               onChange={(e) => {
                 setResp(e.target.value)
                 validateField("resp", e.target.value)
+              }
+              }
+            />
+
+            {errors.resp && <span className="error">{errors.resp}</span>}
+          </div>
+
+          <div className="input-box">
+            <label htmlFor="resp">Estado</label>
+            <input
+              type="text"
+              id="uf"
+              name="uf"
+              size={100}
+              maxLength={100}
+              value={vuf}
+              placeholder="Estado (UF)"
+              onChange={(e) => {
+                setUf(e.target.value)
+                validateField("uf", e.target.value)
               }
               }
             />
@@ -231,10 +261,10 @@ const validateField = (field, value) => {
                 value={venderecoCompleto}
                 placeholder="Endereço completo será preenchido automaticamente"
                 readOnly
+                style={{display:"none"}}
               />
             </div>
           )}
-
 
           <div className="input-box">
             <label htmlFor="nmResidencia">Número de Residência</label>
@@ -279,7 +309,7 @@ const validateField = (field, value) => {
               size={100}
               maxLength={100}
               value={vemail}
-              placeholder="Endereço de e-mail"
+              placeholder="E-mail de contato da instituição"
               onChange={(e) => {
                 setEmail(e.target.value)
                 validateField("email", e.target.value)
@@ -288,7 +318,7 @@ const validateField = (field, value) => {
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
-
+{/* 
           <div className="input-box">
             <label htmlFor="password">Crie uma senha</label>
             <input
@@ -316,15 +346,15 @@ const validateField = (field, value) => {
               maxLength={10}
               value={vconfirmaPassword}
               placeholder="Confirme a password"
-            onChange={(e) => {
-              setConfirmaPassword(e.target.value)
-              validateField ("confirmaPassword", e.target.value)
+              onChange={(e) => {
+                setConfirmaPassword(e.target.value)
+                validateField("confirmaPassword", e.target.value)
               }
               }
               style={{ marginTop: 0 }}
             />
             <span className="error">{errors.confirmaPassword}</span>
-          </div>
+          </div> */}
         </div>
 
         <div className="button">

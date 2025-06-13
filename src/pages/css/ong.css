@@ -23,6 +23,13 @@
     /* Adiciona o espaço entre o header e o formulário */
   }
   
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 100vh;
+  }
   .container-box {
     display: flex;
     align-items: center;

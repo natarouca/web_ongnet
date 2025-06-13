@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../css/representanteong.css";
 import { useNavigate } from "react-router-dom";
-
+import Logo from "../img/ong-net-logo.jpg"
 const RepresentanteOng = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -24,10 +24,12 @@ const RepresentanteOng = () => {
             console.log("Formulário inválido");
             return;
         }
+
+        localStorage.setItem("nomeRepresentante", formData.nome)
         setLoading(true);
         setTimeout(() => {
             console.log("Formulário válido. Redirecionando...");
-            navigate("/ong");
+            navigate("/loginOng");
         }, 3000);
     };
 
@@ -56,9 +58,16 @@ const RepresentanteOng = () => {
 
     if (loading) {
         return (
-            <div>
-                <p style={{color:"ActiveBorder"}}>Cadastrado com Sucesso!</p>
+            <div className="loading">
+                <div className="img">
+                    <img src={Logo} alt="" />
+                </div>
+                <h2 style={{ color: "ActiveBorder", textAlign: "center" }}>Pronto!</h2>
+                <h3 style={{ color: "ActiveBorder", textAlign: "center" }}>Representante, finalizamos a primeira etapa do cadastro.</h3>
+                <h3 style={{ color: "ActiveBorder", textAlign: "center" }}>Agora, você já pode cadastrar sua ONG em nossa plataforma!</h3>
+
             </div>
+
         )
     }
     return (
