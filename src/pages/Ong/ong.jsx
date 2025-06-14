@@ -14,8 +14,7 @@ const Ong = () => {
   const [vtelefone, setTelefone] = useState('');
   const [vemail, setEmail] = useState('');
   const [vcnpj, setCnpj] = useState('');
-  const [vpassword, setPassword] = useState('');
-  const [vconfirmaPassword, setConfirmaPassword] = useState('');
+
   const [errors, setErrors] = useState({});
   const [venderecoCompleto, setEnderecoCompleto] = useState('');
 
@@ -52,6 +51,7 @@ const Ong = () => {
     }
 
     const nomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
+
     try {
       const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
@@ -134,19 +134,9 @@ const Ong = () => {
         else delete newErrors.cnpj;
       }
 
-      // if (field === "password") {
-      //   if (!value.trim()) newErrors.password = "A senha é obrigatória.";
-      //   else if (!value.trim().length < 8) newErrors.password = "A senha deve conter no máximo 8 caracteres."
-      //   else delete newErrors.password;
-      // }
+  
 
-      // if (field === "confirmaPassword") {
-      //   if (!value.trim()) newErrors.confirmaPassword = "Confirme sua senha.";
-      //   else if (vpassword !== vconfirmaPassword) newErrors.confirmaPassword = "As senhas não coincidem.";
-      //   else delete newErrors.confirmaPassword;
-      // }
-
-      return newErrors; // Atualiza os erros corretamente
+      return newErrors; 
     });
   };
 

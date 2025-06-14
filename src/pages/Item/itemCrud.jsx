@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import api from "../../services/api";
-import axios from "axios";
 import '../css/cadastrodeitem.css';
 import '../css/listaitens.css';
 import '../css/categoria.css';
@@ -14,12 +13,16 @@ const DataManagment = () => {
     const [formData, setFormData] = useState({ desc: "", meta: "" });
     const [errors, setErrors] = useState({});
     const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
-    const [selectedItem, setSelectedItem] = useState(null);
-    const [filteredItens, setFilteredItens] = useState([]);
+
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null)
 
-     const fetchData = () => {
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
         setLoading(true);
         api.get('item')
             .then(response => {
@@ -32,31 +35,25 @@ const DataManagment = () => {
             });
     };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-   
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) return;
+        if (!validateField()) return;
 
         try {
             if (isEditing) {
-               const response = await api.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
+                await api.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
                     categoria: selectedCategoria.value,
                     desc: formData.desc,
                     meta: formData.meta
                 });
-                console.log("Item atualizado com sucesso", response.data);
+                console.log("Item atualizado com sucesso");
             } else {
-               const response = await api.post("http://localhost:8080/api/v1/representante-ong/item", {
+                await api.post("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
                     desc: formData.desc,
                     meta: formData.meta
                 });
-                
-                console.log("Item cadastrado com sucesso", response.data);
+                console.log("Item cadastrado com sucesso");
             }
 
             fetchData();
@@ -77,28 +74,28 @@ const DataManagment = () => {
         { value: '', label: 'Escolha uma categoria' },
         { value: 'Alimentos', label: 'Alimentos' },
         { value: 'Higiene', label: 'Higiene' },
-        { value: 'Vestimenta', label: 'Vestimenta'}
+        { value: 'Vestimenta', label: 'Vestimenta' }
     ];
 
-     const Item = [
-        { value: 'Arroz', label: 'Arroz', categoria: 'Alimentos' },
-        { value: 'Feijão', label: 'Feijão', categoria: 'Alimentos' },
-        { value: 'Pasta de dente', label: 'Pasta de dente', categoria: 'Higiene' },
-        { value: 'Sabonete', label: 'Sabonete', categoria: 'Higiene' },
-        { value: 'Roupa infantil', label: 'Roupa infantil', categoria: 'Vestimenta' },
-        { value: 'Casaco', label: 'Casaco', categoria: 'Vestimenta' }
-    ];
+    //  const Item = [
+    //     { value: 'Arroz', label: 'Arroz', categoria: 'Alimentos' },
+    //     { value: 'Feijão', label: 'Feijão', categoria: 'Alimentos' },
+    //     { value: 'Pasta de dente', label: 'Pasta de dente', categoria: 'Higiene' },
+    //     { value: 'Sabonete', label: 'Sabonete', categoria: 'Higiene' },
+    //     { value: 'Roupa infantil', label: 'Roupa infantil', categoria: 'Vestimenta' },
+    //     { value: 'Casaco', label: 'Casaco', categoria: 'Vestimenta' }
+    //  ];
 
-    useEffect(() => {
-        fetchData()
-        if (selectedCategoria && selectedCategoria.value) {
-            const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
-            setFilteredItens(itensFiltrados);
-        } else {
-            setFilteredItens([]);
-            setSelectedItem(null);
-        }
-    }, [selectedCategoria]);
+    // useEffect(() => {
+    //     fetchData()
+    //     if (selectedCategoria && selectedCategoria.value) {
+    //         const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
+    //         setFilteredItens(itensFiltrados);
+    //     } else {
+    //         setFilteredItens([]);
+    //         setSelectedItem(null);
+    //     }
+    // }, [selectedCategoria]);
 
 
 
@@ -106,31 +103,27 @@ const DataManagment = () => {
         setFormData({ desc: "", meta: "" });
         setErrors({});
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
-        setSelectedItem(null);
+        // setSelectedItem(null);
 
     };
 
-    const validateForm = () => {
-        let newErrors = {};
-        const regexDesc = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+    const validateField = (field, value) => {
+        setErrors(prevErrors => {
+      let newErrors = { ...prevErrors }; // Mantém os erros antigos
 
-        // Só exige descrição se nenhum item foi selecionado
-        if (!selectedItem && !formData.desc.trim()) {
-            newErrors.desc = "A descrição do item é obrigatória.";
-        } else if (!selectedItem && !regexDesc.test(formData.desc)) {
-            newErrors.desc = "Esse campo aceita somente letras e espaços.";
-        }
+      if (field === "desc") {
+        if (!value.trim()) newErrors.desc = "A descrição é obrigatória.";
+        else delete newErrors.desc;
+      }
 
-        const numeroMeta = Number(formData.meta);
-        if (!formData.meta || numeroMeta <= 0) {
-            newErrors.meta = "Informar a quantidade é obrigatório.";
-        } else if (numeroMeta > 150) {
-            newErrors.meta = "Quantidade excedida.";
-        }
+      if (field === "meta") {
+        if (!value.trim()) newErrors.meta = "O meta é obrigatória.";
+        else delete newErrors.meta;
+      }
 
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
+      return newErrors; // Atualiza os erros corretamente
+    });
+  };
 
 
     const customSelectStyles = {
@@ -185,7 +178,7 @@ const DataManagment = () => {
                     <h2 style={{fontSize:18}}>{isEditing ? "Atualize os dados do item" : "ONG, de qual item você precisa?"}</h2>
                     <p>{isEditing ? "Atualizar item" : "Cadastre um novo item"} </p>
                 </div>
-                {/* <p>{isEditing ? <span>Voltar para cadastro</span> : <span>Atualizar</span>}</p> */}
+
                 <div className="input-box-item">
                     <label htmlFor="categoria">Categoria</label>
                     <Select
@@ -213,7 +206,7 @@ const DataManagment = () => {
                 )} */}
 
 
-                {(!selectedCategoria || !selectedItem) && (
+                {/* {(!selectedCategoria || !selectedItem) && (
                     <div className="input-box-item">
                         <label htmlFor="desc-item">Descrição</label>
                         <input
@@ -226,7 +219,23 @@ const DataManagment = () => {
                         />
                         {errors.desc && <span className="error">{errors.desc}</span>}
                     </div>
-                )}
+                )} */}
+
+                     
+                    <div className="input-box-item">
+                        <label htmlFor="desc-item">Descrição</label>
+                        <input
+                            type="text"
+                            id="desc-item"
+                            maxLength={50}
+                            value={formData.desc}
+                            onChange={(e) => {setFormData({ ...formData, desc: e.target.value })
+                                validateField("desc", e.target.value)
+                        }}
+                            placeholder="Ex. Alimentos, roupas, cobertores..."
+                        />
+                        {errors.desc && <span className="error">{errors.desc}</span>}
+                    </div>
 
                 <div className="input-box-item">
                     <label htmlFor="meta">Meta</label>
@@ -236,7 +245,9 @@ const DataManagment = () => {
                         min={1}
                         max={150}
                         value={formData.meta}
-                        onChange={(e) => setFormData({ ...formData, meta: e.target.value })}
+                        onChange={(e) => {setFormData({ ...formData, meta: e.target.value })
+                        validateField("meta", e.target.value)
+                    }}
                         placeholder="Quantidade necessária"
                     />
                     {errors.meta && <span className="error">{errors.meta}</span>}
@@ -251,11 +262,11 @@ const DataManagment = () => {
                 <ul className="lista-itens">
                     {data.map(item => (
                         <li key={item.id}>
-                            {item.id} - {item.descricao} - {item.meta}
+                            {item.id} - {item.desc} - {item.meta}
                         </li>
                     ))}
                     <div className="button-lista">
-                        <button onClick={() => handleEdit(Item)}>Editar</button>
+                        <button onClick={() => handleEdit(item)}>Editar</button>
                     </div>
 
                 </ul>
