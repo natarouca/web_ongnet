@@ -26,25 +26,20 @@ const OngCadastro = () => {
         }
     };
 
-      const validateForm = () => {
-        let newErrrors = {};
+      const validateField = (field, value) => {
+       setErrors(prevErrors => {
+        let newErrors = {...prevErrors};
 
-        if (!vatvd.trim()) {
-            newErrrors = "Por favor, insira as atividades."
+        const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+
+        if (field === "atvd") {
+            if (!value.trim()) newErrors.atvd = "";
+            else if (!regexName.test(value)) newErrors.atvd = "";
+            else delete newErrors.atvd;
         }
 
-        if(!setMissao.trim()) {
-            newErrrors = "Por favor, insira a missão."
-        }
-
-        setErrors(newErrrors);
-
-        if (Object.keys(newErrrors).length > 0) {
-            return false;
-        }
-
-        setMissao('');
-        setObjtv('');
+    
+       })
     }
     return (
 

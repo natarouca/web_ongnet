@@ -8,12 +8,12 @@ import '../css/categoria.css';
 
 const DataManagment = () => {
     const [data, setData] = useState([]);
+    const [item, setItem] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({ desc: "", meta: "" });
     const [errors, setErrors] = useState({});
     const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
-
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null)
 
@@ -26,7 +26,7 @@ const DataManagment = () => {
         setLoading(true);
         api.get('item')
             .then(response => {
-                setData(response.data.data);
+                setItem(response.data.item);
                 setLoading(false);
             })
             .catch(error => {
@@ -37,11 +37,11 @@ const DataManagment = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateField()) return;
+        if (!validateField()) { return; }
 
         try {
             if (isEditing) {
-                await api.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
+                await api.put("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
                     desc: formData.desc,
                     meta: formData.meta
@@ -67,7 +67,7 @@ const DataManagment = () => {
     const handleEdit = (item) => {
         setIsEditing(true);
         setEditingId(item.id);
-        setFormData({desc: item.desc, meta: item.meta});
+        setFormData({ desc: item.desc, meta: item.meta });
     }
 
     const Categoria = [
@@ -109,21 +109,21 @@ const DataManagment = () => {
 
     const validateField = (field, value) => {
         setErrors(prevErrors => {
-      let newErrors = { ...prevErrors }; // Mantém os erros antigos
+            let newErrors = { ...prevErrors }; // Mantém os erros antigos
 
-      if (field === "desc") {
-        if (!value.trim()) newErrors.desc = "A descrição é obrigatória.";
-        else delete newErrors.desc;
-      }
+            if (field === "desc") {
+                if (!value.trim()) newErrors.desc = "A descrição é obrigatória.";
+                else delete newErrors.desc;
+            }
 
-      if (field === "meta") {
-        if (!value.trim()) newErrors.meta = "O meta é obrigatória.";
-        else delete newErrors.meta;
-      }
+            if (field === "meta") {
+                if (!value.trim()) newErrors.meta = "A meta é obrigatória.";
+                else delete newErrors.meta;
+            }
 
-      return newErrors; // Atualiza os erros corretamente
-    });
-  };
+            return newErrors; // Atualiza os erros corretamente
+        });
+    };
 
 
     const customSelectStyles = {
@@ -175,7 +175,7 @@ const DataManagment = () => {
         <div className="container-cadastro-item">
             <form onSubmit={handleSubmit} id="form-item" method="post">
                 <div className="titulo-item">
-                    <h2 style={{fontSize:18}}>{isEditing ? "Atualize os dados do item" : "ONG, de qual item você precisa?"}</h2>
+                    <h2 style={{ fontSize: 18 }}>{isEditing ? "Atualize os dados do item" : "ONG, de qual item você precisa?"}</h2>
                     <p>{isEditing ? "Atualizar item" : "Cadastre um novo item"} </p>
                 </div>
 
@@ -190,7 +190,7 @@ const DataManagment = () => {
                         placeholder="Escolha uma categoria"
                     />
                 </div>
-{/* 
+                {/* 
                 {selectedCategoria && selectedCategoria.value && (
                     <div className="input-box-item">
                         <label htmlFor="item">Item</label>
@@ -221,21 +221,22 @@ const DataManagment = () => {
                     </div>
                 )} */}
 
-                     
-                    <div className="input-box-item">
-                        <label htmlFor="desc-item">Descrição</label>
-                        <input
-                            type="text"
-                            id="desc-item"
-                            maxLength={50}
-                            value={formData.desc}
-                            onChange={(e) => {setFormData({ ...formData, desc: e.target.value })
-                                validateField("desc", e.target.value)
+
+                <div className="input-box-item">
+                    <label htmlFor="desc-item">Descrição</label>
+                    <input
+                        type="text"
+                        id="desc-item"
+                        maxLength={50}
+                        value={formData.desc}
+                        onChange={(e) => {
+                            setFormData({ ...formData, desc: e.target.value })
+                            validateField("desc", e.target.value)
                         }}
-                            placeholder="Ex. Alimentos, roupas, cobertores..."
-                        />
-                        {errors.desc && <span className="error">{errors.desc}</span>}
-                    </div>
+                        placeholder="Ex. Alimentos, roupas, cobertores..."
+                    />
+                    {errors.desc && <span className="error">{errors.desc}</span>}
+                </div>
 
                 <div className="input-box-item">
                     <label htmlFor="meta">Meta</label>
@@ -245,9 +246,10 @@ const DataManagment = () => {
                         min={1}
                         max={150}
                         value={formData.meta}
-                        onChange={(e) => {setFormData({ ...formData, meta: e.target.value })
-                        validateField("meta", e.target.value)
-                    }}
+                        onChange={(e) => {
+                            setFormData({ ...formData, meta: e.target.value })
+                            validateField("meta", e.target.value)
+                        }}
                         placeholder="Quantidade necessária"
                     />
                     {errors.meta && <span className="error">{errors.meta}</span>}
@@ -259,17 +261,25 @@ const DataManagment = () => {
             </form>
 
             <div className="lista-cadastro-item">
-                <ul className="lista-itens">
-                    {data.map(item => (
-                        <li key={item.id}>
-                            {item.id} - {item.desc} - {item.meta}
-                        </li>
-                    ))}
-                    <div className="button-lista">
-                        <button onClick={() => handleEdit(item)}>Editar</button>
-                    </div>
 
-                </ul>
+                {data.length > 0 ? (
+                    <ul className="lista-itens">
+                        {data.map(item => (
+                            <li key={index}>
+                                {item.desc} - {item.meta}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <div className="texto">
+                        <div className="p">
+                            <p>Nenhum item cadastrado.</p>
+                            <p>Cadastre seu primeiro item!</p>
+                        </div>
+
+                    </div>
+                )}
+
             </div>
         </div>
     );

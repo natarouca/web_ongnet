@@ -8,13 +8,12 @@ const Ong = () => {
   const [vongs, setOngs] = useState([]);
   const [vnome, setNome] = useState('');
   const [vcep, setCep] = useState('');
-  const [vresp, setResp] = useState('');
   const [vuf, setUf] = useState('');
   const [vnumero, setNumero] = useState('');
   const [vtelefone, setTelefone] = useState('');
   const [vemail, setEmail] = useState('');
+  const [vresp, setResp] = useState('')
   const [vcnpj, setCnpj] = useState('');
-
   const [errors, setErrors] = useState({});
   const [venderecoCompleto, setEnderecoCompleto] = useState('');
 
@@ -50,8 +49,6 @@ const Ong = () => {
       return;
     }
 
-    const nomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
-
     try {
       const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
@@ -65,14 +62,27 @@ const Ong = () => {
         // password: vpassword
         // imagem: vimg
       });
-
       console.log(response.data);
       setOngs([...vongs, response.data]);
+
+
+      
+      localStorage.setItem("nome", vnome);
+      localStorage.setItem("cnpj", vcnpj);
+      localStorage.setItem("cep", vnome);
+      localStorage.setItem("uf", vuf);
+      localStorage.setItem("numeroResidencia", vnumero);
+      localStorage.setItem("telefone", vtelefone);
+      localStorage.setItem("email", vemail);
     } catch (error) {
       console.log(error);
     }
 
   };
+    useEffect (() => {
+    const nomenomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
+    setResp(nomenomeRepresentante)
+  })
 
   const validateField = (field, value) => {
     setErrors(prevErrors => {
@@ -99,7 +109,7 @@ const Ong = () => {
         else delete newErrors.resp;
       }
 
-        if (field === "uf") {
+      if (field === "uf") {
         if (!value.trim()) newErrors.uf = "Informar o Estado é obrigatório.";
         else delete newErrors.uf;
       }
@@ -134,9 +144,7 @@ const Ong = () => {
         else delete newErrors.cnpj;
       }
 
-  
-
-      return newErrors; 
+      return newErrors;
     });
   };
 
@@ -251,7 +259,7 @@ const Ong = () => {
                 value={venderecoCompleto}
                 placeholder="Endereço completo será preenchido automaticamente"
                 readOnly
-                style={{display:"none"}}
+                style={{ display: "none" }}
               />
             </div>
           )}
@@ -308,7 +316,7 @@ const Ong = () => {
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
-{/* 
+          {/* 
           <div className="input-box">
             <label htmlFor="password">Crie uma senha</label>
             <input

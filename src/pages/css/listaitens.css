@@ -21,7 +21,17 @@
   font-size: 16px;
   font-weight: bold;
 }
-
+.texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;   
+}
+.p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .button-lista {
   display: flex;
   align-items: center;

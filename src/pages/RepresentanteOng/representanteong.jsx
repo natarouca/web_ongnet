@@ -1,31 +1,38 @@
 import { useState } from "react";
 import "../css/representanteong.css";
+import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import Logo from "../img/ong-net-logo.jpg"
 const RepresentanteOng = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        nome: '',
-        email: '',
-        password: '',
-        confirmaPassword: ''
-    });
-
+    const [vnome, setNome] = useState("");
+    const [vemail, setEmail] = useState("");
+    const [vpassword, setPassword] = useState("");
+    const [REPRESENTANTEONG, setRepresentanteOng] = useState ("");
+    const [vconfirmaPassword, setconfirmaPassword] = useState("");
     const [errors, setErrors] = useState({});
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // previne reload da página
 
-        if (!validateForm()) {
+        if (!validateField()) {
             console.log("Formulário inválido");
             return;
         }
+        try {
+            const response = await api.post("http://localhost:8080/api/v1/register", {
+                nome: vnome,
+                email: vemail,
+                senha: vpassword,
+                role: REPRESENTANTEONG
+            })
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        };
 
-        localStorage.setItem("nomeRepresentante", formData.nome)
+        localStorage.setItem("nomeRepresentante", vnome);
         setLoading(true);
         setTimeout(() => {
             console.log("Formulário válido. Redirecionando...");
@@ -33,28 +40,37 @@ const RepresentanteOng = () => {
         }, 3000);
     };
 
-    const validateForm = () => {
-        const newErrors = {};
 
-        Object.keys(formData).forEach((key) => {
-            if (!formData[key].trim()) {
-                newErrors[key] = 'Este campo é obrigatório.';
+    const validateField = (field, value) => {
+        setErrors(prevErrors => {
+            let newErrors = { ...prevErrors }; // Mantém os erros antigos
+
+            const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+            const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
+            if (field === "nome") {
+                if (!value.trim()) newErrors.nome = "O nome da organização é obrigatório.";
+                else if (!regexName.test(value)) newErrors.nome = "O nome deve conter apenas letras e espaços.";
+                else if (value.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
+                else delete newErrors.nome;
             }
+
+            if (field === "email") {
+                if (!value.trim()) newErrors.email = "O e-mail é obrigatório.";
+                else if (!regexEmail.test(value.trim())) newErrors.email = "Por favor, insira um e-mail válido.";
+                else delete newErrors.email;
+            }
+
+            if (field === "password") {
+                if (!value.trim()) newErrors.password = "A senha é obrigátoria.";
+                else delete newErrors.confirmaPassword;
+            }
+
+            return newErrors;
         });
+    };
 
-        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (formData.email.trim() && !regexEmail.test(formData.email)) {
-            newErrors.email = 'E-mail inválido.';
-        }
-
-        if (formData.password !== formData.confirmaPassword) {
-            newErrors.confirmaPassword = "As senhas não coincidem."
-        }
-        setErrors(newErrors);
-
-
-        return Object.keys(newErrors).length === 0;
-    }
 
     if (loading) {
         return (
@@ -65,7 +81,6 @@ const RepresentanteOng = () => {
                 <h2 style={{ color: "ActiveBorder", textAlign: "center" }}>Pronto!</h2>
                 <h3 style={{ color: "ActiveBorder", textAlign: "center" }}>Representante, finalizamos a primeira etapa do cadastro.</h3>
                 <h3 style={{ color: "ActiveBorder", textAlign: "center" }}>Agora, você já pode cadastrar sua ONG em nossa plataforma!</h3>
-
             </div>
 
         )
@@ -78,7 +93,7 @@ const RepresentanteOng = () => {
                     <p style={{ fontSize: 16, textAlign: "center" }}>#TransformaComOngNet</p>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} method="post">
 
                     <div className="titulo-cadastro">
                         <h3>Bem-vindo, representante! </h3>
@@ -91,9 +106,12 @@ const RepresentanteOng = () => {
                             <input
                                 type="text"
                                 name="nome"
-                                value={formData.nome}
+                                value={vnome}
                                 placeholder="Digite o nome"
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setNome(e.target.value)
+                                    validateField("nome", e.target.value)
+                                }}
                             />
                             {errors.nome && <span className="error">{errors.nome}</span>}
                         </div>
@@ -103,12 +121,14 @@ const RepresentanteOng = () => {
                             <input
                                 type="text"
                                 name="email"
-                                value={formData.email}
+                                value={vemail}
                                 placeholder="Digite seu e-mail"
-                                onChange={handleChange}
+                                onChange={(e) => { 
+                                    setEmail(e.target.value)
+                                    validateField("email", e.target.value)
+                                }}
                             />
-                            {errors.email && (errors.email === 'E-mail inválido.' ? formData.email.trim() && <span className="error">{errors.email}</span> : <span className="error">{errors.email}</span>)}
-
+                            {errors.email && <span className="error">{errors.email}</span>}
 
                         </div>
 
@@ -117,9 +137,12 @@ const RepresentanteOng = () => {
                             <input
                                 type="password"
                                 name="password"
-                                value={formData.password}
+                                value={vpassword}
                                 placeholder="Digite sua senha"
-                                onChange={handleChange}
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                    validateField("password", e.target.value)
+                                }}
                             />
                             {errors.password && <span className="error">{errors.password}</span>}
                         </div>
@@ -129,9 +152,12 @@ const RepresentanteOng = () => {
                             <input
                                 type="password"
                                 name="confirmaPassword"
-                                value={formData.confirmaPassword}
+                                value={vconfirmaPassword}
                                 placeholder="Digite sua senha"
-                                onChange={handleChange}
+                                 onChange={(e) => {
+                                    setconfirmaPassword(e.target.value)
+                                    validateField("confirmaPassword", e.target.value)
+                                }}
                             />
                             {errors.confirmaPassword && <span className="error">{errors.confirmaPassword}</span>}
                         </div>

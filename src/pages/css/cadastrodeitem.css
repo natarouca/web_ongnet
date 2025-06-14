@@ -128,7 +128,7 @@
     flex-direction: row;
 }
 
-/* .lista-cadastro-item {
+.lista-cadastro-item {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -136,7 +136,6 @@
     border-radius: 12px;
     background-color: #f5fdfb;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-
 }
 
 .lista-itens {
@@ -150,4 +149,4 @@
 .lista-itens li {
     background-color: #242c2b;
     padding: grey;
-} */
+} 
