@@ -10,7 +10,6 @@ const DataManagment = () => {
     const [data, setData] = useState([]);
     const [item, setItem] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
     const [formData, setFormData] = useState({ desc: "", meta: "" });
     const [errors, setErrors] = useState({});
     const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
@@ -26,11 +25,11 @@ const DataManagment = () => {
         setLoading(true);
         api.get('item')
             .then(response => {
-                setItem(response.data.item);
+                setItem(response.data.data.item);
                 setLoading(false);
             })
             .catch(error => {
-                setError(error.message);
+                setErrors(error.message);
                 setLoading(false);
             });
     };
@@ -59,7 +58,7 @@ const DataManagment = () => {
             fetchData();
             resetForm();
         } catch (error) {
-            setError(error.message || "Erro ao salvar item");
+            setErrors(error.message || "Erro ao salvar item");
             console.log("Erro ao salvar item", error);
         }
     };
@@ -77,33 +76,11 @@ const DataManagment = () => {
         { value: 'Vestimenta', label: 'Vestimenta' }
     ];
 
-    //  const Item = [
-    //     { value: 'Arroz', label: 'Arroz', categoria: 'Alimentos' },
-    //     { value: 'Feijão', label: 'Feijão', categoria: 'Alimentos' },
-    //     { value: 'Pasta de dente', label: 'Pasta de dente', categoria: 'Higiene' },
-    //     { value: 'Sabonete', label: 'Sabonete', categoria: 'Higiene' },
-    //     { value: 'Roupa infantil', label: 'Roupa infantil', categoria: 'Vestimenta' },
-    //     { value: 'Casaco', label: 'Casaco', categoria: 'Vestimenta' }
-    //  ];
-
-    // useEffect(() => {
-    //     fetchData()
-    //     if (selectedCategoria && selectedCategoria.value) {
-    //         const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
-    //         setFilteredItens(itensFiltrados);
-    //     } else {
-    //         setFilteredItens([]);
-    //         setSelectedItem(null);
-    //     }
-    // }, [selectedCategoria]);
-
-
 
     const resetForm = () => {
         setFormData({ desc: "", meta: "" });
         setErrors({});
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
-        // setSelectedItem(null);
 
     };
 
@@ -190,38 +167,7 @@ const DataManagment = () => {
                         placeholder="Escolha uma categoria"
                     />
                 </div>
-                {/* 
-                {selectedCategoria && selectedCategoria.value && (
-                    <div className="input-box-item">
-                        <label htmlFor="item">Item</label>
-                        <Select
-                            id="item"
-                            options={filteredItens}
-                            styles={customSelectStyles}
-                            value={selectedItem}
-                            onChange={setSelectedItem}
-                            placeholder="Escolha um item"
-                        />
-                    </div>
-                )} */}
-
-
-                {/* {(!selectedCategoria || !selectedItem) && (
-                    <div className="input-box-item">
-                        <label htmlFor="desc-item">Descrição</label>
-                        <input
-                            type="text"
-                            id="desc-item"
-                            maxLength={50}
-                            value={formData.desc}
-                            onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
-                            placeholder="Ex. Alimentos, roupas, cobertores..."
-                        />
-                        {errors.desc && <span className="error">{errors.desc}</span>}
-                    </div>
-                )} */}
-
-
+               
                 <div className="input-box-item">
                     <label htmlFor="desc-item">Descrição</label>
                     <input
@@ -273,10 +219,8 @@ const DataManagment = () => {
                 ) : (
                     <div className="texto">
                         <div className="p">
-                            <p>Nenhum item cadastrado.</p>
-                            <p>Cadastre seu primeiro item!</p>
+                            <p style={{color:"#009e7e", fontSize:16}}>Nenhum item cadastrado.</p>
                         </div>
-
                     </div>
                 )}
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../css/ongcadastro.css'
-
+import imagem from '../img/imagem.png'
 import api from '../../services/api'
 import axios from "axios";
 const OngCadastro = () => {
@@ -11,7 +11,7 @@ const OngCadastro = () => {
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
-        e.prevent.default();
+        e.preventDefault();
         if (!validateField()) {
             console.warn("Formulário inválido")
             return;
@@ -36,17 +36,17 @@ const OngCadastro = () => {
             const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
 
             if (field === "atvd") {
-                if (!value.trim()) newErrors.atvd = "Campo obrigatório";
-                else if (!regexName.test(value)) newErrors.atvd = "Esse campo aceita somente letras e espaços";
+                if (!value.trim()) newErrors.atvd = "Informar a missão é obrigaório";
+                else if (!regexName.test(value)) newErrors.atvd = "Inofrmar a missão é obrigatório";
                 else delete newErrors.atvd;
             }
 
             if (field === "missao") {
-                if (!value.trim()) newErrors.missao = "Campo obrigatório";
+                if (!value.trim()) newErrors.missao = "Informar as atividades é obrigatório";
                 else if (!regexName.test(value)) newErrors.missao = "Esse campo aceita somente letras e espaços"
                 else delete newErrors.missao;
             }
-
+            return newErrors;
         })
     }
     return (
@@ -56,20 +56,34 @@ const OngCadastro = () => {
                 <form onSubmit={handleSubmit} method="post">
                     <div className="input-group">
 
+
+
                         <div className="upload">
-                            <input id="file" type="file" accept="image/*" onChange={(e) => {
-                                const file = e.target.files[0];
-                                const reader = new FileReader();
-                                reader.onloadend = () => {
-                                    setImg(reader.result); // base64 da imagem
-                                };
-                                if (file) {
-                                    reader.readAsDataURL(file);
-                                }
-                            }} />
-                            <label htmlFor="file" id="foto">Foto</label>
+                            <input
+                                id="file"
+                                type="file"
+                                accept="image/*"
+                                onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    const reader = new FileReader();
+                                    reader.onloadend = () => {
+                                        setImg(reader.result); // base64 da imagem
+                                    };
+                                    if (file) {
+                                        reader.readAsDataURL(file);
+                                    }
+                                }}
+                            />
+                            <label htmlFor="file">
+                                <img
+                                    style={{ width: 100 }}
+                                    src={vimg || imagem}
+                                    alt="Foto da ONG"
+                                    className="upload-preview"
+                                />
+                            </label>
                         </div>
-                     
+
                         <div className="input-box">
                             <label htmlFor="">
                                 Missão
@@ -81,15 +95,22 @@ const OngCadastro = () => {
                                 }}
                             />
                         </div>
-                           {errors.missao && <span className="error">{errors.missao}</span>}
+                        {errors.missao && <span className="error">{errors.missao}</span>}
                         <div className="input-box">
                             <label htmlFor="">
                                 Atividades
                             </label>
-                            <textarea name="textarea" maxLength={60} id="" placeholder="Qual (is) atividades essa ONG produz?">
-                            </textarea>
+                            <textarea
+                                maxLength={60}
+                                placeholder="Qual(is) atividades essa ONG produz?"
+                                value={vatvd}
+                                onChange={(e) => {
+                                    setAtvd(e.target.value);
+                                    validateField("atvd", e.target.value);
+                                }}
+                            />
                         </div>
-                           {errors.atvd && <span className="error">{errors.atvd}</span>}
+                        {errors.atvd && <span className="error">{errors.atvd}</span>}
                     </div>
 
                     <div className="button">

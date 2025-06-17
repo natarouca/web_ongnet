@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from "react";
-import '../css/galleryongs.css'
+import '../css/galleryongs.css';
 import "../css/style.css";
 import api from "../../services/api";
-import Imagem1 from '../img/images.png'
+import Imagem1 from '../img/images.png';
 
 function Home() {
-
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [ongs, setOngs] = useState([]);
- useEffect(() => {
+  const [ong, setOngs] = useState([]);
+
+  useEffect(() => {
     fetchData();
   }, []);
 
-  
   const fetchData = () => {
     setLoading(true);
     api.get('ong')
       .then(response => {
-        setOngs(response.data.data); // Atualiza a lista com os dados retornados
-        setLoading(false); // Desativa o carregamento
+        setOngs(response.data.data); // Supondo que a resposta tenha um objeto { data: [...] }
+        setLoading(false);
       })
       .catch(error => {
-        setError("Erro ao carregar ONGs"); // Armazena a mensagem de erro
+        setError("Erro ao carregar ONGs: " + error.message);
         setLoading(false);
       });
   };
+
+  const filteredOngs = ong.filter((item) =>
+    item.nome.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div>
@@ -38,162 +41,41 @@ function Home() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="container-home">
-        
-        <div className="gallery-container">
 
-          <div class="gallery-item">
+      <div className="gallery-container">
+        {loading && <p>Buscando por ONGs...</p>}
+        {error && <p>{error}</p>}
+        {filteredOngs.length === 0 && !loading && <p>Ops! Nenhuma ONG foi encontrada.</p>}
 
+        {filteredOngs.map((ong) => (
+          <div className="gallery-item" key={ong.id}>
             <div className="gallery-img">
-              <a href="/">
-                <img src={Imagem1} id="img-gallery-item" />
+              <a href={`/ong/${ong.id}`}>
+                <img src={ong.imagemUrl || Imagem1} id="img-gallery-item" alt={ong.nome} />
               </a>
             </div>
             <div className="informaçoes-ong">
               <div className="nome-ong">
-                <h2>Nome da ONG</h2>
+                <h2>{ong.nome}</h2>
               </div>
-
               <div className="endereco-ong">
-                <p style={{ color: "ActiveCaption" }}>CEP { }</p>
-                <p style={{ color: "ActiveBorder" }}>Numero de residencia</p>
+                <p style={{ color: "ActiveCaption" }}>CEP {ong.cep}</p>
+                <p style={{ color: "ActiveBorder" }}>Número: {ong.numero}</p>
               </div>
-
             </div>
             <div className="titulo-atv">
               <h3>Veja o que essa ONG está produzindo:</h3>
-              <ul></ul>
             </div>
-
             <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
+              {ong.atividades?.map((atividade, index) => (
+                <li key={index} id="li-gallery">{atividade}</li>
+              ))}
             </ul>
-            <div className="button">
-              <button><a style={{ textDecoration: 0, color: "white", fontWeight: "700", textAlign: "start" }} href="/ongperfil">Ver mais informações</a>
-              </button>
-            </div>
-
           </div>
-
-        </div>
-
-        <div className="gallery-container">
-          <div class="gallery-item">
-
-            <div className="gallery-img">
-              <a href="/">
-                <img src={Imagem1} id="img-gallery-item" />
-              </a>
-            </div>
-            <div className="informaçoes-ong">
-              <div className="nome-ong">
-                <h2>Nome da ONG</h2>
-              </div>
-
-              <div className="endereco-ong">
-                <p style={{ color: "ActiveCaption" }}>CEP { }</p>
-                <p style={{ color: "ActiveBorder" }}>Numero de residencia</p>
-              </div>
-
-            </div>
-            <div className="titulo-atv">
-              <h3>Veja o que essa ONG está produzindo:</h3>
-              <ul></ul>
-            </div>
-
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-            <div className="button">
-              <button><a style={{ textDecoration: 0, color: "white", fontWeight: "700", textAlign: "start" }} href="/ongperfil">Ver mais informações</a>
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-                <div className="gallery-container">
-          <div class="gallery-item">
-
-            <div className="gallery-img">
-              <a href="/">
-                <img src={Imagem1} id="img-gallery-item" />
-              </a>
-            </div>
-            <div className="informaçoes-ong">
-              <div className="nome-ong">
-                <h2>Nome da ONG</h2>
-              </div>
-
-              <div className="endereco-ong">
-                <p style={{ color: "ActiveCaption" }}>CEP { }</p>
-                <p style={{ color: "ActiveBorder" }}>Numero de residencia</p>
-              </div>
-
-            </div>
-            <div className="titulo-atv">
-              <h3>Veja o que essa ONG está produzindo:</h3>
-              <ul></ul>
-            </div>
-
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-            <div className="button">
-              <button><a style={{ textDecoration: 0, color: "white", fontWeight: "700", textAlign: "start" }} href="/ongperfil">Ver mais informações</a>
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-                <div className="gallery-container">
-          <div class="gallery-item">
-
-            <div className="gallery-img">
-              <a href="/">
-                <img src={Imagem1} id="img-gallery-item" />
-              </a>
-            </div>
-            <div className="informaçoes-ong">
-              <div className="nome-ong">
-                <h2>Nome da ONG</h2>
-              </div>
-
-              <div className="endereco-ong">
-                <p style={{ color: "ActiveCaption" }}>CEP { }</p>
-                <p style={{ color: "ActiveBorder" }}>Numero de residencia</p>
-              </div>
-
-            </div>
-            <div className="titulo-atv">
-              <h3>Veja o que essa ONG está produzindo:</h3>
-              <ul></ul>
-            </div>
-
-            <ul>
-              <li id="li-gallery">Reforço escolar e alfabetização de jovens e adultos;</li>
-              <li id="li-gallery"> Cursos profissionalizantes (cabeleireiro, informática, culinária, etc.);</li>
-              <li id="li-gallery">Oficinas culturais e educativas (música, teatro, artes visuais)...</li>
-            </ul>
-            <div className="button">
-              <button><a style={{ textDecoration: 0, color: "white", fontWeight: "700", textAlign: "start" }} href="/ongperfil">Ver mais informações</a>
-              </button>
-            </div>
-
-          </div>
-
-        </div>
-                
+        ))}
       </div>
     </div>
-  )
+  );
 }
 
 export default Home;

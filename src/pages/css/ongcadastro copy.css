@@ -15,38 +15,22 @@
 form {
     display: flex;
     flex-direction: column;
-    background: white;
-    padding: 40px 50px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 77, 29, 0.15);
+    border: 1px solid #ebebeb;
+    box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
+    padding: 40px;
    
 }
 .input-box input::placeholder {
     font-weight: normal;
     font-size: 15px;
 }
-.input-box input,
-.input-box textarea {
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 15px;
-    transition: border 0.3s;
+
+input[name="name"],
+input[name="textarea"],
+input[name="file"] {
+    width: 300px;
 }
 
-.input-box input:focus,
-.input-box textarea:focus {
-    border-color: #009e7e;
-    outline: none;
-}
-
-.input-box input::placeholder,
-.input-box textarea::placeholder {
-    color: #999;
-}
-.input-group {
-    gap: 10px;
-}
 
 .upload {
     display: flex;

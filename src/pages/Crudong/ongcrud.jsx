@@ -5,7 +5,7 @@ import api from "../../services/api";
 import '../css/ongcrud.css';
 import InputMask from "react-input-mask";
 const PerfilOng = () => {
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     nomeOng: "",
@@ -50,12 +50,12 @@ const PerfilOng = () => {
   };
 
   const validateField = (field, value) => {
-    setError(prevError => {
-      let newErrors = { ...prevError };
-
+    setError(prevErrors => {
+      const newErrors = { ...prevErrors };
       const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
       const regexNumero = /^\d+$/;
+
       if (field === "email") {
         if (!value.trim()) newErrors.email = "O e-mail é obrigatório.";
         else if (!regexEmail.test(value.trim())) newErrors.email = "Por favor, insira um e-mail válido.";
@@ -80,31 +80,29 @@ const PerfilOng = () => {
         else delete newErrors.numero;
       }
 
+      return newErrors;
+    });
+  };
 
-    })
-  }
   const validateAllFields = () => {
     const newErrors = {};
     const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const regexNumero = /^\d+$/;
 
-    if (!value.trim()) newErrors.email = "O e-mail é obrigatório.";
-    else if (!regexEmail.test(value.trim())) newErrors.email = "Por favor, insira um e-mail válido.";
-    else delete newErrors.email;
+    if (!formData.email.trim()) newErrors.email = "O e-mail é obrigatório.";
+    else if (!regexEmail.test(formData.email.trim())) newErrors.email = "Por favor, insira um e-mail válido.";
 
-    if (!value.trim()) newErrors.telefone = "O telefone é obrigatório.";
-    else if (!regexTelefone.test(value.trim())) newErrors.telefone = "Insira um telefone válido.";
-    else delete newErrors.telefone;
+    if (!formData.telefone.trim()) newErrors.telefone = "O telefone é obrigatório.";
+    else if (!regexTelefone.test(formData.telefone.trim())) newErrors.telefone = "Insira um telefone válido.";
 
-    if (!value.trim()) newErrors.cep = "O CEP é obrigatório.";
-    else if (!regexNumero.test(value.trim().replace(/\D/g, ''))) newErrors.cep = "Este campo só aceita números.";
-    else delete newErrors.cep;
+    if (!formData.cep.trim()) newErrors.cep = "O CEP é obrigatório.";
+    else if (!regexNumero.test(formData.cep.trim().replace(/\D/g, ''))) newErrors.cep = "Este campo só aceita números.";
 
-    if (!value.trim()) newErrors.numero = "O número de residência é obrigatório.";
-    else if (!regexNumero.test(value.trim())) newErrors.numero = "Ops! Este campo só aceita números.";
-    else delete newErrors.numero;
+    if (!formData.numero.trim()) newErrors.numero = "O número de residência é obrigatório.";
+    else if (!regexNumero.test(formData.numero.trim())) newErrors.numero = "Ops! Este campo só aceita números.";
+
     setError(newErrors);
-
     return Object.keys(newErrors).length === 0;
   };
 
