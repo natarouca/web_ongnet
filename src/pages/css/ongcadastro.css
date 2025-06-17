@@ -15,8 +15,8 @@
 form {
     display: flex;
     flex-direction: column;
-    background: white;
-    padding: 40px 50px;
+    background: rgb(240, 255, 250);
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 77, 29, 0.15);
    
@@ -30,10 +30,30 @@ form {
     padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid #ccc;
+    width: 300px;
     font-size: 15px;
     transition: border 0.3s;
 }
+.button button {
+    background-color: #034e35;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
 
+.button {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0px;
+}
 .input-box input:focus,
 .input-box textarea:focus {
     border-color: #009e7e;
@@ -44,22 +64,26 @@ form {
 .input-box textarea::placeholder {
     color: #999;
 }
-.input-group {
-    gap: 10px;
-}
-
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 0px;
+  }
 .upload {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
   
  .upload #file {
     display: none;
   }
 
- 
 
   #foto {
     width: 120px;

@@ -65,7 +65,11 @@ const Login = () => {
 
         <div className="container-login">
             <form id="form-login" onSubmit={handleSubmit}>
-                <h3>Bem-vindo</h3>
+                <div className="titulo-logon">
+                    <h3>Bem-vindo de volta!</h3>
+                </div>
+                
+                
                 <div className="box-login">
                     <label htmlFor="cnpj">E-mail</label>
                     <input type="email" id="cnpj" placeholder="Digite o E-mail" onFocus={() => setError(false)} />
@@ -75,15 +79,17 @@ const Login = () => {
                 <div className="box-login">
                     <label htmlFor="senha">Senha</label>
                     <input type="password" id="senha" placeholder="Digite a senha" onFocus={() => setError(false)} />
+                     <div className="register">
+                    <p> <a style={{ color: "#4cd1b7", fontSize: 13 }} href="/representanteong">Não tem uma conta? Clique aqui.</a> </p>
+                </div>
                 </div>
 
                 <div className="button-login">
                     <button id="button-login" type="submit"><a href="">Entrar</a>
                     </button>
+                    
                 </div>
-                <div className="register">
-                    <p> <a style={{ color: "#4cd1b7", fontSize: 13 }} href="/representanteong">Não tem uma conta? Clique aqui.</a> </p>
-                </div>
+               
                 {error && (
                     <div className="error" style={{backgroundColor:"forestgreen"}} role="alert">
                         {msgError}

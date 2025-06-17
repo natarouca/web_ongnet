@@ -1,11 +1,10 @@
-.button-login {
+.button {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center !important;
+    align-items: center !important;
     
 }
-
-#button-login:hover {
+button:hover {
     background-color: rgb(14, 148, 123);
     color: rgb(255, 255, 255);
 }
@@ -89,7 +88,10 @@
     font-size: 18px;
     font-weight: 600;
 }
-
+.titulo-logon h3 {
+    font-size: 25px;
+    font-weight: 600;
+}
 .box-login input {
     padding: 15px;
     width: 300px;

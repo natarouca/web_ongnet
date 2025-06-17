@@ -13,7 +13,7 @@ header {
   justify-content: space-between;
   padding: 0px 20px 15px;
   border-radius: 0px 0px 10px 10px;
-  height: 95px;
+  height: 80px;
   margin-bottom: 30px;
   width: 100%;
   box-sizing: border-box;
@@ -708,6 +708,7 @@ button:hover {
   color: #ffffff;
   background-color: rgb(25, 139, 118);
   text-decoration: none;
+  transition: 0.5;
 }
 
 hr {

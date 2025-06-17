@@ -56,8 +56,6 @@ const OngCadastro = () => {
                 <form onSubmit={handleSubmit} method="post">
                     <div className="input-group">
 
-
-
                         <div className="upload">
                             <input
                                 id="file"
@@ -110,6 +108,7 @@ const OngCadastro = () => {
                                 }}
                             />
                         </div>
+
                         {errors.atvd && <span className="error">{errors.atvd}</span>}
                     </div>
 

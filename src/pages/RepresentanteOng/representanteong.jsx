@@ -95,9 +95,13 @@ const RepresentanteOng = () => {
                 else delete newErrors.password;
             }
             if (field === "confirmaPassword") {
-                if (!value.trim())
+                if (!value.trim()) {
+                    newErrors.confirmaPassword = "A confirmação de senha é obrigatória.";
+                } else if (value !== prevErrors.passwordValue) {
                     newErrors.confirmaPassword = "As senhas não coincidem.";
-                else delete newErrors.confirmaPassword;
+                } else {
+                    delete newErrors.confirmaPassword;
+                }
             }
 
             return newErrors;
@@ -116,10 +120,10 @@ const RepresentanteOng = () => {
                 <form onSubmit={handleSubmit} method="post">
 
                     <div className="titulo-cadastro">
-                        <h2 style={{ color: "", textAlign: "center", marginBottom: "5px", fontWeight:"600" }}>
+                        <h2 style={{ color: "", textAlign: "center", marginBottom: "5px", fontWeight: "600" }}>
                             Bem-vindo, representante!
                         </h2>
-        
+
                     </div>
 
                     <div className="input-group">

@@ -16,6 +16,12 @@
     gap: 10px;
 
 }
+.button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+}
 #form {
     display: flex;
     flex-direction: column;
@@ -48,6 +54,3 @@
 
 }
 
-.button button {
-    font-size: 16px;
-}
