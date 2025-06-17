@@ -10,10 +10,6 @@ const Login = () => {
     const [msgError, setMsgError] = useState("");
     let navigate = useNavigate();
 
-    // //Dados Fixos para validação
-    // const fixedEmail = "admin@admin.com.br";
-    // const fixedSenha = "123456";
-
     const handleSubmit =  async (e) => {
         e.preventDefault();
         console.log("Formulário enviado");
@@ -69,7 +65,7 @@ const Login = () => {
 
         <div className="container-login">
             <form id="form-login" onSubmit={handleSubmit}>
-
+                <h3>Bem-vindo</h3>
                 <div className="box-login">
                     <label htmlFor="cnpj">E-mail</label>
                     <input type="email" id="cnpj" placeholder="Digite o E-mail" onFocus={() => setError(false)} />

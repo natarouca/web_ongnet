@@ -12,17 +12,20 @@
 #file {
     display: none;
 }
+.input-group{
+    gap: 10px;
 
+}
 #form {
     display: flex;
     flex-direction: column;
     background-color: rgb(240, 255, 250);
     border: 1px solid #ebebeb;
     box-shadow: 1px 4px 10px rgba(36, 37, 37, 0.2);
-    padding: 40px;
+    padding: auto;
     padding-bottom: 5px;
-    height: 700px;
-    width: 500px;
+    height: 800px;
+    width: 400px;
     max-width: 500px;
     margin: 10px;
     border-radius: 15px;
@@ -36,11 +39,15 @@
     margin-bottom: 20px;
     border-radius: 50%;
     border: 2px solid #4cd1b7;
-    background-color: #4cd1b7;
+    background-color: #5be9cd;
     color: white;
     text-align: center;
     line-height: 120px;
     cursor: pointer;
     font-weight: bold;
 
+}
+
+.button button {
+    font-size: 16px;
 }

@@ -8,7 +8,7 @@ const Ong = () => {
   const [vongs, setOngs] = useState([]);
   const [vnome, setNome] = useState('');
   const [vcep, setCep] = useState('');
-  const [vuf, setUf] = useState('');
+  const [vsite, setSite] = useState('');
   const [vnumero, setNumero] = useState('');
   const [vtelefone, setTelefone] = useState('');
   const [vemail, setEmail] = useState('');
@@ -16,6 +16,11 @@ const Ong = () => {
   const [vcnpj, setCnpj] = useState('');
   const [errors, setErrors] = useState({});
   const [venderecoCompleto, setEnderecoCompleto] = useState('');
+
+  useEffect(() => {
+    const nomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
+    setResp(nomeRepresentante)
+  }, [])
 
   useEffect(() => {
     const buscarEndereco = async () => {
@@ -59,30 +64,26 @@ const Ong = () => {
         numero: vnumero,
         telefone: vtelefone,
         email: vemail,
+        site: vsite
         // password: vpassword
         // imagem: vimg
       });
       console.log(response.data);
       setOngs([...vongs, response.data]);
 
-
-      
       localStorage.setItem("nome", vnome);
       localStorage.setItem("cnpj", vcnpj);
       localStorage.setItem("cep", vnome);
       localStorage.setItem("uf", vuf);
-      localStorage.setItem("numeroResidencia", vnumero);
+      localStorage.setItem("numero", vnumero);
       localStorage.setItem("telefone", vtelefone);
       localStorage.setItem("email", vemail);
+      localStorage.setItem("site", vsite)
     } catch (error) {
       console.log(error);
     }
 
   };
-    useEffect (() => {
-    const nomenomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
-    setResp(nomenomeRepresentante)
-  })
 
   const validateField = (field, value) => {
     setErrors(prevErrors => {
@@ -194,7 +195,7 @@ const Ong = () => {
 
 
           <div className="input-box">
-            <label htmlFor="resp">Representante da ONG</label>
+            <label htmlFor="resp">Representante da Instituição</label>
             <input
               type="text"
               id="resp"
@@ -202,18 +203,14 @@ const Ong = () => {
               size={100}
               maxLength={100}
               value={vresp}
+              readOnly
               placeholder="Nome do Representante"
-              onChange={(e) => {
-                setResp(e.target.value)
-                validateField("resp", e.target.value)
-              }
-              }
             />
 
             {errors.resp && <span className="error">{errors.resp}</span>}
           </div>
 
-          <div className="input-box">
+          {/* <div className="input-box">
             <label htmlFor="resp">Estado</label>
             <input
               type="text"
@@ -230,7 +227,7 @@ const Ong = () => {
               }
             />
             {errors.resp && <span className="error">{errors.resp}</span>}
-          </div>
+          </div> */}
 
           <div className="input-box">
             <label htmlFor="cep">CEP</label>
@@ -259,7 +256,7 @@ const Ong = () => {
                 value={venderecoCompleto}
                 placeholder="Endereço completo será preenchido automaticamente"
                 readOnly
-                style={{ display: "none" }}
+                
               />
             </div>
           )}
@@ -316,6 +313,24 @@ const Ong = () => {
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
+
+          <div className="input-box">
+            <label style={{ color: "rgb(7, 94, 65)" }} htmlFor="email">A ONG possui algum site de divulgação? </label>
+            <input
+              type="url"
+              id="email"
+              size={100}
+              maxLength={100}
+                  onChange={(e) => {
+                setSite(e.target.value)
+                validateField("site", e.target.value)
+              }
+              }
+              placeholder="Ex: https://site.com.br"
+
+            />
+            {errors.email && <span className="error">{errors.email}</span>}
+          </div>
           {/* 
           <div className="input-box">
             <label htmlFor="password">Crie uma senha</label>
@@ -356,7 +371,7 @@ const Ong = () => {
         </div>
 
         <div className="button">
-          <button id="button-cadastro-ong" type="submit">Enviar</button>
+          <button id="button-cadastro-ong" type="submit">Feito</button>
         </div>
 
 

@@ -9,12 +9,14 @@
     height: 400px;
     padding: 30px;
     border-radius: 10px;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .container-box-representante {
     display: flex;
     align-items: center;
     flex-direction: column;
+
     justify-content: center;
     border-radius: 10px;
     height: 100vh;
@@ -22,12 +24,14 @@
 
 }
 
-.container-box-representante h3, p {
+.container-box-representante h3,
+p {
     text-align: start;
     color: white;
     margin: 5px;
     letter-spacing: normal;
 }
+
 .titulo-cadastro {
     display: flex;
     flex-direction: column;
@@ -40,9 +44,16 @@
     font-size: 25px;
     margin: 0px;
 }
+
 .titulo-cadastro p {
     margin: 0px;
 }
+
+.loading {
+    text-align: center;
+    color: black;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -50,12 +61,15 @@ form {
     align-items: center;
     padding: auto !important;
     height: auto;
-    width: 450px;
+    width: 400px;
+    margin: 50px auto;
 }
+
 a {
     text-decoration: none;
     color: white;
 }
+
 .input-group {
     display: flex;
     flex-direction: column;
@@ -64,12 +78,34 @@ a {
     align-items: center;
     padding: auto;
 }
-.button {
-    margin: 0px;
+
+.input-box input {
+    width: 300px;
+    padding: 12px;
+    border-radius: 6px;
 }
 
-.button  {
+.input-box label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: 600 !important;
+    color: #001d14;
+}
+
+.button button {
+    background-color: #034e35;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.button {
     font-size: 15px;
     font-weight: 600;
-    margin:0px;
+    margin: 0px;
 }

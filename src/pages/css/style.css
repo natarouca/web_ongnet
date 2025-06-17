@@ -2,7 +2,7 @@
 
 /* Header */
 * {
-  font-family: 'Open Sans', sans-serif;
+    font-family: 'Segoe UI', sans-serif !important;
   margin: 0px;
 }
 
@@ -13,8 +13,10 @@ header {
   justify-content: space-between;
   padding: 0px 20px 15px;
   border-radius: 0px 0px 10px 10px;
-  height: 90px;
+  height: 95px;
+  margin-bottom: 30px;
   width: 100%;
+  box-sizing: border-box;
   background-color: rgb(255, 255, 255);
   color: white;
 }
@@ -331,7 +333,7 @@ p {
   box-sizing: border-box;
   font-size: 11px;
   font-weight: bold;
-  color: #f54040;
+  color:  #e53935;
   max-width: 250px;
 }
 
@@ -619,23 +621,7 @@ textarea::placeholder {
 
 }
 
-.form-group button {
-  width: 100%;
-  padding: 10px;
-  background-color: #006baf;
-  /* Botão vermelho */
-  color: white;
-  border: 2px solid #004e7e;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
 
-.form-group button:hover {
-  background-color: #009dff;
-  border-color: #0086da;
-  color: white;
-}
 
 /* button:hover {
   background-color: #ac47ff; /* Vermelho tomate */
@@ -702,8 +688,9 @@ button {
   color: white;
   cursor: pointer;
   margin-top: 15px;
-  font-weight: 900;
+  font-weight: 600;
   width: 250px;
+  font-size: 16px;
   transition: 1s;
   border-radius: 10px;
   border: none;
@@ -719,7 +706,7 @@ button {
 
 button:hover {
   color: #ffffff;
-  background-color: rgb(20, 177, 148);
+  background-color: rgb(25, 139, 118);
   text-decoration: none;
 }
 

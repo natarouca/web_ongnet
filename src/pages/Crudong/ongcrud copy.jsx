@@ -9,6 +9,7 @@ const Crudong = () => {
     cnpj: '00.000.000/0000-00',
     email: '',
     telefone: '',
+    numero:'',
     atuacao: '',
     site: ''
   });
@@ -52,7 +53,7 @@ const Crudong = () => {
         </div>
         <div className="input-box">
           <label htmlFor="">Cadastro Nacional de Pessoa Jurídica</label>
-          <input type="text" name="cnpj" id="cnpj" onChange={handleChange}/>
+          <input type="text" name="cnpj" id="cnpj" onChange={handleChange} readOnly/>
         </div>
         <div className="input-box">
           <label htmlFor="">CEP</label>

@@ -17,7 +17,8 @@ form {
     flex-direction: column;
     border: 1px solid #ebebeb;
     box-shadow: 1px 4px 10px rgba(0, 77, 29, 0.2);
-    padding: 15px;
+    padding: 35px;
+   
 }
 .input-box input::placeholder {
     font-weight: normal;
@@ -46,8 +47,8 @@ input[name="file"] {
     height: 120px;
     margin-bottom: 20px;
     border-radius: 50%;
-    border: 2px solid #4cd1b7;
-    background-color: #4cd1b7;
+    border: none;
+     background: linear-gradient(0deg, rgba(25, 74, 106, 1) 0%, rgba(18, 153, 129, 1) 100%);
     color: white;
     text-align: center;
     line-height: 120px;

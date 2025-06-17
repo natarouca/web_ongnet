@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../css/ongcadastro.css'
+
 import api from '../../services/api'
 import axios from "axios";
 const OngCadastro = () => {
@@ -7,11 +8,11 @@ const OngCadastro = () => {
     const [vimg, setImg] = useState('');
     const [vatvd, setAtvd] = useState('');
     const [vmissao, setMissao] = useState('');
-    const [errors, setErrors]= useState({});
+    const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.prevent.default();
-        if (!validateForm()) {
+        if (!validateField()) {
             console.warn("Formulário inválido")
             return;
         }
@@ -20,26 +21,33 @@ const OngCadastro = () => {
                 missao: vmissao,
                 atvidades: vatvd
             });
+            localStorage.setItem("atividade", vatvd);
+            localStorage.setItem("missao", vmissao);
             console.log(response.data);
-        } catch(error) {
+        } catch (error) {
             console.log(error);
         }
     };
 
-      const validateField = (field, value) => {
-       setErrors(prevErrors => {
-        let newErrors = {...prevErrors};
+    const validateField = (field, value) => {
+        setErrors(prevErrors => {
+            let newErrors = { ...prevErrors };
 
-        const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+            const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
 
-        if (field === "atvd") {
-            if (!value.trim()) newErrors.atvd = "";
-            else if (!regexName.test(value)) newErrors.atvd = "";
-            else delete newErrors.atvd;
-        }
+            if (field === "atvd") {
+                if (!value.trim()) newErrors.atvd = "Campo obrigatório";
+                else if (!regexName.test(value)) newErrors.atvd = "Esse campo aceita somente letras e espaços";
+                else delete newErrors.atvd;
+            }
 
-    
-       })
+            if (field === "missao") {
+                if (!value.trim()) newErrors.missao = "Campo obrigatório";
+                else if (!regexName.test(value)) newErrors.missao = "Esse campo aceita somente letras e espaços"
+                else delete newErrors.missao;
+            }
+
+        })
     }
     return (
 
@@ -48,9 +56,8 @@ const OngCadastro = () => {
                 <form onSubmit={handleSubmit} method="post">
                     <div className="input-group">
 
-                        <div className="input-box">
-                            <label>Imagem</label>
-                            <input type="file" accept="image/*" onChange={(e) => {
+                        <div className="upload">
+                            <input id="file" type="file" accept="image/*" onChange={(e) => {
                                 const file = e.target.files[0];
                                 const reader = new FileReader();
                                 reader.onloadend = () => {
@@ -60,22 +67,29 @@ const OngCadastro = () => {
                                     reader.readAsDataURL(file);
                                 }
                             }} />
-                        </div>
-                        <div className="input-box">
-                            <label htmlFor="">
-                                Missão
-                            </label>
-                            <input type="text" name="name" placeholder="Qual é a missão da ONG?"
-                            />
+                            <label htmlFor="file" id="foto">Foto</label>
                         </div>
                      
                         <div className="input-box">
                             <label htmlFor="">
+                                Missão
+                            </label>
+                            <input type="text" maxLength={50} name="name" placeholder="Qual é a missão da ONG?"
+                                onChange={(e) => {
+                                    setMissao(e.target.value)
+                                    validateField("missao", e.target.value)
+                                }}
+                            />
+                        </div>
+                           {errors.missao && <span className="error">{errors.missao}</span>}
+                        <div className="input-box">
+                            <label htmlFor="">
                                 Atividades
                             </label>
-                            <textarea name="textarea" id="" placeholder="Qual (is) atividades essa ONG produz?">
+                            <textarea name="textarea" maxLength={60} id="" placeholder="Qual (is) atividades essa ONG produz?">
                             </textarea>
                         </div>
+                           {errors.atvd && <span className="error">{errors.atvd}</span>}
                     </div>
 
                     <div className="button">

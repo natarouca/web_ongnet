@@ -1,22 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../css/representanteong.css";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import Logo from "../img/ong-net-logo.jpg"
 const RepresentanteOng = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [vnome, setNome] = useState("");
     const [vemail, setEmail] = useState("");
     const [vpassword, setPassword] = useState("");
-    const [REPRESENTANTEONG, setRepresentanteOng] = useState ("");
     const [vconfirmaPassword, setconfirmaPassword] = useState("");
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // previne reload da página
 
-        if (!validateField()) {
+        if (!validateAllFields()) {
             console.log("Formulário inválido");
             return;
         }
@@ -25,21 +23,51 @@ const RepresentanteOng = () => {
                 nome: vnome,
                 email: vemail,
                 senha: vpassword,
-                role: REPRESENTANTEONG
+                role: "REPRESENTANTEONG"
             })
             console.log(response.data);
+            localStorage.setItem("nomeRepresentante", vnome);
+            setLoading(true);
         } catch (error) {
             console.log(error);
         };
 
-        localStorage.setItem("nomeRepresentante", vnome);
-        setLoading(true);
-        setTimeout(() => {
-            console.log("Formulário válido. Redirecionando...");
-            navigate("/loginOng");
-        }, 3000);
     };
 
+    if (loading) {
+        return <h1>Testando...</h1>;
+    }
+    useEffect(() => {
+        if (loading) {
+            const timer = setTimeout(() => {
+                console.log("Redirecionando...");
+                navigate("/login");
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, [loading]);
+
+    const validateAllFields = () => {
+        const newErrors = {};
+        const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+        const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!vnome.trim()) newErrors.nome = "O nome da organização é obrigatório.";
+        else if (!regexName.test(vnome)) newErrors.nome = "O nome deve conter apenas letras e espaços.";
+        else if (vnome.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
+
+        if (!vemail.trim()) newErrors.email = "O e-mail é obrigatório.";
+        else if (!regexEmail.test(vemail.trim())) newErrors.email = "Por favor, insira um e-mail válido.";
+
+        if (!vpassword.trim()) newErrors.password = "A senha é obrigatória.";
+
+        if (!vconfirmaPassword.trim() || vconfirmaPassword !== vpassword)
+            newErrors.confirmaPassword = "As senhas não coincidem.";
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+    };
 
     const validateField = (field, value) => {
         setErrors(prevErrors => {
@@ -64,6 +92,11 @@ const RepresentanteOng = () => {
 
             if (field === "password") {
                 if (!value.trim()) newErrors.password = "A senha é obrigátoria.";
+                else delete newErrors.password;
+            }
+            if (field === "confirmaPassword") {
+                if (!value.trim())
+                    newErrors.confirmaPassword = "As senhas não coincidem.";
                 else delete newErrors.confirmaPassword;
             }
 
@@ -72,19 +105,6 @@ const RepresentanteOng = () => {
     };
 
 
-    if (loading) {
-        return (
-            <div className="loading">
-                <div className="img">
-                    <img src={Logo} alt="" />
-                </div>
-                <h2 style={{ color: "ActiveBorder", textAlign: "center" }}>Pronto!</h2>
-                <h3 style={{ color: "ActiveBorder", textAlign: "center" }}>Representante, finalizamos a primeira etapa do cadastro.</h3>
-                <h3 style={{ color: "ActiveBorder", textAlign: "center" }}>Agora, você já pode cadastrar sua ONG em nossa plataforma!</h3>
-            </div>
-
-        )
-    }
     return (
         <div>
             <div className="container-box-representante">
@@ -96,13 +116,15 @@ const RepresentanteOng = () => {
                 <form onSubmit={handleSubmit} method="post">
 
                     <div className="titulo-cadastro">
-                        <h3>Bem-vindo, representante! </h3>
-                        <p style={{ color: "ActiveBorder" }}></p>
+                        <h2 style={{ color: "", textAlign: "center", marginBottom: "5px", fontWeight:"600" }}>
+                            Bem-vindo, representante!
+                        </h2>
+        
                     </div>
 
                     <div className="input-group">
                         <div className="input-box">
-                            <label>Nome do Representante</label>
+                            <label>Nome do Representante da Instituição</label>
                             <input
                                 type="text"
                                 name="nome"
@@ -123,7 +145,7 @@ const RepresentanteOng = () => {
                                 name="email"
                                 value={vemail}
                                 placeholder="Digite seu e-mail"
-                                onChange={(e) => { 
+                                onChange={(e) => {
                                     setEmail(e.target.value)
                                     validateField("email", e.target.value)
                                 }}
@@ -154,7 +176,7 @@ const RepresentanteOng = () => {
                                 name="confirmaPassword"
                                 value={vconfirmaPassword}
                                 placeholder="Digite sua senha"
-                                 onChange={(e) => {
+                                onChange={(e) => {
                                     setconfirmaPassword(e.target.value)
                                     validateField("confirmaPassword", e.target.value)
                                 }}
