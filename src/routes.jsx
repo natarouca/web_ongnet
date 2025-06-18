@@ -11,6 +11,7 @@ import Crudong from './pages/Crudong/ongcrud'
 import Admin from './pages/Admin/adminCrud'
 import RepresentanteOng from "./pages/RepresentanteOng/representanteong"
 import OngCadastro from "./pages/Ong/ongcadastro"
+import PerfilOngCrud from "./pages/PerfilOngCrud/ongcrudperfil"
 function RoutesApp() {
 
         return (
@@ -34,6 +35,7 @@ function RoutesApp() {
                                 <Route path="/ongcadastro" element={<OngCadastro />} />
                                 <Route path="/representanteong" element={<RepresentanteOng />} />
                                 <Route path="/ongcrud" element={<Crudong />} />
+                                  <Route path="/ongcrudperfil" element={<PerfilOngCrud />} />
                                 </Route>
                         </Routes>
                 </BrowserRouter>

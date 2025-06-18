@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../css/ong.css";
-import api from "../../services/api";
 import axios from "axios";
 import InputMask from "react-input-mask";
 
@@ -16,7 +15,7 @@ const Ong = () => {
   const [vcnpj, setCnpj] = useState('');
   const [errors, setErrors] = useState({});
   const [venderecoCompleto, setEnderecoCompleto] = useState('');
-
+  const navigate = UseNavigate();
   useEffect(() => {
     const nomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
     setResp(nomeRepresentante)
@@ -55,34 +54,32 @@ const Ong = () => {
     }
 
     try {
-      const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
+      const response = await axios.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
         cnpj: vcnpj,
-        responsavel: nomeRepresentante,
+        responsavel: vresp,
         cep: vcep,
-        uf: vuf,
         numero: vnumero,
         telefone: vtelefone,
         email: vemail,
-        site: vsite,
-        // password: vpassword
-        imagem: vimg
+        site: vsite
+        // imagem: vimg
       });
-   
+
       console.log(response.data);
 
-  
+
       setOngs([...vongs, response.data]);
-      
+
 
       localStorage.setItem("nome", vnome);
       localStorage.setItem("cnpj", vcnpj);
       localStorage.setItem("cep", vnome);
-      localStorage.setItem("uf", vuf);
       localStorage.setItem("numero", vnumero);
       localStorage.setItem("telefone", vtelefone);
       localStorage.setItem("email", vemail);
       localStorage.setItem("site", vsite)
+      navigate("/ongcrudperfil")
     } catch (error) {
       console.log(error);
     }
@@ -319,7 +316,7 @@ const Ong = () => {
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
-    
+
         </div>
 
         <div className="button">

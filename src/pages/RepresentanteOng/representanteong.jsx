@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../css/representanteong.css";
-import api from "../../services/api";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const RepresentanteOng = () => {
     const navigate = useNavigate();
@@ -10,7 +10,6 @@ const RepresentanteOng = () => {
     const [vpassword, setPassword] = useState("");
     const [vconfirmaPassword, setconfirmaPassword] = useState("");
     const [errors, setErrors] = useState({});
-
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previne reload da página
 
@@ -21,11 +20,11 @@ const RepresentanteOng = () => {
         }
 
         try {
-           
-            const response = await api.post("http://localhost:8080/api/v1/auth/register", {
+           console.log("Enviando requisição...")
+            const response = await axios.post("http://localhost:8080/api/v1/auth/register", {
                 nome: vnome,
                 email: vemail,
-                senha: vpassword,
+                password: vpassword,
                 role: "REPRESENTANTEONG"
             });
             console.log(response.data);
@@ -33,7 +32,6 @@ const RepresentanteOng = () => {
             console.log(vpassword);
             localStorage.setItem("nomeRepresentante", vnome);
             setLoading(true);
-
         } catch (error) {
            
             console.log(error);
@@ -47,7 +45,7 @@ const RepresentanteOng = () => {
         if (loading) {
             const timer = setTimeout(() => {
                 console.log("Redirecionando...");
-                navigate("/login");
+                navigate("/ong");
             }, 2000);
             return () => clearTimeout(timer);
         }
@@ -123,7 +121,7 @@ const RepresentanteOng = () => {
                     <p style={{ fontSize: 16, textAlign: "center" }}>#TransformaComOngNet</p>
                 </div>
 
-                <form onSubmit={handleSubmit} method="post">
+                <form onSubmit={handleSubmit}>
 
                     <div className="titulo-cadastro">
                         <h2 style={{ color: "", textAlign: "center", marginBottom: "5px", fontWeight: "600" }}>

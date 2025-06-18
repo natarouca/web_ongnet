@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../css/ongcadastro.css'
 import imagem from '../img/imagem.png'
-import api from '../../services/api'
+import axios from 'axios'
 
 const OngCadastro = () => {
 
@@ -17,7 +17,7 @@ const OngCadastro = () => {
             return;
         }
         try {
-            const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
+            const response = await axios.post("http://localhost:8080/api/v1/representante-ong/ong", {
                 missao: vmissao,
                 atvidades: vatvd
             });
