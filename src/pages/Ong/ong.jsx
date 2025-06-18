@@ -64,12 +64,16 @@ const Ong = () => {
         numero: vnumero,
         telefone: vtelefone,
         email: vemail,
-        site: vsite
+        site: vsite,
         // password: vpassword
-        // imagem: vimg
+        imagem: vimg
       });
+   
       console.log(response.data);
+
+  
       setOngs([...vongs, response.data]);
+      
 
       localStorage.setItem("nome", vnome);
       localStorage.setItem("cnpj", vcnpj);
@@ -256,7 +260,7 @@ const Ong = () => {
                 value={venderecoCompleto}
                 placeholder="Endereço completo será preenchido automaticamente"
                 readOnly
-                
+
               />
             </div>
           )}
@@ -321,7 +325,7 @@ const Ong = () => {
               id="email"
               size={100}
               maxLength={100}
-                  onChange={(e) => {
+              onChange={(e) => {
                 setSite(e.target.value)
                 validateField("site", e.target.value)
               }

@@ -12,9 +12,14 @@
 #file {
     display: none;
 }
-.input-group{
-    gap: 10px;
-
+.box-login input:focus {
+    border-color: 1px solid#009e7e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 158, 126, 0.4);
+  transition: box-shadow 0.3s ease-in-out;
+}
+.input-group {
+    gap: 2px;
 }
 .button {
     display: flex;

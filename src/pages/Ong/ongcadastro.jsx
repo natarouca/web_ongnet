@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../css/ongcadastro.css'
 import imagem from '../img/imagem.png'
 import api from '../../services/api'
-import axios from "axios";
+
 const OngCadastro = () => {
 
     const [vimg, setImg] = useState('');
@@ -54,7 +54,7 @@ const OngCadastro = () => {
         <div className="container-cadastro-ong">
             <div className="form">
                 <form onSubmit={handleSubmit} method="post">
-                    <div className="input-group">
+                    <div className="input-group-ong">
 
                         <div className="upload">
                             <input

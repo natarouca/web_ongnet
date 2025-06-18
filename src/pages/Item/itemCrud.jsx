@@ -38,15 +38,19 @@ const DataManagment = () => {
         e.preventDefault();
         if (!validateField()) { return; }
 
+       
         try {
             if (isEditing) {
+                setLoading(true);
                 await api.put("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
                     desc: formData.desc,
                     meta: formData.meta
                 });
+                
                 console.log("Item atualizado com sucesso");
             } else {
+                setLoading(true);
                 await api.post("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
                     desc: formData.desc,
@@ -54,7 +58,7 @@ const DataManagment = () => {
                 });
                 console.log("Item cadastrado com sucesso");
             }
-
+            setLoading(false);
             fetchData();
             resetForm();
         } catch (error) {
@@ -83,7 +87,9 @@ const DataManagment = () => {
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
 
     };
-
+    if (loading) {
+        return <p style={{color:"rgb(0, 109, 85", textAlign:"center", margin:"40% auto", fontSize:32}}>Um momento...</p>
+    }
     const validateField = (field, value) => {
         setErrors(prevErrors => {
             let newErrors = { ...prevErrors }; // Mantém os erros antigos
@@ -213,6 +219,7 @@ const DataManagment = () => {
                         {data.map(item => (
                             <li key={index}>
                                 {item.desc} - {item.meta}
+                                <button onClick={handleEdit()}>Editar</button>
                             </li>
                         ))}
                     </ul>

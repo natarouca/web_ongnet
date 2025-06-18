@@ -10,7 +10,7 @@ const Login = () => {
     const [msgError, setMsgError] = useState("");
     let navigate = useNavigate();
 
-    const handleSubmit =  async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Formulário enviado");
 
@@ -66,32 +66,35 @@ const Login = () => {
         <div className="container-login">
             <form id="form-login" onSubmit={handleSubmit}>
                 <div className="titulo-logon">
-                    <h3>Bem-vindo de volta!</h3>
-                </div>
-                
-                
-                <div className="box-login">
-                    <label htmlFor="cnpj">E-mail</label>
-                    <input type="email" id="cnpj" placeholder="Digite o E-mail" onFocus={() => setError(false)} />
+                    <h2>Bem-vindo de volta!</h2>
                 </div>
 
+                <div className="box-group">
+                    <div className="box-login">
+                        <label htmlFor="cnpj">E-mail</label>
+                        <input type="email" id="cnpj" placeholder="Digite o E-mail" onFocus={() => setError(false)} />
+                    </div>
 
-                <div className="box-login">
-                    <label htmlFor="senha">Senha</label>
-                    <input type="password" id="senha" placeholder="Digite a senha" onFocus={() => setError(false)} />
-                     <div className="register">
-                    <p> <a style={{ color: "#4cd1b7", fontSize: 13 }} href="/representanteong">Não tem uma conta? Clique aqui.</a> </p>
-                </div>
-                </div>
+                    <div className="box-login">
+                        <label htmlFor="senha">Senha</label>
+                        <input type="password" id="senha" placeholder="Digite a senha" onFocus={() => setError(false)} />
 
-                <div className="button-login">
-                    <button id="button-login" type="submit"><a href="">Entrar</a>
-                    </button>
+                    </div>
                     
                 </div>
-               
+                  <div className="button">
+                    <button
+                        type="submit"><a href="">Entrar</a>
+                    </button>
+                        <div className="register">
+                        <p>
+                            <a style={{ color: "#034e35", fontSize: 13, margin: 0 }} href="/representanteong">Não tem uma conta? Clique aqui.</a>
+                        </p>
+                    </div>
+                </div>
+
                 {error && (
-                    <div className="error" style={{backgroundColor:"forestgreen"}} role="alert">
+                    <div className="error" style={{ backgroundColor: "forestgreen" }} role="alert">
                         {msgError}
                     </div>
                 )}
