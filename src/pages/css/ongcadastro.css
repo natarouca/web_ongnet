@@ -10,12 +10,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  
 }
 
 form {
     display: flex;
     flex-direction: column;
-    background: rgb(240, 255, 250);
+    background: rgb(247, 255, 252);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 77, 29, 0.15);
@@ -24,14 +25,16 @@ form {
 .input-box input::placeholder {
     font-weight: normal;
     font-size: 15px;
+    line-height: 1.4;
 }
 .input-box input,
 .input-box textarea {
     padding: 10px 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #cacaca;
     width: 300px;
     font-size: 15px;
+    margin: 0px;
     transition: border 0.3s;
 }
 .button button {
@@ -64,12 +67,12 @@ form {
 .input-box textarea::placeholder {
     color: #999;
 }
-  .input-group {
+  .input-group-ong {
     display: flex;
     flex-direction: column;
     align-items: start;
     flex-wrap: wrap;
-    gap: 8px;
+    
     margin-bottom: 0px;
   }
 .upload {

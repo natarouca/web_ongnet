@@ -43,7 +43,7 @@
     justify-content: center;
     max-width: 300px;
     width: 90%;
-    background-color: rgb(248, 253, 255);
+    background-color: rgb(255, 255, 255);
     border: none;
     height: auto;
     padding: 30px;
@@ -98,6 +98,7 @@
 .input-box-item input::placeholder {
     font-weight: normal;
     font-size: 15px;
+    line-height: 1.4;
 }
 
 .button-item button {
@@ -108,19 +109,29 @@
 .input-box-item input {
     width: 250px !important;
     padding: 12px;
-    border: 1px solid #009e7e;
+    border: 1px solid #dadada;
     border-radius: 5px;
     margin-bottom: 3px;
     transition: 0.3s ease;
 }
 
-.input-box-item #categoria::placeholder {
-    padding-left: 5px;
+
+
+
+#meta:focus,
+#qntd:focus {
+    border-color: 1px solid#009e7e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 110, 88, 0.4);
+    transition: box-shadow 0.3s ease-in-out;
+
 }
 
 
 .input-box-item input:hover {
     background-color: #e0fff9;
+    border: 1px solid #009e7e;
+
 }
 
 .input-box-categoria {
@@ -149,4 +160,4 @@
 .lista-itens li {
     background-color: #242c2b;
     padding: grey;
-} 
+}

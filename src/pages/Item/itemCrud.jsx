@@ -38,15 +38,19 @@ const DataManagment = () => {
         e.preventDefault();
         if (!validateField()) { return; }
 
+       
         try {
             if (isEditing) {
+                setLoading(true);
                 await api.put("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
                     desc: formData.desc,
                     meta: formData.meta
                 });
+                
                 console.log("Item atualizado com sucesso");
             } else {
+                setLoading(true);
                 await api.post("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
                     desc: formData.desc,
@@ -54,7 +58,7 @@ const DataManagment = () => {
                 });
                 console.log("Item cadastrado com sucesso");
             }
-
+            setLoading(false);
             fetchData();
             resetForm();
         } catch (error) {
@@ -63,11 +67,13 @@ const DataManagment = () => {
         }
     };
 
+   
     const handleEdit = (item) => {
         setIsEditing(true);
         setEditingId(item.id);
         setFormData({ desc: item.desc, meta: item.meta });
-    }
+        setSelectedCategoria({ value: item.categoria, label: item.categoria });
+    };
 
     const Categoria = [
         { value: '', label: 'Escolha uma categoria' },
@@ -83,7 +89,9 @@ const DataManagment = () => {
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
 
     };
-
+    if (loading) {
+        return <p style={{color:"rgb(0, 109, 85", textAlign:"center", margin:"40% auto", fontSize:32}}>Um momento...</p>
+    }
     const validateField = (field, value) => {
         setErrors(prevErrors => {
             let newErrors = { ...prevErrors }; // Mantém os erros antigos
@@ -106,13 +114,14 @@ const DataManagment = () => {
     const customSelectStyles = {
         control: (provided) => ({
             ...provided,
-            border: '1px solid #007a62',
+            border: '1px solid #dadada',
             borderRadius: '5px',
             padding: '5px',
             color: '#006954',
             boxShadow: 'none',
             '&:hover': {
-                backgroundColor: '#e0fff9'
+                backgroundColor: '#e0fff9',
+                borderColor: '#009e7e'
             }
         }),
         singleValue: (provided) => ({
@@ -213,6 +222,7 @@ const DataManagment = () => {
                         {data.map(item => (
                             <li key={index}>
                                 {item.desc} - {item.meta}
+                                <button onClick={handleEdit(item)}>Editar</button>
                             </li>
                         ))}
                     </ul>

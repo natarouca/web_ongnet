@@ -4,7 +4,7 @@ import "../css/style.css";
 import api from "../../services/api";
 import Imagem1 from '../img/images.png';
 
-function Home() {
+const Home = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);

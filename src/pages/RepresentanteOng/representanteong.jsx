@@ -12,26 +12,32 @@ const RepresentanteOng = () => {
     const [errors, setErrors] = useState({});
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // previne reload da página
+        e.preventDefault(); // Previne reload da página
 
+        // Valida todos os campos antes de enviar
         if (!validateAllFields()) {
             console.log("Formulário inválido");
             return;
         }
+
         try {
-            const response = await api.post("http://localhost:8080/api/v1/register", {
+           
+            const response = await api.post("http://localhost:8080/api/v1/auth/register", {
                 nome: vnome,
                 email: vemail,
                 senha: vpassword,
                 role: "REPRESENTANTEONG"
-            })
+            });
             console.log(response.data);
+            console.log(vemail);
+            console.log(vpassword);
             localStorage.setItem("nomeRepresentante", vnome);
             setLoading(true);
-        } catch (error) {
-            console.log(error);
-        };
 
+        } catch (error) {
+           
+            console.log(error);
+        }
     };
 
     if (loading) {
@@ -97,7 +103,7 @@ const RepresentanteOng = () => {
             if (field === "confirmaPassword") {
                 if (!value.trim()) {
                     newErrors.confirmaPassword = "A confirmação de senha é obrigatória.";
-                } else if (value !== prevErrors.passwordValue) {
+                } else if (value !== vpassword) {
                     newErrors.confirmaPassword = "As senhas não coincidem.";
                 } else {
                     delete newErrors.confirmaPassword;

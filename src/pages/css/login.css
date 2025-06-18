@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center !important;
     align-items: center !important;
-    
+    margin-top: 5px;
 }
+
 button:hover {
     background-color: rgb(14, 148, 123);
     color: rgb(255, 255, 255);
@@ -33,40 +34,18 @@ button:hover {
     font-size: 30px;
 }
 
-.titulo-login {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.titulo-login p {
-    color: rgb(0, 78, 64);
-    text-align: center;
-    margin: 0px;
-}
-
-.esqueceu-senha p {
-    color: rgba(18, 153, 129, 1);
-    margin: 3px;
-    font-size: 13px;
-}
-
-.esqueceu-senha a {
-    text-decoration: none;
-}
 
 #form-login {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(240, 255, 250);
+    background-color: rgb(244, 255, 254);
     box-shadow: 0px 4px 10px rgba(32, 32, 32, 0.2);
     border: none;
-    padding: 30px;
+    padding: 30px 20px;
     padding-bottom: 5px;
-    height: auto;
+    height: 350px;
     max-height: 500px;
     font-family: Helvetica, Arial, sans-serif;
     width: 400px;
@@ -78,6 +57,7 @@ button:hover {
 #form-login:hover {
     box-shadow: 0px 4px 10px rgba(58, 90, 83, 0.2);
 }
+
 .box-login {
     display: flex;
     flex-direction: column;
@@ -85,28 +65,57 @@ button:hover {
 }
 
 .box-login label {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
 }
+
 .titulo-logon h3 {
     font-size: 25px;
     font-weight: 600;
+}
+.box-group {
+    display: flex;
+    flex-direction: column;
+    
 }
 .box-login input {
     padding: 15px;
     width: 300px;
     margin: 0px;
-    border-radius: 5px;
-    border: 1px solid #4cd1b7;
+    border: 1px solid #cacaca;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
     transition: all 0.3s ease-in-out;
+
+}
+ .box-login {
+  margin-bottom: 15px;
+}
+
+.button {
+  margin-top: 20px;
+}
+
+.titulo-logon h2 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: rgb(0, 158, 126);
+}
+
+.box-login input:focus {
+    border-color: 1px solid#009e7e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 158, 126, 0.4);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 .box-login input::placeholder {
     font-size: 16px;
     font-weight: normal;
-    font-size: 17px;
+   line-height: 1.4;
 }
 
 .box-login input:hover {
-    background-color: #e0fff9;
+    border: 1px solid #009e7e;
+
 }

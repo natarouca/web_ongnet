@@ -64,12 +64,16 @@ const Ong = () => {
         numero: vnumero,
         telefone: vtelefone,
         email: vemail,
-        site: vsite
+        site: vsite,
         // password: vpassword
-        // imagem: vimg
+        imagem: vimg
       });
+   
       console.log(response.data);
+
+  
       setOngs([...vongs, response.data]);
+      
 
       localStorage.setItem("nome", vnome);
       localStorage.setItem("cnpj", vcnpj);
@@ -154,7 +158,9 @@ const Ong = () => {
     <div className="app-container">
 
       <form id="form-ong" onSubmit={handleSubmit} className="form-ong" method="post">
-
+        <div className="titulo-cadastro">
+          <h3>Pronto. Agora você pode cadastrar a sua ONG.</h3>
+        </div>
 
         <div className="input-group">
           <div className="input-box">
@@ -210,24 +216,6 @@ const Ong = () => {
             {errors.resp && <span className="error">{errors.resp}</span>}
           </div>
 
-          {/* <div className="input-box">
-            <label htmlFor="resp">Estado</label>
-            <input
-              type="text"
-              id="uf"
-              name="uf"
-              size={100}
-              maxLength={100}
-              value={vuf}
-              placeholder="Estado (UF)"
-              onChange={(e) => {
-                setUf(e.target.value)
-                validateField("uf", e.target.value)
-              }
-              }
-            />
-            {errors.resp && <span className="error">{errors.resp}</span>}
-          </div> */}
 
           <div className="input-box">
             <label htmlFor="cep">CEP</label>
@@ -256,7 +244,7 @@ const Ong = () => {
                 value={venderecoCompleto}
                 placeholder="Endereço completo será preenchido automaticamente"
                 readOnly
-                
+
               />
             </div>
           )}
@@ -321,7 +309,7 @@ const Ong = () => {
               id="email"
               size={100}
               maxLength={100}
-                  onChange={(e) => {
+              onChange={(e) => {
                 setSite(e.target.value)
                 validateField("site", e.target.value)
               }
@@ -331,43 +319,7 @@ const Ong = () => {
             />
             {errors.email && <span className="error">{errors.email}</span>}
           </div>
-          {/* 
-          <div className="input-box">
-            <label htmlFor="password">Crie uma senha</label>
-            <input
-              type="password"
-              id="password"
-              size={10}
-              maxLength={10}
-              value={vpassword}
-              placeholder="Crie uma senha"
-              onChange={(e) => {
-                setPassword(e.target.value)
-                validateField("password", e.target.value)
-              }
-              }
-            />
-            {errors.password && <span className="error">{errors.password}</span>}
-          </div>
-
-          <div className="input-box">
-            <label htmlFor="password">Confirme a senha</label>
-            <input
-              type="password"
-              id="confirmapassword"
-              size={10}
-              maxLength={10}
-              value={vconfirmaPassword}
-              placeholder="Confirme a password"
-              onChange={(e) => {
-                setConfirmaPassword(e.target.value)
-                validateField("confirmaPassword", e.target.value)
-              }
-              }
-              style={{ marginTop: 0 }}
-            />
-            <span className="error">{errors.confirmaPassword}</span>
-          </div> */}
+    
         </div>
 
         <div className="button">
