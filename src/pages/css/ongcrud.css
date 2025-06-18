@@ -30,12 +30,12 @@
 #form {
     display: flex;
     flex-direction: column;
-    background-color: rgb(240, 255, 250);
+    background-color: rgb(250, 255, 253);
     border: 1px solid #ebebeb;
     box-shadow: 1px 4px 10px rgba(36, 37, 37, 0.2);
     padding: auto;
     padding-bottom: 5px;
-    height: 800px;
+    height: 700px;
     width: 400px;
     max-width: 500px;
     margin: 10px;
@@ -58,4 +58,3 @@
     font-weight: bold;
 
 }
-

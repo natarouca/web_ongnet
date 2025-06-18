@@ -142,10 +142,10 @@ const PerfilOng = () => {
     <div class="crud-ong">
       <form id="form" onSubmit={handleSubmit}>
 
-        <div class="upload">
+        {/* <div class="upload">
           <input type="file" name="file" id="file" />
           <label for="file" id="foto">Foto</label>
-        </div>
+        </div> */}
 
         <div className="input-group">
           <div className="input-box"> <label htmlFor="cnpj">Nome do Representante</label>
@@ -254,7 +254,9 @@ const PerfilOng = () => {
           {error.site && <span className="error">{error.site}</span>}
         </div>
 
-        <button type="submit">Salvar informações</button>
+        <div className="button">
+          <button type="submit">Salvar</button>
+        </div>
       </form>
     </div>
 

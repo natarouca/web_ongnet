@@ -67,11 +67,13 @@ const DataManagment = () => {
         }
     };
 
+   
     const handleEdit = (item) => {
         setIsEditing(true);
         setEditingId(item.id);
         setFormData({ desc: item.desc, meta: item.meta });
-    }
+        setSelectedCategoria({ value: item.categoria, label: item.categoria });
+    };
 
     const Categoria = [
         { value: '', label: 'Escolha uma categoria' },
@@ -112,13 +114,14 @@ const DataManagment = () => {
     const customSelectStyles = {
         control: (provided) => ({
             ...provided,
-            border: '1px solid #007a62',
+            border: '1px solid #dadada',
             borderRadius: '5px',
             padding: '5px',
             color: '#006954',
             boxShadow: 'none',
             '&:hover': {
-                backgroundColor: '#e0fff9'
+                backgroundColor: '#e0fff9',
+                borderColor: '#009e7e'
             }
         }),
         singleValue: (provided) => ({
@@ -219,7 +222,7 @@ const DataManagment = () => {
                         {data.map(item => (
                             <li key={index}>
                                 {item.desc} - {item.meta}
-                                <button onClick={handleEdit()}>Editar</button>
+                                <button onClick={handleEdit(item)}>Editar</button>
                             </li>
                         ))}
                     </ul>
