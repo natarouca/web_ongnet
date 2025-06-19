@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import api from "../../services/api";
+import axios from "axios"
 import '../css/cadastrodeitem.css';
 import '../css/listaitens.css';
 import '../css/categoria.css';
 
 
 const DataManagment = () => {
-    const [data, setData] = useState([]);
     const [item, setItem] = useState([]);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({ desc: "", meta: "" });
@@ -23,7 +22,7 @@ const DataManagment = () => {
 
     const fetchData = () => {
         setLoading(true);
-        api.get('item')
+        axios.get('http://localhost:8080/api/v1/representante-ong/item')
             .then(response => {
                 setItem(response.data.data.item);
                 setLoading(false);
@@ -36,38 +35,43 @@ const DataManagment = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateField()) { return; }
+        if (!validateAll()) { return; }
 
-       
+
         try {
-            if (isEditing) {
-                setLoading(true);
-                await api.put("http://localhost:8080/api/v1/representante-ong/item", {
+            if (isEditing && editingId) {
+                // setLoading(true);
+                const res = await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
                     categoria: selectedCategoria.value,
-                    desc: formData.desc,
-                    meta: formData.meta
+                    descricao: formData.desc,
+                    meta: Number(formData.meta)
                 });
-                
-                console.log("Item atualizado com sucesso");
+
+                console.log("Item atualizado com sucesso", res.data);
             } else {
-                setLoading(true);
-                await api.post("http://localhost:8080/api/v1/representante-ong/item", {
+                // setLoading(true);
+                const res = await axios.post("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
-                    desc: formData.desc,
-                    meta: formData.meta
+                    descricao: formData.desc,
+                    meta: Number(formData.meta)
                 });
-                console.log("Item cadastrado com sucesso");
+
+
+                console.log("Item cadastrado com sucesso", res.data);
             }
             setLoading(false);
             fetchData();
             resetForm();
+            setEditingId(null);
+            setIsEditing(false);
         } catch (error) {
             setErrors(error.message || "Erro ao salvar item");
             console.log("Erro ao salvar item", error);
+            setLoading(false);
         }
     };
 
-   
+
     const handleEdit = (item) => {
         setIsEditing(true);
         setEditingId(item.id);
@@ -82,6 +86,9 @@ const DataManagment = () => {
         { value: 'Vestimenta', label: 'Vestimenta' }
     ];
 
+    const Item = [
+        { value: '', }
+    ]
 
     const resetForm = () => {
         setFormData({ desc: "", meta: "" });
@@ -89,9 +96,9 @@ const DataManagment = () => {
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
 
     };
-    if (loading) {
-        return <p style={{color:"rgb(0, 109, 85", textAlign:"center", margin:"40% auto", fontSize:32}}>Um momento...</p>
-    }
+    // if (loading) {
+    //     return <p style={{ color: "rgb(0, 109, 85)", textAlign: "center", margin: "40% auto", fontSize: 32 }}>Um momento...</p>
+    // }
     const validateField = (field, value) => {
         setErrors(prevErrors => {
             let newErrors = { ...prevErrors }; // Mantém os erros antigos
@@ -109,6 +116,14 @@ const DataManagment = () => {
             return newErrors; // Atualiza os erros corretamente
         });
     };
+    const validateAll = () => {
+        const newErrors = {};
+        if (!formData.desc.trim()) newErrors.desc = "A descrição é obrigatória.";
+        if (!formData.meta.toString().trim()) newErrors.meta = "A meta é obrigatória.";
+        if (!selectedCategoria.value) newErrors.categoria = "A categoria é obrigatória.";
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    }
 
 
     const customSelectStyles = {
@@ -176,7 +191,16 @@ const DataManagment = () => {
                         placeholder="Escolha uma categoria"
                     />
                 </div>
-               
+{/* 
+                
+                <div className="input-box-item">
+                    <label htmlFor="desc-item">Item</label>
+                    <Select id="item"
+                    options={Item}
+                    value={selectedItem}
+                    
+                </div> */}
+
                 <div className="input-box-item">
                     <label htmlFor="desc-item">Descrição</label>
                     <input
@@ -217,19 +241,20 @@ const DataManagment = () => {
 
             <div className="lista-cadastro-item">
 
-                {data.length > 0 ? (
+                {item.length > 0 ? (
                     <ul className="lista-itens">
-                        {data.map(item => (
-                            <li key={index}>
+                        {item.map((item) => (
+                            <li key={item.id}>
                                 {item.desc} - {item.meta}
-                                <button onClick={handleEdit(item)}>Editar</button>
+                                <button onClick={() => handleEdit(item)}>Editar</button>
                             </li>
                         ))}
+
                     </ul>
                 ) : (
                     <div className="texto">
                         <div className="p">
-                            <p style={{color:"#009e7e", fontSize:16}}>Nenhum item cadastrado.</p>
+                            <p style={{ color: "#009e7e", fontSize: 16 }}>Nenhum item cadastrado.</p>
                         </div>
                     </div>
                 )}

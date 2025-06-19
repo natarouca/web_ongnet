@@ -83,7 +83,10 @@ header {
   margin-bottom: 30px;
   padding: 5px;
 }
-
+.input-box input:hover {
+  background-color: #e0fff9;
+  border-color: 1px solid #034e35;
+}
 .titulo-cadastro h3 {
   display: flex;
   font-size: 35px;
@@ -593,7 +596,7 @@ label {
 
 
 input::placeholder {
-  color: #92c4ba;
+  color: #92c4ba !important;
   font-weight: bold;
   padding-left: 7px;
 }

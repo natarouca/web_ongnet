@@ -12,30 +12,46 @@
 #file {
     display: none;
 }
+
 .box-login input:focus {
     border-color: 1px solid#009e7e;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 158, 126, 0.4);
-  transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow 0.3s ease-in-out;
 }
+
 .input-group {
     gap: 2px;
 }
+
+.input-box input:hover {
+    background-color: #e0fff9;
+    border-color: 1px solid #034e35;
+}
+
 .button {
     display: flex;
     flex-direction: column;
     justify-content: center !important;
     align-items: center !important;
 }
+
+.input-box input::placeholder {
+    color: #92c4ba;
+    line-height: 1.4;
+    font-size: 16px;
+    font-weight: normal;
+}
+
 #form {
     display: flex;
     flex-direction: column;
-    background-color: rgb(250, 255, 253);
+    background-color: rgb(255, 255, 255);
     border: 1px solid #ebebeb;
     box-shadow: 1px 4px 10px rgba(36, 37, 37, 0.2);
     padding: auto;
     padding-bottom: 5px;
-    height: 700px;
+    height: 605px;
     width: 400px;
     max-width: 500px;
     margin: 10px;

@@ -37,6 +37,13 @@ form {
     margin: 0px;
     transition: border 0.3s;
 }
+
+.input-box input:hover,
+.input-box textarea:hover {
+  background-color: #e0fff9;
+  border: 1px solid #009e7e;
+}
+
 .button button {
     background-color: #034e35;
     color: white;
@@ -56,7 +63,11 @@ form {
     font-size: 15px;
     font-weight: 600;
     margin: 0px;
+}.input-box input:hover {
+  background-color: #e0fff9;
+  border-color: 1px solid #034e35;
 }
+
 .input-box input:focus,
 .input-box textarea:focus {
     border-color: #009e7e;

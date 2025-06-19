@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import '../css/ongcadastro.css'
 import imagem from '../img/imagem.png'
-import api from '../../services/api'
-import axios from "axios";
+import axios from 'axios'
+
 const OngCadastro = () => {
 
     const [vimg, setImg] = useState('');
@@ -12,14 +12,14 @@ const OngCadastro = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateField()) {
+        if (!validateAllFields()) {
             console.warn("Formulário inválido")
             return;
         }
         try {
-            const response = await api.post("http://localhost:8080/api/v1/representante-ong/ong", {
+            const response = await axios.post("http://localhost:8080/api/v1/representante-ong/ong", {
                 missao: vmissao,
-                atvidades: vatvd
+                atividades: vatvd
             });
             localStorage.setItem("atividade", vatvd);
             localStorage.setItem("missao", vmissao);
@@ -32,29 +32,50 @@ const OngCadastro = () => {
     const validateField = (field, value) => {
         setErrors(prevErrors => {
             let newErrors = { ...prevErrors };
-
             const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
 
+            if (field === "missao") {
+                if (!value.trim()) newErrors.missao = "Informar a missão é obrigatório";
+                else if (!regexName.test(value)) newErrors.missao = "Esse campo aceita apenas letras e espaços";
+                else if (value.trim().length < 10) newErrors.missao = "Esse campo deve ter no mínimo 10 caracteres.";
+                else delete newErrors.missao;
+            }
+
             if (field === "atvd") {
-                if (!value.trim()) newErrors.atvd = "Informar a missão é obrigaório";
-                else if (!regexName.test(value)) newErrors.atvd = "Inofrmar a missão é obrigatório";
+                if (!value.trim()) newErrors.atvd = "Informar a atividade é obrigatório";
+                else if (!regexName.test(value)) newErrors.atvd = "Esse campo aceita apenas letras e espaços";
+                else if (value.trim().length < 10) newErrors.atvd = "Esse campo deve ter no mínimo 10 caracteres.";
                 else delete newErrors.atvd;
             }
 
-            if (field === "missao") {
-                if (!value.trim()) newErrors.missao = "Informar as atividades é obrigatório";
-                else if (!regexName.test(value)) newErrors.missao = "Esse campo aceita somente letras e espaços"
-                else delete newErrors.missao;
-            }
             return newErrors;
-        })
-    }
+        });
+    };
+
+
+
+    const validateAllFields = () => {
+        const newErrors = {};
+        const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+
+        if (!vmissao.trim()) newErrors.missao = "Informar a missão é obrigatório";
+        else if (!regexName.test(vmissao)) newErrors.missao = "Esse campo deve conter apenas letras e espaços.";
+        else if (vmissao.trim().length < 10) newErrors.missao = "Esse campo deve ter no mínimo 10 caracteres.";
+
+        if (!vatvd.trim()) newErrors.atvd = "Informar a atividade é obrigatório";
+        else if (!regexName.test(vatvd)) newErrors.atvd = "Esse campo deve conter apenas letras e espaços.";
+        else if (vatvd.trim().length < 10) newErrors.atvd = "Esse campo deve ter no mínimo 10 caracteres.";
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     return (
 
         <div className="container-cadastro-ong">
             <div className="form">
                 <form onSubmit={handleSubmit} method="post">
-                    <div className="input-group">
+                    <div className="input-group-ong">
 
                         <div className="upload">
                             <input

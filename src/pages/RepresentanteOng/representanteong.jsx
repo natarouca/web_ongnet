@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../css/representanteong.css";
-import api from "../../services/api";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const RepresentanteOng = () => {
     const navigate = useNavigate();
@@ -10,7 +10,6 @@ const RepresentanteOng = () => {
     const [vpassword, setPassword] = useState("");
     const [vconfirmaPassword, setconfirmaPassword] = useState("");
     const [errors, setErrors] = useState({});
-
     const handleSubmit = async (e) => {
         e.preventDefault(); // Previne reload da página
 
@@ -21,37 +20,24 @@ const RepresentanteOng = () => {
         }
 
         try {
-           
-            const response = await api.post("http://localhost:8080/api/v1/auth/register", {
+           console.log("Enviando requisição...")
+            const response = await axios.post("http://localhost:8080/api/v1/auth/register", {
                 nome: vnome,
                 email: vemail,
-                senha: vpassword,
+                password: vpassword,
                 role: "REPRESENTANTEONG"
             });
             console.log(response.data);
             console.log(vemail);
             console.log(vpassword);
             localStorage.setItem("nomeRepresentante", vnome);
-            setLoading(true);
-
+            navigate("/ongcadastro");
         } catch (error) {
-           
+            setLoading(false);
             console.log(error);
         }
     };
 
-    if (loading) {
-        return <h1>Testando...</h1>;
-    }
-    useEffect(() => {
-        if (loading) {
-            const timer = setTimeout(() => {
-                console.log("Redirecionando...");
-                navigate("/login");
-            }, 2000);
-            return () => clearTimeout(timer);
-        }
-    }, [loading]);
 
     const validateAllFields = () => {
         const newErrors = {};
@@ -119,16 +105,16 @@ const RepresentanteOng = () => {
         <div>
             <div className="container-box-representante">
                 <div>
-                    <h3>Onde iniciativas sociais encontram apoio e visibilidade.</h3>
-                    <p style={{ fontSize: 16, textAlign: "center" }}>#TransformaComOngNet</p>
+                    <h3 style={{fontSize:32}}>Onde iniciativas sociais encontram apoio e visibilidade.</h3>
+                    <p style={{ fontSize: 25, textAlign: "center" }}>#TransformaComOngNet</p>
                 </div>
 
-                <form onSubmit={handleSubmit} method="post">
+                <form onSubmit={handleSubmit}>
 
                     <div className="titulo-cadastro">
-                        <h2 style={{ color: "", textAlign: "center", marginBottom: "5px", fontWeight: "600" }}>
-                            Bem-vindo, representante!
-                        </h2>
+                        <h2 style={{ textAlign: "center", marginBottom: "5px", fontWeight: "600", fontSize:28}}>Bem-vindo, representante!
+                        </h2> 
+                        <h4 style={{fontSize:15, fontWeight:"600",textAlign:"center"}}>Precisamos de algumas informações sobre você.</h4>
 
                     </div>
 
