@@ -52,7 +52,7 @@ const Login = () => {
                 "email",
                 getPayloadFromToken(response.data.access_token).sub
             );
-            navigate("/ongcrud");
+            navigate("/ong");
 
         } catch (err) {
             console.error("Erro na requisição:", err);

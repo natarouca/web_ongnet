@@ -19,6 +19,13 @@
     left: 0;
 }
 
+.input-box-item label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #001d14;
+}
 .img {
     display: flex;
     align-items: center;
@@ -114,8 +121,6 @@
     margin-bottom: 3px;
     transition: 0.3s ease;
 }
-
-
 
 
 #meta:focus,

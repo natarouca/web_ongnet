@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../css/ong.css";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputMask from "react-input-mask";
 
@@ -10,12 +11,13 @@ const Ong = () => {
   const [vsite, setSite] = useState('');
   const [vnumero, setNumero] = useState('');
   const [vtelefone, setTelefone] = useState('');
+  const [loading, setLoading] = useState(false);
   const [vemail, setEmail] = useState('');
   const [vresp, setResp] = useState('')
   const [vcnpj, setCnpj] = useState('');
   const [errors, setErrors] = useState({});
   const [venderecoCompleto, setEnderecoCompleto] = useState('');
-  const navigate = UseNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     const nomeRepresentante = localStorage.getItem("nomeRepresentante") || "";
     setResp(nomeRepresentante)
@@ -48,8 +50,8 @@ const Ong = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!validateField()) {
-      console.warn("Formulário inválido.")
+    if (!validateAllFields()) {
+      console.warn("Formulário inválido.");
       return;
     }
 
@@ -66,25 +68,67 @@ const Ong = () => {
         // imagem: vimg
       });
 
-      console.log(response.data);
-
-
+      console.log("Ong cadastrada com sucesso!", response.data);
       setOngs([...vongs, response.data]);
-
-
       localStorage.setItem("nome", vnome);
       localStorage.setItem("cnpj", vcnpj);
       localStorage.setItem("cep", vnome);
       localStorage.setItem("numero", vnumero);
       localStorage.setItem("telefone", vtelefone);
       localStorage.setItem("email", vemail);
-      localStorage.setItem("site", vsite)
-      navigate("/ongcrudperfil")
+      localStorage.setItem("site", vsite);
+      setLoading(true);
     } catch (error) {
       console.log(error);
     }
 
   };
+  useEffect(() => {
+    if (loading) {
+      const timer = setTimeout(() => {
+        console.log("Redirecionando...");
+        navigate("/ongcadastro");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
+
+  const validateAllFields = () => {
+  const newErrors = {};
+
+  const regexNumero = /^\d+$/;
+  const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const regexCnpj = /^\d{14}$/;
+  const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
+
+  if (!vnome.trim()) newErrors.nome = "O nome da organização é obrigatório.";
+  else if (!regexName.test(vnome)) newErrors.nome = "O nome deve conter apenas letras e espaços.";
+  else if (vnome.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
+
+  if (!vcnpj.trim()) newErrors.cnpj = "O CNPJ é obrigatório.";
+  else if (!regexCnpj.test(vcnpj.replace(/\D/g, ''))) newErrors.cnpj = "Ops! Este campo aceita somente números.";
+
+  if (!vresp.trim()) newErrors.resp = "O nome do representante é obrigatório.";
+  else if (!regexName.test(vresp)) newErrors.resp = "O nome deve conter apenas letras e espaços.";
+  else if (vresp.trim().length < 5) newErrors.resp = "O nome deve ter no mínimo 5 caracteres.";
+
+  if (!vcep.trim()) newErrors.cep = "O CEP é obrigatório.";
+  else if (!regexNumero.test(vcep.replace(/\D/g, ''))) newErrors.cep = "Este campo só aceita números.";
+
+  if (!vnumero.trim()) newErrors.numero = "O número de residência é obrigatório.";
+  else if (!regexNumero.test(vnumero)) newErrors.numero = "Ops! Este campo só aceita números.";
+
+  if (!vtelefone.trim()) newErrors.telefone = "O telefone é obrigatório.";
+  else if (!regexTelefone.test(vtelefone)) newErrors.telefone = "Insira um telefone válido.";
+
+  if (!vemail.trim()) newErrors.email = "O e-mail é obrigatório.";
+  else if (!regexEmail.test(vemail)) newErrors.email = "Por favor, insira um e-mail válido.";
+
+  setErrors(newErrors);
+
+  return Object.keys(newErrors).length === 0; // ✅ Retorna true se nenhum erro
+};
 
   const validateField = (field, value) => {
     setErrors(prevErrors => {
@@ -102,7 +146,6 @@ const Ong = () => {
         else if (value.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
         else delete newErrors.nome;
       }
-
 
       if (field === "resp") {
         if (!value.trim()) newErrors.resp = "O nome do representante é obrigatório.";
@@ -150,7 +193,16 @@ const Ong = () => {
     });
   };
 
+  if (loading) {
+    return (
+      <div className="loading" style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+        <h1 style={{color:"rgb(0, 109, 85)"}}>Representante, conseguimos cadastrar a sua ONG no nosso sistema.</h1>
+        <h2 style={{color:"rgb(0, 71, 56)"}}>Agora você já pode ter acesso ao seu perfil.</h2>
+      </div>
 
+    )
+
+  }
   return (
     <div className="app-container">
 

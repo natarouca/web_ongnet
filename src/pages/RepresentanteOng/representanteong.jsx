@@ -31,25 +31,13 @@ const RepresentanteOng = () => {
             console.log(vemail);
             console.log(vpassword);
             localStorage.setItem("nomeRepresentante", vnome);
-            setLoading(true);
+            navigate("/login");
         } catch (error) {
-           
+            setLoading(false);
             console.log(error);
         }
     };
 
-    if (loading) {
-        return <h1>Testando...</h1>;
-    }
-    useEffect(() => {
-        if (loading) {
-            const timer = setTimeout(() => {
-                console.log("Redirecionando...");
-                navigate("/ong");
-            }, 2000);
-            return () => clearTimeout(timer);
-        }
-    }, [loading]);
 
     const validateAllFields = () => {
         const newErrors = {};
@@ -117,16 +105,16 @@ const RepresentanteOng = () => {
         <div>
             <div className="container-box-representante">
                 <div>
-                    <h3>Onde iniciativas sociais encontram apoio e visibilidade.</h3>
-                    <p style={{ fontSize: 16, textAlign: "center" }}>#TransformaComOngNet</p>
+                    <h3 style={{fontSize:32}}>Onde iniciativas sociais encontram apoio e visibilidade.</h3>
+                    <p style={{ fontSize: 25, textAlign: "center" }}>#TransformaComOngNet</p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
 
                     <div className="titulo-cadastro">
-                        <h2 style={{ color: "", textAlign: "center", marginBottom: "5px", fontWeight: "600" }}>
-                            Bem-vindo, representante!
-                        </h2>
+                        <h2 style={{ textAlign: "center", marginBottom: "5px", fontWeight: "600", fontSize:28}}>Bem-vindo, representante!
+                        </h2> 
+                        <h4 style={{fontSize:15, fontWeight:"600",textAlign:"center"}}>Precisamos de algumas informações sobre você.</h4>
 
                     </div>
 

@@ -16,6 +16,10 @@
   transition: all 0.3s ease;
   outline: none;
 }
+.input-box input:hover {
+  background-color: #e0fff9;
+  border-color: 1px solid #034e35;
+}
 .search-container {
     display: flex;
     position: fixed;

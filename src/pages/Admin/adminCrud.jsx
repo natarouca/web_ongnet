@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import '../css/admin.css';
-
-import api from "../../services/api";
+import axios from 'axios';
 const Admin = () => {
 
   const [search, setSearch] = useState("");
@@ -11,7 +10,7 @@ const Admin = () => {
 
   useEffect(() => {
     setLoading(true);
-    api.get("http://localhost:8080/api/v1/admin/ong")
+    axios.get("http://localhost:8080/api/v1/admin/ong")
       .then(res => setOngs(res.data))
       .catch(err => {
         console.error("Erro ao buscar ONGs:", err);
@@ -27,7 +26,7 @@ const Admin = () => {
   );
 
   if (loading) {
-    return <p style={{ color: "rgb(0, 109, 85)", textAlign:"center", margin:"40% auto", fontSize:32}}>Um momento...</p>
+    return <h1 style={{ color: "rgb(0, 109, 85)", textAlign:"center", fontSize:32, margin:"360px"}}>Um momento...</h1>
   }
   return (
 
@@ -45,9 +44,9 @@ const Admin = () => {
 
       <div className="galeria-ongs">
         <div className="galeria-ongs">
-          {loading && <p style={{color:"rgb(0, 109, 85)"}}>Buscando por ONGs...</p>}
+          {loading && <h1 style={{color:"rgb(0, 109, 85)", textAlign:"center", margin:"360px auto"}}>Buscando por ONGs...</h1>}
           {error && <p>{error}</p>}
-          {filteredOngs.length === 0 && !loading && <h1 style={{color:"rgb(0, 109, 85)", textAlign:"center"}}>Ops! Nenhuma ONG foi encontrada.</h1>}
+          {filteredOngs.length === 0 && !loading && <h1 style={{color:"rgb(0, 109, 85)", textAlign:"center", margin:"360px"}}>Nenhuma ONG foi encontrada.</h1>}
 
           {filteredOngs.map((o) => (
             <div className="galeria-ong-item" key={o.id}>
@@ -75,11 +74,7 @@ const Admin = () => {
             </div>
           ))}
         </div>
-
-
-
       </div>
-
     </div>
 
 

@@ -1,12 +1,14 @@
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import '../css/style.css';
 import axios from "axios";
+import imagem from '../img/imagem.png';
 import '../css/ongcrud.css';
 import InputMask from "react-input-mask";
 const PerfilOng = () => {
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
+  const [vimg, setImg] = useState('');
   const [formData, setFormData] = useState({
     nomeOng: "",
     nomeResp: "",
@@ -17,11 +19,12 @@ const PerfilOng = () => {
     email: "",
     site: ""
   });
+
+
   useEffect(() => {
     const nomeOng = localStorage.getItem("nome");
     const nomeResp = localStorage.getItem("nomeRepresentante");
     const cnpj = localStorage.getItem("cnpj");
-    const id = localStorage.getItem("id");
     const cep = localStorage.getItem("cep");
     const numero = localStorage.getItem("numero");
     const telefone = localStorage.getItem("telefone");
@@ -50,91 +53,91 @@ const PerfilOng = () => {
     }));
   };
 
-const validateField = (field, value) => {
-  setError(prevErrors => {
-    const newErrors = { ...prevErrors };
-    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const validateField = (field, value) => {
+    setError(prevErrors => {
+      const newErrors = { ...prevErrors };
+      const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
+      const regexNumero = /^\d+$/;
+
+      if (field === "email") {
+        if (!value.trim()) {
+          newErrors.email = "O e-mail é obrigatório.";
+        } else if (!regexEmail.test(value.trim())) {
+          newErrors.email = "Por favor, insira um e-mail válido.";
+        } else {
+          delete newErrors.email;
+        }
+      }
+
+      if (field === "telefone") {
+        if (!value.trim()) {
+          newErrors.telefone = "O telefone é obrigatório.";
+        } else if (!regexTelefone.test(value.trim())) {
+          newErrors.telefone = "Insira um telefone válido.";
+        } else {
+          delete newErrors.telefone;
+        }
+      }
+
+      if (field === "cep") {
+        if (!value.trim()) {
+          newErrors.cep = "O CEP é obrigatório.";
+        } else if (!regexNumero.test(value.replace(/\D/g, ''))) {
+          newErrors.cep = "Este campo só aceita números.";
+        } else {
+          delete newErrors.cep;
+        }
+      }
+
+      if (field === "numero") {
+        if (!value.trim()) {
+          newErrors.numero = "O número de residência é obrigatório.";
+        } else if (!regexNumero.test(value.trim())) {
+          newErrors.numero = "Ops! Este campo só aceita números.";
+        } else {
+          delete newErrors.numero;
+        }
+      }
+
+      return newErrors;
+    });
+  };
+
+
+  const validateAllFields = () => {
+    const newErrors = {};
     const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexNumero = /^\d+$/;
 
-    if (field === "email") {
-      if (!value.trim()) {
-        newErrors.email = "O e-mail é obrigatório.";
-      } else if (!regexEmail.test(value.trim())) {
-        newErrors.email = "Por favor, insira um e-mail válido.";
-      } else {
-        delete newErrors.email;
-      }
+    if (!formData.email.trim()) {
+      newErrors.email = "O e-mail é obrigatório.";
+    } else if (!regexEmail.test(formData.email.trim())) {
+      newErrors.email = "Por favor, insira um e-mail válido.";
     }
 
-    if (field === "telefone") {
-      if (!value.trim()) {
-        newErrors.telefone = "O telefone é obrigatório.";
-      } else if (!regexTelefone.test(value.trim())) {
-        newErrors.telefone = "Insira um telefone válido.";
-      } else {
-        delete newErrors.telefone;
-      }
+    if (!formData.telefone.trim()) {
+      newErrors.telefone = "O telefone é obrigatório.";
+    } else if (!regexTelefone.test(formData.telefone.trim())) {
+      newErrors.telefone = "Insira um telefone válido.";
     }
 
-    if (field === "cep") {
-      if (!value.trim()) {
-        newErrors.cep = "O CEP é obrigatório.";
-      } else if (!regexNumero.test(value.replace(/\D/g, ''))) {
-        newErrors.cep = "Este campo só aceita números.";
-      } else {
-        delete newErrors.cep;
-      }
+    if (!formData.cep.trim()) {
+      newErrors.cep = "O CEP é obrigatório.";
+    } else if (!regexNumero.test(formData.cep.trim().replace(/\D/g, ''))) {
+      newErrors.cep = "Este campo só aceita números.";
     }
 
-    if (field === "numero") {
-      if (!value.trim()) {
-        newErrors.numero = "O número de residência é obrigatório.";
-      } else if (!regexNumero.test(value.trim())) {
-        newErrors.numero = "Ops! Este campo só aceita números.";
-      } else {
-        delete newErrors.numero;
-      }
+    if (!formData.numero.trim()) {
+      newErrors.numero = "O número de residência é obrigatório.";
+    } else if (!regexNumero.test(formData.numero.trim())) {
+      newErrors.numero = "Ops! Este campo só aceita números.";
     }
 
-    return newErrors;
-  });
-};
-
-
-const validateAllFields = () => {
-  const newErrors = {};
-  const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
-  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const regexNumero = /^\d+$/;
-
-  if (!formData.email.trim()) {
-    newErrors.email = "O e-mail é obrigatório.";
-  } else if (!regexEmail.test(formData.email.trim())) {
-    newErrors.email = "Por favor, insira um e-mail válido.";
-  }
-
-  if (!formData.telefone.trim()) {
-    newErrors.telefone = "O telefone é obrigatório.";
-  } else if (!regexTelefone.test(formData.telefone.trim())) {
-    newErrors.telefone = "Insira um telefone válido.";
-  }
-
-  if (!formData.cep.trim()) {
-    newErrors.cep = "O CEP é obrigatório.";
-  } else if (!regexNumero.test(formData.cep.trim().replace(/\D/g, ''))) {
-    newErrors.cep = "Este campo só aceita números.";
-  }
-
-  if (!formData.numero.trim()) {
-    newErrors.numero = "O número de residência é obrigatório.";
-  } else if (!regexNumero.test(formData.numero.trim())) {
-    newErrors.numero = "Ops! Este campo só aceita números.";
-  }
-
-  setError(newErrors);
-  return Object.keys(newErrors).length === 0;
-};
+    setError(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,25 +146,34 @@ const validateAllFields = () => {
       console.log("Formulário inválido");
       return;
     }
+    const payload = {
+      nomeOng: formData.nomeOng,
+      nomeResp: formData.nomeResp,
+      cep: formData.cep,
+      cnpj: formData.cnpj,
+      email: formData.email,
+      telefone: formData.telefone,
+      site: formData.site,
+      numero: formData.numero
+    }
 
+    if (formData.site.trim() !== "") {
+      payload.site = formData.site.trim();
+    }
+    if (vimg.trim() !== "") {
+      localStorage.setItem("imagem", vimg);
+    }
     try {
-      const response = await axios.put(`http://localhost:8080/api/v1/ong/${id}`, {
-        nomeOng: formData.nomeOng,
-        nomeResp: formData.nomeResp,
-        cep: formData.cep,
-        cnpj: formData.cnpj,
-        email: formData.email,
-        telefone: formData.telefone,
-        site: formData.site,
-        numero: formData.numero
-      })
+      const response = await axios.put(`http://localhost:8080/api/v1/ong/${id}`, payload)
       console.log("Dados atuzalizados", response.data);
       localStorage.setItem("email", formData.email);
       localStorage.setItem("telefone", formData.telefone);
       localStorage.setItem("cnpj", formData.cnpj);
       localStorage.setItem("cep", formData.cep);
       localStorage.setItem("numero", formData.numero);
-      localStorage.setItem("site", formData.site);
+      if (payload.site) {
+        localStorage.setItem("site", formData.site)
+      }
     } catch (error) {
       console.error("Algo deu errado.", error);
     } finally {
@@ -176,11 +188,35 @@ const validateAllFields = () => {
     <div class="crud-ong">
       <form id="form" onSubmit={handleSubmit}>
 
-        {/* <div class="upload">
-          <input type="file" name="file" id="file" />
-          <label for="file" id="foto">Foto</label>
-        </div> */}
-
+        <div className="upload">
+          <input
+            id="file"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                setImg(reader.result); // base64 da imagem
+              };
+              if (file) {
+                reader.readAsDataURL(file);
+              }
+            }}
+          />
+          <label htmlFor="file">
+            <img
+              style={{ width: 120, margin:15}}
+              src={vimg || imagem}
+              alt="Foto da ONG"
+              className="upload-preview"
+            />
+          </label>
+        </div>
+                
+        <div className="titulo">
+          <h4 style={{ fontSize:25,color: "rgb(0, 109, 85)", marginTop:"-10px", marginBottom:"10px", textAlign:"center"}}>Dados cadastrais</h4>
+        </div>
         <div className="input-group">
           <div className="input-box"> <label htmlFor="cnpj">Nome do Representante</label>
             <input

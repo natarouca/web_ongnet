@@ -3,7 +3,6 @@ import Header from './pages/Header/header'
 import Ong from './pages/Ong/ong'
 import Cliente from './pages/Cliente/cliente'
 import Login from './pages/Loginong/login'
-import Quemsomos from './pages/Quemsomos/quemsomos'
 import Home_new from './pages/Home/home_new'
 import Item from './pages/Item/itemCrud'
 import OngPerfil from "./pages/Ong/ongperfil"
@@ -27,7 +26,7 @@ function RoutesApp() {
                                 <Route path="/home_new" element={<Home_new />} />
                                 <Route path="/ong" element={<Ong />} />
                                 <Route path="/login" element={<Login />} />
-                                <Route path="/quemsomos" element={<Quemsomos />} />
+
                                 <Route path="/cliente" element={<Cliente />} />
                                 <Route path="/itemCrud" element={<Item />} />
                                 <Route path="/ongperfil" element={<OngPerfil />} />

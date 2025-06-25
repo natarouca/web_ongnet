@@ -13,6 +13,8 @@ const DataManagment = () => {
     const [errors, setErrors] = useState({});
     const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
     const [isEditing, setIsEditing] = useState(false);
+    const [selectedItem, setSelectedCItem] = useState({ value: '', label: 'Escolha um item' });
+
     const [editingId, setEditingId] = useState(null)
 
 
@@ -37,26 +39,26 @@ const DataManagment = () => {
         e.preventDefault();
         if (!validateAll()) { return; }
 
-
         try {
-            if (isEditing) {
-                setLoading(true);
-                await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
+            if (isEditing && editingId) {
+                // setLoading(true);
+                const res = await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${item.id}`, {
                     categoria: selectedCategoria.value,
-                    desc: formData.desc,
+                    descricao: formData.desc,
                     meta: Number(formData.meta)
                 });
 
-
-                console.log("Item atualizado com sucesso");
+                console.log("Item atualizado com sucesso", res.data);
             } else {
-                setLoading(true);
-                await axios.post("http://localhost:8080/api/v1/representante-ong/item", {
+                // setLoading(true);
+                const res = await axios.post("http://localhost:8080/api/v1/representante-ong/item", {
                     categoria: selectedCategoria.value,
-                    desc: formData.desc,
+                    descricao: formData.desc,
                     meta: Number(formData.meta)
                 });
-                console.log("Item cadastrado com sucesso");
+
+
+                console.log("Item cadastrado com sucesso", res.data);
             }
             setLoading(false);
             fetchData();
@@ -66,7 +68,7 @@ const DataManagment = () => {
         } catch (error) {
             setErrors(error.message || "Erro ao salvar item");
             console.log("Erro ao salvar item", error);
-            setLoading(false)
+            setLoading(false);
         }
     };
 
@@ -79,12 +81,15 @@ const DataManagment = () => {
     };
 
     const Categoria = [
-        { value: '', label: 'Escolha uma categoria' },
+       { value: '', label: 'Escolha uma categoria' },
         { value: 'Alimentos', label: 'Alimentos' },
-        { value: 'Higiene', label: 'Higiene' },
+        { value: 'Higiene', label: 'Higiene' }, 
         { value: 'Vestimenta', label: 'Vestimenta' }
     ];
 
+    const Item = [
+        { value: '' }
+    ]
 
     const resetForm = () => {
         setFormData({ desc: "", meta: "" });
@@ -92,9 +97,9 @@ const DataManagment = () => {
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
 
     };
-    if (loading) {
-        return <p style={{ color: "rgb(0, 109, 85)", textAlign: "center", margin: "40% auto", fontSize: 32 }}>Um momento...</p>
-    }
+    // if (loading) {
+    //     return <p style={{ color: "rgb(0, 109, 85)", textAlign: "center", margin: "40% auto", fontSize: 32 }}>Um momento...</p>
+    // }
     const validateField = (field, value) => {
         setErrors(prevErrors => {
             let newErrors = { ...prevErrors }; // Mantém os erros antigos
@@ -185,6 +190,15 @@ const DataManagment = () => {
                         value={selectedCategoria}
                         onChange={setSelectedCategoria}
                         placeholder="Escolha uma categoria"
+                    />
+                </div>
+
+
+                <div className="input-box-item">
+                    <label htmlFor="desc-item">Item</label>
+                    <Select id="item"
+                        options={Item}
+                        value={selectedItem}
                     />
                 </div>
 

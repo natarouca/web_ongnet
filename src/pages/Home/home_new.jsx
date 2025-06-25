@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../css/galleryongs.css';
 import "../css/style.css";
-import api from "../../services/api";
+import axios from "axios";
 import Imagem1 from '../img/images.png';
 
 const Home = () => {
@@ -16,15 +16,18 @@ const Home = () => {
 
   const fetchData = () => {
     setLoading(true);
-    api.get('ong')
+    axios.get('http://localhost:8080/api/v1/ong')
       .then(response => {
-        setOngs(response.data.data); // Supondo que a resposta tenha um objeto { data: [...] }
+        setOngs(response.data.data); // objeto { data: [...] }
         setLoading(false);
       })
       .catch(error => {
-        setError("Erro ao carregar ONGs: " + error.message);
+        setError("Erro ao carregar ONGs: " + error);
         setLoading(false);
-      });
+      })
+      .finally (() => {
+        setLoading(false);
+      })
   };
 
   const filteredOngs = ong.filter((item) =>
@@ -43,10 +46,9 @@ const Home = () => {
       </div>
 
       <div className="gallery-container">
-        {loading && <p>Buscando por ONGs...</p>}
+        {loading && <p style={{ color: "rgb(0, 109, 85)", fontSize: 32, textAlign:"center", margin:"360px"}}>Buscando por ONGs...</p>}
         {error && <p>{error}</p>}
-        {filteredOngs.length === 0 && !loading && <p>Ops! Nenhuma ONG foi encontrada.</p>}
-
+        {filteredOngs.length === 0 && !loading && <h1 style={{ color: "rgb(0, 109, 85)", textAlign: "center", margin:"360px"}}>Ops! Nenhuma ONG foi encontrada.</h1>}
         {filteredOngs.map((ong) => (
           <div className="gallery-item" key={ong.id}>
             <div className="gallery-img">
@@ -66,6 +68,9 @@ const Home = () => {
             <div className="titulo-atv">
               <h3>Veja o que essa ONG está produzindo:</h3>
             </div>
+            <ul>
+              
+            </ul>
             <ul>
               {ong.atividades?.map((atividade, index) => (
                 <li key={index} id="li-gallery">{atividade}</li>
