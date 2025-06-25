@@ -13,8 +13,6 @@ const DataManagment = () => {
     const [errors, setErrors] = useState({});
     const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
     const [isEditing, setIsEditing] = useState(false);
-    const [selectedItem, setSelectedCItem] = useState({ value: '', label: 'Escolha um item' });
-
     const [editingId, setEditingId] = useState(null)
 
 
@@ -87,9 +85,7 @@ const DataManagment = () => {
         { value: 'Vestimenta', label: 'Vestimenta' }
     ];
 
-    const Item = [
-        { value: '' }
-    ]
+
 
     const resetForm = () => {
         setFormData({ desc: "", meta: "" });
@@ -194,14 +190,7 @@ const DataManagment = () => {
                 </div>
 
 
-                <div className="input-box-item">
-                    <label htmlFor="desc-item">Item</label>
-                    <Select id="item"
-                        options={Item}
-                        value={selectedItem}
-                    />
-                </div>
-
+            
                 <div className="input-box-item">
                     <label htmlFor="desc-item">Descrição</label>
                     <input
