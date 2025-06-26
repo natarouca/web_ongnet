@@ -17,76 +17,6 @@ const DataManagment = () => {
     const [editingId, setEditingId] = useState(null)
     const [filteredItens, setFilteredItens] = useState([]);
 
-    useEffect(() => {
-        if (selectedCategoria && selectedCategoria.value) {
-            const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
-            setFilteredItens(itensFiltrados);
-        } else {
-            setFilteredItens([]);
-            setSelectedItem(null);
-        }
-    }, [selectedCategoria])
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = () => {
-        setLoading(true);
-        axios.get('http://localhost:8080/api/v1/representante-ong/item')
-            .then(response => {
-                setItem(response.data.data.item);
-                setLoading(false);
-            })
-            .catch(error => {
-                setErrors(error.message);
-                setLoading(false);
-            });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!validateAll()) { return; }
-
-       try {
-        if (isEditing && editingId) {
-            setEditingId(item.id)
-            const res = await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
-                meta: Number(formData.meta)
-            });
-        console.log("Item atualizado", res.data);
-        }
-        
-        
-        
-        else {
-           if (selectedItem) {
-            const res = await axios.post ("http://localhost:8080/api/v1/representante-ong/itemSelecionado", {
-                categoria: selectedCategoria.value,
-                item: selectedItem.value
-            });
-            console.log("Item selecionado foi cadastrado", res.data)
-           }
-           
-        }
-
-
-       }
-        } catch (error) {
-            setErrors(error.message || "Erro ao salvar item");
-            console.log("Erro ao salvar item", error);
-            setLoading(false);
-        }
-    };
-
-
-    const handleEdit = (item) => {
-        setIsEditing(true);
-        setEditingId(item.id);
-        setFormData({ desc: item.descricao, meta: item.meta });
-        setSelectedCategoria({ value: item.categoria, label: item.categoria });
-    };
-
     const Categoria = [
         { value: '', label: 'Escolha uma categoria' },
         { value: 'Alimentos', label: 'Alimentos' },
@@ -112,6 +42,94 @@ const DataManagment = () => {
         { value: 'Fardo de Papel Higiênico', label: 'Fardo de Papel Higiênico', categoria: 'Higiene' }
 
     ];
+    useEffect(() => {
+        if (selectedCategoria && selectedCategoria.value) {
+            const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
+            setFilteredItens(itensFiltrados);
+        } else {
+            setFilteredItens([]);
+            setSelectedItem(null);
+        }
+    }, [selectedCategoria])
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = () => {
+        setLoading(true);
+        axios.get('http://localhost:8080/api/v1/representante-ong/item')
+        
+            .then(response => {
+                console.log("Recuperando Itens...", response.data);
+                setItem(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log("Erro ao buscar Itens. Melhore, Nathallya", error)
+                setErrors(error.message);
+                setLoading(false);
+            });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!validateAll()) return;
+
+        try {
+            // 1. EDITANDO UM ITEM JÁ EXISTENTE
+            if (isEditing && editingId) {
+                const res = await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
+                    meta: Number(formData.meta)
+                });
+                console.log("Item ATUALIZADO", res.data);
+            }
+
+            // 2. CADASTRAR NOVO ITEM
+            if (formData.desc && !selectedItem) {
+                const resItem = await axios.post("http://localhost:8080/api/v1/representante-ong/item", {
+                    categoria: selectedCategoria.value,
+                    descricao: formData.desc
+                });
+                console.log("Item CADASTRADO", resItem.data);
+
+                const novoItemId = resItem.data?.id;
+                if (!novoItemId) throw new Error("ID do novo item não retornado pela API.");
+
+                const resOngItem = await axios.post("http://localhost:8080/api/v1/representante-ong/itemSelecionado", {
+                    item: novoItemId,
+                    meta: Number(formData.meta)
+                });
+                console.log("Item ADICIONADO", resOngItem.data);
+            }
+
+            // 3. USAR ITEM EXISTENTE
+            if (selectedItem && !formData.desc) {
+                const resItemExistente = await axios.post("http://localhost:8080/api/v1/representante-ong/itemSelecionado", {
+                    item: selectedItem.value,
+                    meta: Number(formData.meta)
+                });
+                console.log("Item EXISTENTE associado", resItemExistente.data);
+            }
+
+            fetchData();
+            resetForm();
+        } catch (error) {
+            setErrors({ submit: error.message || "Erro ao salvar item" });
+            console.error("Erro ao salvar item:", error);
+        }
+    };
+
+
+
+    const handleEdit = (item) => {
+        setIsEditing(true);
+        setEditingId(item.id);
+        setFormData({ desc: item.descricao, meta: item.meta });
+        setSelectedCategoria({ value: item.categoria, label: item.categoria });
+    };
+
+
 
     const resetForm = () => {
         setFormData({ desc: "", meta: "" });
@@ -194,6 +212,12 @@ const DataManagment = () => {
 
     };
 
+    useEffect(() => {
+        if (formData.desc.trim() !== "") {
+            setSelectedItem(null); // esconde o item
+        }
+    }, [formData.desc]);
+
     return (
 
         <div className="container-cadastro-item">
@@ -210,10 +234,10 @@ const DataManagment = () => {
                         options={Categoria}
                         styles={customSelectStyles}
                         value={selectedCategoria}
-                        onChange={setSelectedCategoria}
+                        onChange={(option) => setSelectedCategoria(option)}
                     />
                 </div>
-                {selectedCategoria && selectedCategoria.value && (
+                {selectedCategoria && selectedCategoria.value && formData.desc.trim() === "" &&(
                     <div className="input-box-item">
                         <label htmlFor="item">Item</label>
                         <Select
@@ -221,13 +245,13 @@ const DataManagment = () => {
                             options={filteredItens}
                             styles={customSelectStyles}
                             value={selectedItem}
-                            onChange={setSelectedItem}
+                            onChange={(option) => setSelectedItem(option)}
                             placeholder="Escolha um item"
                         />
                     </div>
                 )}
 
-                {(!selectedCategoria || !selectedItem) &&( <div className="input-box-item">
+                {!selectedItem && (<div className="input-box-item">
                     <label htmlFor="desc-item">Descrição</label>
                     <input
                         type="text"
@@ -235,8 +259,14 @@ const DataManagment = () => {
                         maxLength={50}
                         value={formData.desc}
                         onChange={(e) => {
-                            setFormData({ ...formData, desc: e.target.value })
-                            validateField("desc", e.target.value)
+                            const value = e.target.value;
+                            setFormData({ ...formData, desc: value })
+
+
+                            if (value.trim() !== "") {
+                                setSelectedItem(null);
+                            }
+                            validateField("desc", value)
                         }}
                         placeholder="Ex. Alimentos, roupas, cobertores..."
                     />
@@ -266,14 +296,23 @@ const DataManagment = () => {
                 </div>
             </form>
 
-            <div className="lista-cadastro-item">
-
                 {item.length > 0 ? (
-                    <ul className="lista-itens">
+                    <ul style={{listStyleType:"none"}} className="lista-itens">
                         {item.map((item) => (
-                            <li key={item.id}>
+                            <li 
+                            style={{
+                                backgroundColor:"white",
+                                boxShadow:"0px 4px 10px rgba(0, 0, 0, 0.2)",
+                                padding:"15px",
+                                borderRadius:"10px",
+                                color: "rgb(0, 110, 88)"
+                            }}
+                            key={item.id}>
                                 {item.descricao} - {item.meta}
-                                <button onClick={() => handleEdit(item)}>Editar</button>
+                                <button style={{
+                                    width:"100px"
+                                    
+                                }} onClick={() => handleEdit(item)}>Editar</button>
                             </li>
                         ))}
 
@@ -286,7 +325,7 @@ const DataManagment = () => {
                     </div>
                 )}
 
-            </div>
+            
         </div>
     );
 };

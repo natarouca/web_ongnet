@@ -18,7 +18,7 @@ const Home = () => {
     setLoading(true);
     axios.get('http://localhost:8080/api/v1/representante-ong/ong')
       .then(response => {
-        setOngs(response.data.data); // objeto { data: [...] }
+        setOngs(response.data); // objeto { data: [...] }
         setLoading(false);
       })
       .catch(error => {
