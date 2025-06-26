@@ -16,7 +16,7 @@ const Home = () => {
 
   const fetchData = () => {
     setLoading(true);
-    axios.get('http://localhost:8080/api/v1/ong')
+    axios.get('http://localhost:8080/api/v1/representante-ong/ong')
       .then(response => {
         setOngs(response.data.data); // objeto { data: [...] }
         setLoading(false);
@@ -72,7 +72,7 @@ const Home = () => {
               
             </ul>
             <ul>
-              {ong.atividades?.map((atividade, index) => (
+              {ong.atividade?.map((atividade, index) => (
                 <li key={index} id="li-gallery">{atividade}</li>
               ))}
             </ul>

@@ -11,10 +11,21 @@ const DataManagment = () => {
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({ desc: "", meta: "" });
     const [errors, setErrors] = useState({});
+    const [selectedItem, setSelectedItem] = useState(null);
     const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null)
+    const [filteredItens, setFilteredItens] = useState([]);
 
+    useEffect(() => {
+        if (selectedCategoria && selectedCategoria.value) {
+            const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
+            setFilteredItens(itensFiltrados);
+        } else {
+            setFilteredItens([]);
+            setSelectedItem(null);
+        }
+    }, [selectedCategoria])
 
     useEffect(() => {
         fetchData();
@@ -37,32 +48,30 @@ const DataManagment = () => {
         e.preventDefault();
         if (!validateAll()) { return; }
 
-        try {
-            if (isEditing && editingId) {
-                // setLoading(true);
-                const res = await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${item.id}`, {
-                    categoria: selectedCategoria.value,
-                    descricao: formData.desc,
-                    meta: Number(formData.meta)
-                });
+       try {
+        if (isEditing && editingId) {
+            setEditingId(item.id)
+            const res = await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
+                meta: Number(formData.meta)
+            });
+        console.log("Item atualizado", res.data);
+        }
+        
+        
+        
+        else {
+           if (selectedItem) {
+            const res = await axios.post ("http://localhost:8080/api/v1/representante-ong/itemSelecionado", {
+                categoria: selectedCategoria.value,
+                item: selectedItem.value
+            });
+            console.log("Item selecionado foi cadastrado", res.data)
+           }
+           
+        }
 
-                console.log("Item atualizado com sucesso", res.data);
-            } else {
-                // setLoading(true);
-                const res = await axios.post("http://localhost:8080/api/v1/representante-ong/item", {
-                    categoria: selectedCategoria.value,
-                    descricao: formData.desc,
-                    meta: Number(formData.meta)
-                });
 
-
-                console.log("Item cadastrado com sucesso", res.data);
-            }
-            setLoading(false);
-            fetchData();
-            resetForm();
-            setEditingId(null);
-            setIsEditing(false);
+       }
         } catch (error) {
             setErrors(error.message || "Erro ao salvar item");
             console.log("Erro ao salvar item", error);
@@ -74,24 +83,41 @@ const DataManagment = () => {
     const handleEdit = (item) => {
         setIsEditing(true);
         setEditingId(item.id);
-        setFormData({ desc: item.desc, meta: item.meta });
+        setFormData({ desc: item.descricao, meta: item.meta });
         setSelectedCategoria({ value: item.categoria, label: item.categoria });
     };
 
     const Categoria = [
-       { value: '', label: 'Escolha uma categoria' },
+        { value: '', label: 'Escolha uma categoria' },
         { value: 'Alimentos', label: 'Alimentos' },
-        { value: 'Higiene', label: 'Higiene' }, 
+        { value: 'Higiene', label: 'Higiene' },
         { value: 'Vestimenta', label: 'Vestimenta' }
     ];
 
+    const Item = [
 
+        //Alimentos
+        { value: 'Arroz', label: 'Arroz', categoria: 'Alimentos' },
+        { value: 'Feijão', label: 'Feijão', categoria: 'Alimentos' },
+        { value: 'Macarrão', label: 'Macarrão', categoria: 'Alimentos' },
+
+        //Vestimenta
+        { value: 'Roupa Infantil', label: 'Roupa Infantil', categoria: 'Vestimenta' },
+        { value: 'Agasalho', label: 'Agasalho', categoria: 'Vestimenta' },
+        { value: 'Sapato', label: 'Sapato', categoria: 'Vestimenta' },
+
+        //Higiene
+        { value: 'Pacote de creme dental', label: 'Pacote de creme dental', categoria: 'Higiene' },
+        { value: 'Pacote de sabonetes em barra', label: 'Pacote de sabonetes em barra', categoria: 'Higiene' },
+        { value: 'Fardo de Papel Higiênico', label: 'Fardo de Papel Higiênico', categoria: 'Higiene' }
+
+    ];
 
     const resetForm = () => {
         setFormData({ desc: "", meta: "" });
         setErrors({});
         setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
-
+        setSelectedItem(null);
     };
     // if (loading) {
     //     return <p style={{ color: "rgb(0, 109, 85)", textAlign: "center", margin: "40% auto", fontSize: 32 }}>Um momento...</p>
@@ -171,7 +197,7 @@ const DataManagment = () => {
     return (
 
         <div className="container-cadastro-item">
-            <form onSubmit={handleSubmit} id="form-item" method="post">
+            <form onSubmit={handleSubmit} id="form-item" >
                 <div className="titulo-item">
                     <h2 style={{ fontSize: 18 }}>{isEditing ? "Atualize os dados do item" : "ONG, de qual item você precisa?"}</h2>
                     <p>{isEditing ? "Atualizar item" : "Cadastre um novo item"} </p>
@@ -185,13 +211,23 @@ const DataManagment = () => {
                         styles={customSelectStyles}
                         value={selectedCategoria}
                         onChange={setSelectedCategoria}
-                        placeholder="Escolha uma categoria"
                     />
                 </div>
+                {selectedCategoria && selectedCategoria.value && (
+                    <div className="input-box-item">
+                        <label htmlFor="item">Item</label>
+                        <Select
+                            id="item"
+                            options={filteredItens}
+                            styles={customSelectStyles}
+                            value={selectedItem}
+                            onChange={setSelectedItem}
+                            placeholder="Escolha um item"
+                        />
+                    </div>
+                )}
 
-
-            
-                <div className="input-box-item">
+                {(!selectedCategoria || !selectedItem) &&( <div className="input-box-item">
                     <label htmlFor="desc-item">Descrição</label>
                     <input
                         type="text"
@@ -206,6 +242,7 @@ const DataManagment = () => {
                     />
                     {errors.desc && <span className="error">{errors.desc}</span>}
                 </div>
+                )}
 
                 <div className="input-box-item">
                     <label htmlFor="meta">Meta</label>
@@ -235,7 +272,7 @@ const DataManagment = () => {
                     <ul className="lista-itens">
                         {item.map((item) => (
                             <li key={item.id}>
-                                {item.desc} - {item.meta}
+                                {item.descricao} - {item.meta}
                                 <button onClick={() => handleEdit(item)}>Editar</button>
                             </li>
                         ))}

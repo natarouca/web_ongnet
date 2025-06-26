@@ -56,7 +56,7 @@ const Admin = () => {
               <div className="data-ongs">
                 <div className="id-status">
                   <span>#ID {o.id}</span>
-                  <span>{o.codStatus}</span>
+                  <span>{o.cod_status}</span>
                 </div>
                 <div className="data">
                   <b>Nome da Instituição</b>
