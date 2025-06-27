@@ -8,6 +8,7 @@ import '../css/categoria.css';
 
 const DataManagment = () => {
     const [item, setItem] = useState([]);
+    const [ongItem, setOngItem] = useState([]);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({ desc: "", meta: "" });
     const [errors, setErrors] = useState({});
@@ -18,28 +19,28 @@ const DataManagment = () => {
     const [filteredItens, setFilteredItens] = useState([]);
 
     const Categoria = [
-        { value: '', label: 'Escolha uma categoria' },
-        { value: 'Alimentos', label: 'Alimentos' },
-        { value: 'Higiene', label: 'Higiene' },
-        { value: 'Vestimenta', label: 'Vestimenta' }
+        { value: '0', label: 'Escolha uma categoria' },
+        { value: '1', label: 'Alimentos' },
+        { value: '2', label: 'Higiene' },
+        { value: '3', label: 'Vestimenta' }
     ];
 
     const Item = [
 
         //Alimentos
-        { value: 'Arroz', label: 'Arroz', categoria: 'Alimentos' },
-        { value: 'Feijão', label: 'Feijão', categoria: 'Alimentos' },
-        { value: 'Macarrão', label: 'Macarrão', categoria: 'Alimentos' },
+        { value: '1', label: 'Arroz', categoria: 'Alimentos' },
+        { value: '2', label: 'Feijão', categoria: 'Alimentos' },
+        { value: '3', label: 'Macarrão', categoria: 'Alimentos' },
 
         //Vestimenta
-        { value: 'Roupa Infantil', label: 'Roupa Infantil', categoria: 'Vestimenta' },
-        { value: 'Agasalho', label: 'Agasalho', categoria: 'Vestimenta' },
-        { value: 'Sapato', label: 'Sapato', categoria: 'Vestimenta' },
+        { value: '4', label: 'Roupa Infantil', categoria: 'Vestimenta' },
+        { value: '5', label: 'Agasalho', categoria: 'Vestimenta' },
+        { value: '6', label: 'Sapato', categoria: 'Vestimenta' },
 
         //Higiene
-        { value: 'Pacote de creme dental', label: 'Pacote de creme dental', categoria: 'Higiene' },
-        { value: 'Pacote de sabonetes em barra', label: 'Pacote de sabonetes em barra', categoria: 'Higiene' },
-        { value: 'Fardo de Papel Higiênico', label: 'Fardo de Papel Higiênico', categoria: 'Higiene' }
+        { value: '7', label: 'Pacote de creme dental', categoria: 'Higiene' },
+        { value: '8', label: 'Pacote de sabonetes em barra', categoria: 'Higiene' },
+        { value: '9', label: 'Fardo de Papel Higiênico', categoria: 'Higiene' }
 
     ];
     useEffect(() => {
@@ -56,20 +57,39 @@ const DataManagment = () => {
         fetchData();
     }, []);
 
-    const fetchData = () => {
+    const fetchData = async () => {
         setLoading(true);
-        axios.get('http://localhost:8080/api/v1/representante-ong/item')
-        
-            .then(response => {
-                console.log("Recuperando Itens...", response.data);
-                setItem(response.data);
-                setLoading(false);
+        console.log("Enviando requisição...");
+
+        try {
+            const item = await axios.get("http://localhost:8080/api/v1/representante-ong/item");
+            const ongItem = await axios.get("http://localhost:8080/api/v1/representante-ong/itemSelecionado");
+            console.log("Recuperando item...");
+            setItem(itemURL.data);
+            setOngItem(itemSelecionadoUrl.data);
+
+            const itemDados = item.data;
+            const ongItensDados = ongItem.data;
+
+            const dadosCombinados = itemDados.map(item => {
+                const infoItem = ongItensDados.find()
             })
-            .catch(error => {
-                console.log("Erro ao buscar Itens. Melhore, Nathallya", error)
-                setErrors(error.message);
-                setLoading(false);
-            });
+        } catch (error) {
+            console.log("Erro ao carregar itens.", error);
+        }
+
+
+        // .then(response => {
+        //     console.log("Recuperando Itens...", response.data);
+        //     setItem(response.data);
+        //     setOngItem(response.data);
+        //     setLoading(false);
+        // })
+        // .catch(error => {
+        //     console.log("Erro ao buscar Itens. Melhore, Nathallya", error)
+        //     setErrors(error.message);
+        //     setLoading(false);
+        // });
     };
 
     const handleSubmit = async (e) => {
@@ -224,7 +244,7 @@ const DataManagment = () => {
             <form onSubmit={handleSubmit} id="form-item" >
                 <div className="titulo-item">
                     <h2 style={{ fontSize: 18 }}>{isEditing ? "Atualize os dados do item" : "ONG, de qual item você precisa?"}</h2>
-                    <p>{isEditing ? "Atualizar item" : "Cadastre um novo item"} </p>
+                    <p>{isEditing ? "Atualizar item" : "Cadastre um novo item ou escolha um item já existente"} </p>
                 </div>
 
                 <div className="input-box-item">
@@ -237,7 +257,7 @@ const DataManagment = () => {
                         onChange={(option) => setSelectedCategoria(option)}
                     />
                 </div>
-                {selectedCategoria && selectedCategoria.value && formData.desc.trim() === "" &&(
+                {selectedCategoria && selectedCategoria.value && formData.desc.trim() === "" && (
                     <div className="input-box-item">
                         <label htmlFor="item">Item</label>
                         <Select
@@ -296,36 +316,35 @@ const DataManagment = () => {
                 </div>
             </form>
 
-                {item.length > 0 ? (
-                    <ul style={{listStyleType:"none"}} className="lista-itens">
-                        {item.map((item) => (
-                            <li 
+            {item.length > 0 ? (
+                <ul style={{ listStyleType: "none" }} className="lista-itens">
+                    {item.map((item) => (
+                        <li
                             style={{
-                                backgroundColor:"white",
-                                boxShadow:"0px 4px 10px rgba(0, 0, 0, 0.2)",
-                                padding:"15px",
-                                borderRadius:"10px",
+                                backgroundColor: "white",
+                                boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
+                                padding: "15px",
+                                borderRadius: "10px",
                                 color: "rgb(0, 110, 88)"
                             }}
                             key={item.id}>
-                                {item.descricao} - {item.meta}
-                                <button style={{
-                                    width:"100px"
-                                    
-                                }} onClick={() => handleEdit(item)}>Editar</button>
-                            </li>
-                        ))}
+                            {item.categoria} - {item.descricao} - {ongItem.meta}
+                            <button style={{
+                                width: "100px"
+                            }} onClick={() => handleEdit(item)}>Editar Item</button>
+                        </li>
+                    ))}
+                </ul>
 
-                    </ul>
-                ) : (
-                    <div className="texto">
-                        <div className="p">
-                            <p style={{ color: "#009e7e", fontSize: 16 }}>Nenhum item cadastrado.</p>
-                        </div>
+            ) : (
+                <div className="texto">
+                    <div className="p">
+                        <p style={{ color: "#009e7e", fontSize: 16 }}>Nenhum item cadastrado.</p>
                     </div>
-                )}
+                </div>
+            )}
 
-            
+
         </div>
     );
 };

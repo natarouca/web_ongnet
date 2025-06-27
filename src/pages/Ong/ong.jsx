@@ -10,6 +10,7 @@ const Ong = () => {
   const [vcep, setCep] = useState('');
   const [vsite, setSite] = useState('');
   const [vnumero, setNumero] = useState('');
+  const [id, setId] = useState('');
   const [vtelefone, setTelefone] = useState('');
   const [loading, setLoading] = useState(false);
   const [vemail, setEmail] = useState('');
@@ -55,6 +56,7 @@ const Ong = () => {
       return;
     }
 
+    console.log("Cep: " + vcep)
     try {
       const response = await axios.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
@@ -65,18 +67,20 @@ const Ong = () => {
         telefone: vtelefone,
         email: vemail,
         site: vsite
-        // imagem: vimg
+       
       });
 
       console.log("Ong cadastrada com sucesso!", response.data);
       setOngs([...vongs, response.data]);
       localStorage.setItem("nome", vnome);
       localStorage.setItem("cnpj", vcnpj);
-      localStorage.setItem("cep", vnome);
+      localStorage.setItem("cep", vcep);
       localStorage.setItem("numero", vnumero);
       localStorage.setItem("telefone", vtelefone);
       localStorage.setItem("email", vemail);
       localStorage.setItem("site", vsite);
+      localStorage.setItem("endereço", venderecoCompleto);
+      localStorage.setItem("id", id);
       setLoading(true);
     } catch (error) {
       console.log(error);
