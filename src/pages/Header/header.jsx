@@ -16,11 +16,14 @@ function Header() {
         <li className='link-nav'>
           <Link to="/home_new" className='abas'>Home</Link>
         </li>
-      
+
+           <li className='link-nav'>
+          <Link to="/representanteong" className='abas'>Cadastre-se</Link>
+        </li>
+
         <li className='link-nav'>
           <Link to="/login" className='abas'>Login</Link>
         </li>
-
       </nav>
     </header>
   )

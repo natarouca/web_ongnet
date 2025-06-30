@@ -10,7 +10,6 @@ const Ong = () => {
   const [vcep, setCep] = useState('');
   const [vsite, setSite] = useState('');
   const [vnumero, setNumero] = useState('');
-  const [id, setId] = useState('');
   const [vtelefone, setTelefone] = useState('');
   const [loading, setLoading] = useState(false);
   const [vemail, setEmail] = useState('');
@@ -24,29 +23,9 @@ const Ong = () => {
     setResp(nomeRepresentante)
   }, [])
 
-  useEffect(() => {
-    const buscarEndereco = async () => {
-      const cepLimpo = vcep.replace(/\D/g, '');
-      if (cepLimpo.length === 8) {
-        try {
-          const response = await axios.get(`https://viacep.com.br/ws/${cepLimpo}/json/`);
-          if (!response.data.erro) {
-            const { logradouro, bairro, localidade, uf } = response.data;
-            const enderecoFormatado = `${logradouro}, ${bairro}, ${localidade} - ${uf}`;
-            setEnderecoCompleto(enderecoFormatado);
-          } else {
-            console.warn("CEP não encontrado.");
-            setEnderecoCompleto('');
-          }
-        } catch (error) {
-          console.error("Erro ao buscar endereço:", error);
-          setEnderecoCompleto('');
-        }
-      }
-    };
 
-    buscarEndereco();
-  }, [vcep]);
+
+   
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -56,7 +35,6 @@ const Ong = () => {
       return;
     }
 
-    console.log("Cep: " + vcep)
     try {
       const response = await axios.post("http://localhost:8080/api/v1/representante-ong/ong", {
         nome: vnome,
@@ -67,20 +45,32 @@ const Ong = () => {
         telefone: vtelefone,
         email: vemail,
         site: vsite
-       
+        // imagem: vimg
       });
+      const idOng = response.data?.id;
+      if (idOng) {
+        localStorage.setItem("idOng", idOng);
+        localStorage.setItem("nome", vnome);
+        localStorage.setItem("cnpj", vcnpj);
+        localStorage.setItem("cep", vcep);
+        localStorage.setItem("numero", vnumero);
+        localStorage.setItem("telefone", vtelefone);
+        localStorage.setItem("email", vemail);
+        if (vsite && vsite.trim() !== "") {
+          localStorage.setItem("site", vsite.trim());
+          console.log("O site da ONG: ", vsite.trim());
+        } else {
+          localStorage.removeItem("site");
+          console.log("Essa ONG não possui um site.");
+        }
+      } else {
+        console.error("O id da ONG não foi retornado pela API.");
+      }
 
       console.log("Ong cadastrada com sucesso!", response.data);
       setOngs([...vongs, response.data]);
-      localStorage.setItem("nome", vnome);
-      localStorage.setItem("cnpj", vcnpj);
-      localStorage.setItem("cep", vcep);
-      localStorage.setItem("numero", vnumero);
-      localStorage.setItem("telefone", vtelefone);
-      localStorage.setItem("email", vemail);
-      localStorage.setItem("site", vsite);
-      localStorage.setItem("endereço", venderecoCompleto);
-      localStorage.setItem("id", id);
+
+
       setLoading(true);
     } catch (error) {
       console.log(error);
@@ -98,41 +88,41 @@ const Ong = () => {
   }, [loading]);
 
   const validateAllFields = () => {
-  const newErrors = {};
+    const newErrors = {};
 
-  const regexNumero = /^\d+$/;
-  const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
-  const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  const regexCnpj = /^\d{14}$/;
-  const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
+    const regexNumero = /^\d+$/;
+    const regexName = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const regexCnpj = /^\d{14}$/;
+    const regexTelefone = /^\(\d{2}\)\s*(9\d{4}|\d{4})-?\d{4}$/;
 
-  if (!vnome.trim()) newErrors.nome = "O nome da organização é obrigatório.";
-  else if (!regexName.test(vnome)) newErrors.nome = "O nome deve conter apenas letras e espaços.";
-  else if (vnome.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
+    if (!vnome.trim()) newErrors.nome = "O nome da organização é obrigatório.";
+    else if (!regexName.test(vnome)) newErrors.nome = "O nome deve conter apenas letras e espaços.";
+    else if (vnome.trim().length < 5) newErrors.nome = "O nome deve ter no mínimo 5 caracteres.";
 
-  if (!vcnpj.trim()) newErrors.cnpj = "O CNPJ é obrigatório.";
-  else if (!regexCnpj.test(vcnpj.replace(/\D/g, ''))) newErrors.cnpj = "Ops! Este campo aceita somente números.";
+    if (!vcnpj.trim()) newErrors.cnpj = "O CNPJ é obrigatório.";
+    else if (!regexCnpj.test(vcnpj.replace(/\D/g, ''))) newErrors.cnpj = "Ops! Este campo aceita somente números.";
 
-  if (!vresp.trim()) newErrors.resp = "O nome do representante é obrigatório.";
-  else if (!regexName.test(vresp)) newErrors.resp = "O nome deve conter apenas letras e espaços.";
-  else if (vresp.trim().length < 5) newErrors.resp = "O nome deve ter no mínimo 5 caracteres.";
+    if (!vresp.trim()) newErrors.resp = "O nome do representante é obrigatório.";
+    else if (!regexName.test(vresp)) newErrors.resp = "O nome deve conter apenas letras e espaços.";
+    else if (vresp.trim().length < 5) newErrors.resp = "O nome deve ter no mínimo 5 caracteres.";
 
-  if (!vcep.trim()) newErrors.cep = "O CEP é obrigatório.";
-  else if (!regexNumero.test(vcep.replace(/\D/g, ''))) newErrors.cep = "Este campo só aceita números.";
+    if (!vcep.trim()) newErrors.cep = "O CEP é obrigatório.";
+    else if (!regexNumero.test(vcep.replace(/\D/g, ''))) newErrors.cep = "Este campo só aceita números.";
 
-  if (!vnumero.trim()) newErrors.numero = "O número de residência é obrigatório.";
-  else if (!regexNumero.test(vnumero)) newErrors.numero = "Ops! Este campo só aceita números.";
+    if (!vnumero.trim()) newErrors.numero = "O número de residência é obrigatório.";
+    else if (!regexNumero.test(vnumero)) newErrors.numero = "Ops! Este campo só aceita números.";
 
-  if (!vtelefone.trim()) newErrors.telefone = "O telefone é obrigatório.";
-  else if (!regexTelefone.test(vtelefone)) newErrors.telefone = "Insira um telefone válido.";
+    if (!vtelefone.trim()) newErrors.telefone = "O telefone é obrigatório.";
+    else if (!regexTelefone.test(vtelefone)) newErrors.telefone = "Insira um telefone válido.";
 
-  if (!vemail.trim()) newErrors.email = "O e-mail é obrigatório.";
-  else if (!regexEmail.test(vemail)) newErrors.email = "Por favor, insira um e-mail válido.";
+    if (!vemail.trim()) newErrors.email = "O e-mail é obrigatório.";
+    else if (!regexEmail.test(vemail)) newErrors.email = "Por favor, insira um e-mail válido.";
 
-  setErrors(newErrors);
+    setErrors(newErrors);
 
-  return Object.keys(newErrors).length === 0; // ✅ Retorna true se nenhum erro
-};
+    return Object.keys(newErrors).length === 0; // ✅ Retorna true se nenhum erro
+  };
 
   const validateField = (field, value) => {
     setErrors(prevErrors => {
@@ -199,9 +189,9 @@ const Ong = () => {
 
   if (loading) {
     return (
-      <div className="loading" style={{display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
-        <h1 style={{color:"rgb(0, 109, 85)"}}>Representante, conseguimos cadastrar a sua ONG no nosso sistema.</h1>
-        <h2 style={{color:"rgb(0, 71, 56)"}}>Agora você já pode ter acesso ao seu perfil.</h2>
+      <div className="loading" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <h1 style={{ color: "rgb(0, 109, 85)" }}>Representante, conseguimos cadastrar a sua ONG no nosso sistema.</h1>
+        <h2 style={{ color: "rgb(0, 71, 56)" }}>Agora você já pode ter acesso ao seu perfil.</h2>
       </div>
 
     )
@@ -286,21 +276,6 @@ const Ong = () => {
             />
             {errors.cep && <span className="error">{errors.cep}</span>}
           </div>
-
-          {venderecoCompleto && (
-            <div className="input-box">
-              <label htmlFor="enderecoCompleto">Endereço</label>
-              <input
-                type="text"
-                id="enderecoCompleto"
-                name="enderecoCompleto"
-                value={venderecoCompleto}
-                placeholder="Endereço completo será preenchido automaticamente"
-                readOnly
-
-              />
-            </div>
-          )}
 
           <div className="input-box">
             <label htmlFor="nmResidencia">Número de Residência</label>

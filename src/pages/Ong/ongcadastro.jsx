@@ -29,7 +29,6 @@ const OngCadastro = () => {
         setNome(nome);
         const id = localStorage.getItem("id");
         setId(id);
-        console.log("Id da ONG", id);
         const nomeResp = localStorage.getItem("nomeRepresentante");
         setResp(nomeResp);
         const cnpj = localStorage.getItem("cnpj");
@@ -47,30 +46,7 @@ const OngCadastro = () => {
         const site = localStorage.getItem("site") || "";
         setSite(site);
     }, []);
-    useEffect(() => {
-        const buscarEndereco = async () => {
-            const cepLimpo = vcep.replace(/\D/g, '');
-            if (cepLimpo.length === 8) {
-                try {
-                    const response = await axios.get(`https://viacep.com.br/ws/${cepLimpo}/json/`);
-                    if (!response.data.erro) {
-                        const { logradouro, bairro, localidade, uf } = response.data;
-                        const enderecoFormatado = `${logradouro}, ${bairro}, ${localidade} - ${uf}`;
-                        setEnderecoCompleto(enderecoFormatado);
-                    } else {
-                        console.warn("CEP não encontrado.");
-                        setEnderecoCompleto('');
-                    }
-                } catch (error) {
-                    console.error("Erro ao buscar endereço:", error);
-                    setEnderecoCompleto('');
-                }
-            }
-        };
-
-        buscarEndereco();
-    }, [vcep]);
-
+ 
 
 
 
@@ -81,11 +57,12 @@ const OngCadastro = () => {
             return;
         }
         try {
-
-            const response = await axios.put(`http://localhost:8080/api/v1/representante-ong/ong/${id}`, {
+            const idOng = localStorage.getItem("idOng");
+            console.log('Id: ' + idOng);
+            const response = await axios.put(`http://localhost:8080/api/v1/representante-ong/ong/${idOng}`, {
                 missao: vmissao,
                 atividade: vatvd,
-                // imagem: vimg
+                imagem: vimg
             });
             localStorage.setItem("atividade", vatvd);
             localStorage.setItem("missao", vmissao);
@@ -146,7 +123,7 @@ const OngCadastro = () => {
 
 
                         <div className="input-group">
-                            {/* <div className="upload">
+                            <div className="upload">
                             <input
                                 id="file"
                                 type="file"
@@ -170,7 +147,7 @@ const OngCadastro = () => {
                                     className="upload-preview"
                                 />
                             </label>
-                        </div> */}
+                        </div> 
 
                             <div className="input-box">
                                 <label htmlFor="ongName">Nome da Instituição</label>
@@ -287,7 +264,7 @@ const OngCadastro = () => {
                                 {errors.email && <span className="error">{errors.email}</span>}
                             </div>
 
-                            <div className="input-box">
+                            {vsite && (<div className="input-box">
                                 <label style={{ color: "rgb(7, 94, 65)" }} htmlFor="email">A ONG possui algum site de divulgação? </label>
                                 <input
                                     type="url"
@@ -299,7 +276,7 @@ const OngCadastro = () => {
                                     readOnly
                                 />
                                 {errors.email && <span className="error">{errors.email}</span>}
-                            </div>
+                            </div>)}
 
                         </div>
 

@@ -127,6 +127,8 @@ const PerfilOng = () => {
       newErrors.cep = "O CEP é obrigatório.";
     } else if (!regexNumero.test(formData.cep.trim().replace(/\D/g, ''))) {
       newErrors.cep = "Este campo só aceita números.";
+    } else {
+      delete newErrors.cep;
     }
 
     if (!formData.numero.trim()) {

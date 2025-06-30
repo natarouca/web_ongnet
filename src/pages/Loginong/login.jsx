@@ -65,42 +65,41 @@ const Login = () => {
         <div className="container-login">
             <form id="form-login" onSubmit={handleSubmit}>
                 <div className="titulo-logon">
-                    <h2>Bem-vindo de volta!</h2>
+                    <h2 style={{ margin: 0, fontSize:28, fontWeight:"normal" }}>Bem-vindo de volta</h2>
                 </div>
-
+                {error && (
+                    <div className="error" style={{ backgroundColor: "white", textAlign: "center" }} role="alert">
+                        {error}
+                    </div>
+                )}
                 <div className="box-group">
                     <div className="box-login">
                         <label htmlFor="cnpj">E-mail</label>
-                        <input type="email" id="cnpj" placeholder="Digite o E-mail" 
-                        onChange={(e) => setEmail(e.target.value)}
-                        onFocus={() => setError(false)} />
+                        <input type="email" id="cnpj" placeholder="Digite o E-mail"
+                            onChange={(e) => setEmail(e.target.value)}
+                            onFocus={() => setError(false)} />
                     </div>
 
                     <div className="box-login">
                         <label htmlFor="senha">Senha</label>
-                        <input type="password" id="senha" placeholder="Digite a senha" 
-                         onChange={(e) => setPassword(e.target.value)}
-                        onFocus={() => setError(false)} />
-
+                        <input type="password" id="senha" placeholder="Digite a senha"
+                            onChange={(e) => setPassword(e.target.value)}
+                            onFocus={() => setError(false)} />
                     </div>
 
                 </div>
                 <div className="button">
                     <button
-                        type="submit"><a href="">Entrar</a>
+                        type="submit">Entrar
                     </button>
                     <div className="register">
                         <p>
-                            <a style={{ color: "#034e35", fontSize: 13, margin: 0 }} href="/representanteong">Não tem uma conta? Clique aqui.</a>
+                            <a style={{ color: "#034e35", fontSize: 13, margin: 0, fontWeight:"normal" }} href="/representanteong">Não tem uma conta? Clique aqui.</a>
                         </p>
                     </div>
                 </div>
 
-                {error && (
-                    <div className="error" style={{ backgroundColor: "forestgreen" }} role="alert">
-                        {msgError}
-                    </div>
-                )}
+
             </form>
         </div>
 

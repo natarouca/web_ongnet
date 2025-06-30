@@ -10,23 +10,23 @@ const DataManagment = () => {
     const [item, setItem] = useState([]);
     const [ongItem, setOngItem] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [itensCompletos, setItensCompletos] = useState([])
     const [formData, setFormData] = useState({ desc: "", meta: "" });
     const [errors, setErrors] = useState({});
     const [selectedItem, setSelectedItem] = useState(null);
-    const [selectedCategoria, setSelectedCategoria] = useState({ value: '', label: 'Escolha uma categoria' });
+    const [selectedCategoria, setSelectedCategoria] = useState({ label: "Escolha uma categoria" });
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null)
     const [filteredItens, setFilteredItens] = useState([]);
 
     const Categoria = [
-        { value: '0', label: 'Escolha uma categoria' },
-        { value: '1', label: 'Alimentos' },
-        { value: '2', label: 'Higiene' },
-        { value: '3', label: 'Vestimenta' }
+        { value: 'Escolha uma categoria', label: 'Escolha uma categoria' },
+        { value: 'Alimentos', label: 'Alimentos' },
+        { value: 'Higiene', label: 'Higiene' },
+        { value: 'Vestimenta', label: 'Vestimenta' }
     ];
 
     const Item = [
-
         //Alimentos
         { value: '1', label: 'Arroz', categoria: 'Alimentos' },
         { value: '2', label: 'Feijão', categoria: 'Alimentos' },
@@ -44,6 +44,7 @@ const DataManagment = () => {
 
     ];
     useEffect(() => {
+
         if (selectedCategoria && selectedCategoria.value) {
             const itensFiltrados = Item.filter(i => i.categoria === selectedCategoria.value);
             setFilteredItens(itensFiltrados);
@@ -57,80 +58,44 @@ const DataManagment = () => {
         fetchData();
     }, []);
 
-    const fetchData = async () => {
-        setLoading(true);
-        console.log("Enviando requisição...");
-
-        try {
-            const item = await axios.get("http://localhost:8080/api/v1/representante-ong/item");
-            const ongItem = await axios.get("http://localhost:8080/api/v1/representante-ong/itemSelecionado");
-            console.log("Recuperando item...");
-            setItem(itemURL.data);
-            setOngItem(itemSelecionadoUrl.data);
-
-            const itemDados = item.data;
-            const ongItensDados = ongItem.data;
-
-            const dadosCombinados = itemDados.map(item => {
-                const infoItem = ongItensDados.find()
-            })
-        } catch (error) {
-            console.log("Erro ao carregar itens.", error);
-        }
-
-
-        // .then(response => {
-        //     console.log("Recuperando Itens...", response.data);
-        //     setItem(response.data);
-        //     setOngItem(response.data);
-        //     setLoading(false);
-        // })
-        // .catch(error => {
-        //     console.log("Erro ao buscar Itens. Melhore, Nathallya", error)
-        //     setErrors(error.message);
-        //     setLoading(false);
-        // });
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateAll()) return;
 
         try {
-            // 1. EDITANDO UM ITEM JÁ EXISTENTE
+            // EDITANDO ITEM EXISTENTE
             if (isEditing && editingId) {
                 const res = await axios.put(`http://localhost:8080/api/v1/representante-ong/item/${editingId}`, {
                     meta: Number(formData.meta)
                 });
                 console.log("Item ATUALIZADO", res.data);
-            }
+            }// esse aqui é para o put, e passa somente a meta
 
-            // 2. CADASTRAR NOVO ITEM
-            if (formData.desc && !selectedItem) {
+            // CADASTRANDO NOVO ITEM
+            else if (formData.desc) {
                 const resItem = await axios.post("http://localhost:8080/api/v1/representante-ong/item", {
-                    categoria: selectedCategoria.value,
-                    descricao: formData.desc
+                    categoria: selectedCategoria.value, //esses campos passam no post do item, ou seja, quando o usuario preencher a descrição
+                    descricao: formData.desc //
                 });
                 console.log("Item CADASTRADO", resItem.data);
 
-                const novoItemId = resItem.data?.id;
-                if (!novoItemId) throw new Error("ID do novo item não retornado pela API.");
-
                 const resOngItem = await axios.post("http://localhost:8080/api/v1/representante-ong/itemSelecionado", {
-                    item: novoItemId,
+                    item: { id: selectedItem.value},
                     meta: Number(formData.meta)
                 });
-                console.log("Item ADICIONADO", resOngItem.data);
+                console.log("Dados do ongItem: " + resOngItem.data);
             }
 
-            // 3. USAR ITEM EXISTENTE
-            if (selectedItem && !formData.desc) {
+
+            else if (selectedItem) {
                 const resItemExistente = await axios.post("http://localhost:8080/api/v1/representante-ong/itemSelecionado", {
                     item: selectedItem.value,
                     meta: Number(formData.meta)
-                });
-                console.log("Item EXISTENTE associado", resItemExistente.data);
+                }); //aqui ele faz o post do item selecionado
+                console.log("Item EXISTENTE", resItemExistente.data);
             }
+
+
 
             fetchData();
             resetForm();
@@ -139,6 +104,37 @@ const DataManagment = () => {
             console.error("Erro ao salvar item:", error);
         }
     };
+
+    const fetchData = async () => {
+        setLoading(true);
+
+        try {
+            const item = await axios.get("http://localhost:8080/api/v1/representante-ong/item");
+            const ongItem = await axios.get("http://localhost:8080/api/v1/representante-ong/itemSelecionado");
+            console.log("Recuperando item...");
+            setItem(item.data);
+            setOngItem(ongItem.data);
+
+            const itemData = item.data;
+            const ongItemData = ongItem.data;
+
+            const dadosCombinados = itemData.map(item => {
+                const infoItem = ongItemData.find(ongItem => ongItem.itemId === item.id)
+                return {
+                    ...item,
+                    meta: infoItem?.meta
+                };
+            });
+
+            setItensCompletos(dadosCombinados);
+            console.log("Item combinado: ", dadosCombinados);
+        } catch (error) {
+            console.log("Erro ao carregar itens.", error);
+        }
+
+    };
+
+
 
 
 
@@ -150,12 +146,11 @@ const DataManagment = () => {
     };
 
 
-
     const resetForm = () => {
         setFormData({ desc: "", meta: "" });
         setErrors({});
-        setSelectedCategoria({ value: '', label: 'Escolha uma categoria' });
-        setSelectedItem(null);
+        setSelectedCategoria({ value: 'Escolha uma categoria', label: 'Escolha uma categoria' });
+
     };
     // if (loading) {
     //     return <p style={{ color: "rgb(0, 109, 85)", textAlign: "center", margin: "40% auto", fontSize: 32 }}>Um momento...</p>
@@ -177,14 +172,24 @@ const DataManagment = () => {
             return newErrors; // Atualiza os erros corretamente
         });
     };
-    const validateAll = () => {
-        const newErrors = {};
-        if (!formData.desc.trim()) newErrors.desc = "A descrição é obrigatória.";
-        if (!formData.meta.toString().trim()) newErrors.meta = "A meta é obrigatória.";
-        if (!selectedCategoria.value) newErrors.categoria = "A categoria é obrigatória.";
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    }
+   const validateAll = () => {
+  const newErrors = {};
+
+  if (!String(formData.meta).trim()) {
+    newErrors.meta = "A meta é obrigatória.";
+  }
+
+  if (!selectedItem && !formData.desc.trim()) {
+    newErrors.desc = "A descrição é obrigatória.";
+  }
+
+  if (!selectedCategoria.value || selectedCategoria.value === "Escolha uma categoria") {
+    newErrors.categoria = "A categoria é obrigatória.";
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
 
 
     const customSelectStyles = {
@@ -257,7 +262,7 @@ const DataManagment = () => {
                         onChange={(option) => setSelectedCategoria(option)}
                     />
                 </div>
-                {selectedCategoria && selectedCategoria.value && formData.desc.trim() === "" && (
+                {selectedCategoria && selectedCategoria.value && formData.desc.trim() === "" && selectedCategoria.value !== "Escolha uma categoria" && (
                     <div className="input-box-item">
                         <label htmlFor="item">Item</label>
                         <Select
@@ -294,7 +299,7 @@ const DataManagment = () => {
                 </div>
                 )}
 
-                <div className="input-box-item">
+               {selectedItem && (<div className="input-box-item">
                     <label htmlFor="meta">Meta</label>
                     <input
                         type="number"
@@ -309,29 +314,37 @@ const DataManagment = () => {
                         placeholder="Quantidade necessária"
                     />
                     {errors.meta && <span className="error">{errors.meta}</span>}
-                </div>
+                </div>)}
 
                 <div className="button-item">
-                    <button type="submit">{isEditing ? "Atualizar" : "Cadastrar"}</button>
+                    <button type="submit">{isEditing ? "Pronto" : "Cadastrar"}</button>
                 </div>
             </form>
 
-            {item.length > 0 ? (
+            {itensCompletos.length > 0 ? (
+
                 <ul style={{ listStyleType: "none" }} className="lista-itens">
-                    {item.map((item) => (
+                    {itensCompletos.map((item) => (
                         <li
                             style={{
                                 backgroundColor: "white",
                                 boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.2)",
                                 padding: "15px",
                                 borderRadius: "10px",
-                                color: "rgb(0, 110, 88)"
+                                color: "rgb(0, 44, 35)"
                             }}
                             key={item.id}>
-                            {item.categoria} - {item.descricao} - {ongItem.meta}
+
+
+                            <div className="info-item">
+                                <p style={{ color: "rgb(0, 44, 35)", fontSize: 18, margin: 3 }}>Categoria:</p>
+                                <p style={{ color: "rgb(0, 105, 84)", fontSize: 16, margin: 3 }}> {item.categoria}</p>
+                                <p style={{ color: "rgb(0, 44, 35)", fontSize: 18, margin: 3 }}>Descrição:</p>
+                                <p style={{ color: "rgb(0, 105, 84)", fontSize: 16, margin: 3 }}>{item.descricao}</p>
+                            </div>
                             <button style={{
                                 width: "100px"
-                            }} onClick={() => handleEdit(item)}>Editar Item</button>
+                            }} onClick={() => handleEdit(item)}>Editar</button>
                         </li>
                     ))}
                 </ul>

@@ -20,7 +20,7 @@ const RepresentanteOng = () => {
         }
 
         try {
-           console.log("Enviando requisição...")
+            console.log("Enviando requisição...")
             const response = await axios.post("http://localhost:8080/api/v1/auth/register", {
                 nome: vnome,
                 email: vemail,
@@ -31,13 +31,15 @@ const RepresentanteOng = () => {
             console.log(vemail);
             console.log(vpassword);
             localStorage.setItem("nomeRepresentante", vnome);
-            navigate("/login");
+            navigate("/ong");
         } catch (error) {
             setLoading(false);
             console.log(error);
         }
     };
-
+    if(loading) {
+        return <p style={{color:"#034e35", textAlign:"center"}}>Carregando...</p>
+    }
 
     const validateAllFields = () => {
         const newErrors = {};
@@ -105,16 +107,16 @@ const RepresentanteOng = () => {
         <div>
             <div className="container-box-representante">
                 <div>
-                    <h3 style={{fontSize:32}}>Onde iniciativas sociais encontram apoio e visibilidade.</h3>
+                    <h3 style={{ fontSize: 32 }}>Onde iniciativas sociais encontram apoio e visibilidade.</h3>
                     <p style={{ fontSize: 25, textAlign: "center" }}>#TransformaComOngNet</p>
                 </div>
 
                 <form onSubmit={handleSubmit}>
 
                     <div className="titulo-cadastro">
-                        <h2 style={{ textAlign: "center", marginBottom: "5px", fontWeight: "600", fontSize:28}}>Bem-vindo, representante!
-                        </h2> 
-                        <h4 style={{fontSize:15, fontWeight:"600",textAlign:"center"}}>Precisamos de algumas informações sobre você.</h4>
+                        <h2 style={{ textAlign: "center", marginBottom: "5px", fontWeight: "600", fontSize: 28 }}>Bem-vindo, representante!
+                        </h2>
+                        <h4 style={{ fontSize: 15, fontWeight: "600", textAlign: "center" }}>Precisamos de algumas informações sobre você.</h4>
 
                     </div>
 
@@ -181,6 +183,11 @@ const RepresentanteOng = () => {
                         </div>
                         <div className="button">
                             <button type="submit">Pronto</button>
+                            <div className="link-register">
+                                <p style={{ color: "#034e35" }}>
+                            <a href="/login">Já possui uma conta?</a> 
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </form>
