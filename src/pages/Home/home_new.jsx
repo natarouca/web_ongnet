@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import '../css/galleryongs.css';
 import "../css/style.css";
 import axios from "axios";
+
 import Imagem1 from '../img/images.png';
 
 const Home = () => {
